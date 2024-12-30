@@ -1,7 +1,8 @@
-Node.js LTS 18
-React 18
+# 개발환경
 
-----------
+Node.js LTS 18
+
+React 18
 
 # Getting Started with Create React App
 
