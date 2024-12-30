@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
   );
 }
+
+function Header() {
+  return (
+    <header style={headerStyle}>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <img
+          src="/logo.svg"
+          alt="YouTube Logo"
+          style={logoStyle}
+        />
+      </Link>
+    </header>
+  );
+}
+
+function Home() {
+  return <h1 style={pageStyle}>Welcome to Home</h1>;
+}
+
+function About() {
+  return <h1 style={pageStyle}>About Page</h1>;
+}
+
+const headerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  padding: '10px 20px',
+  backgroundColor: '#ffffff',
+  color: 'white',
+};
+
+const logoStyle = {
+  height: '40px',
+  cursor: 'pointer',
+};
+
+const pageStyle = {
+  textAlign: 'center',
+  marginTop: '50px',
+};
 
 export default App;
