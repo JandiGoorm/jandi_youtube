@@ -1,0 +1,11 @@
+.pageBody {
+    display: flex;
+    flex-direction: row;
+}
+.sideBody {
+
+}
+.realBody {
+    flex: 1;
+    padding: 20px;
+}
