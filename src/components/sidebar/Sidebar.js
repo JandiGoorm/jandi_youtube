@@ -1,28 +1,28 @@
 import React from 'react';
 import './Sidebar.css';
+import MenuComponent from "./menuComponent/MenuComponent";
+import SubscribeMenuComponent from "./SubscribeMenuComponent/SubscribeMenuComponent";
 
 const Sidebar = () => {
-    const menuitems = [
-        { icon: "🏠", label: "Home" },
-        { icon: "🔥", label: "Trending" },
-        { icon: "📚", label: "Library" },
-        { icon: "🕒", label: "History" },
-        { icon: "👍", label: "Liked Videos" },
-        { icon: "⚙️", label: "Settings" },
-    ];
 
     return(
         <>
-            <div className="sidebarDiv">
-                <ul className="sidebarMenu">
-                    {menuitems.map((item, index) => (
-                        <li key={index} className="menuItem">
-                            <span className="icon">{item.icon}</span>
-                            <span className="label">{item.label}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <MenuComponent menu={"first"} menuName={false}/>
+            <MenuComponent menu={"myPage"} menuName={true}/>
+            <SubscribeMenuComponent menu={"subscribe"}/>
+            <MenuComponent menu={"search"} menuName={true}/>
+            <MenuComponent menu={"plus"} menuName={true}/>
+            <MenuComponent menu={"setting"} menuName={false}/>
+            {/*<div className="sidebarDiv">*/}
+            {/*    <ul className="sidebarMenu">*/}
+            {/*        {menuitems.map((item, index) => (*/}
+            {/*            <li key={index} className="menuItem">*/}
+            {/*                <span className="icon">{item.icon}</span>*/}
+            {/*                <span className="label">{item.label}</span>*/}
+            {/*            </li>*/}
+            {/*        ))}*/}
+            {/*    </ul>*/}
+            {/*</div>*/}
         </>
 
     );
