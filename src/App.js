@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Videos from './videos';
 
 function App() {
   return (
@@ -28,7 +29,11 @@ function Header() {
 }
 
 function Home() {
-  return <h1 style={pageStyle}>Welcome to Home</h1>;
+  return (
+    <div className='App'>
+      <Videos/>
+    </div>
+  );
 }
 
 function About() {
