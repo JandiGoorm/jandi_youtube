@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Videos from './videos';
+import Videos from './videos.js';
 
 function App() {
   return (
