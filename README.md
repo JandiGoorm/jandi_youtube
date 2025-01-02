@@ -1,76 +1,121 @@
-# 개발환경
+## 프로젝트 실행
 
-Node.js LTS 18
+#### 1. 의존성을 설치합니다.
 
-React 18
+```
+npm install
+```
 
-# Getting Started with Create React App
+#### 2. 프로젝트를 실행합니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+npm run dev
+```
 
-## Available Scripts
+#### 3. 빌드 방법
 
-In the project directory, you can run:
+```
+npm run build
+```
 
-### `npm start`
+## 폴더 구조
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+├── src
+│   ├── apis            // 외부 서버와 통신에 필요한 파일 모음
+│   ├── assets          // 에셋 파일 모음
+│   ├── components      // 전역적으로 사용되는 리액트 컴포넌트 파일 모음
+│   ├── constants       // 상수, enum 등 전역적으로 사용되는 변수 모음
+│   ├── layouts         // 레이아웃 모음
+│   ├── pages           // 페이지 진입점 컴포넌트 (해당 페이지에서만 사용하는 컴포넌트는 페이지 폴더안에 생성)
+│   ├── App.jsx         // 루트 컴포넌트
+│   └── main.jsx        // 리액트 진입점
+├── .gitignore          // git 버전 관리에서 제외할 파일 목록
+├── .prettierrc         // 코드 포매터인 prettier의 설정 파일
+├── eslint.config.js    // 코드 linter인 eslint의 설정 파일
+├── index.html          // SPA 진입점인 html 파일
+├── package-lock.json   // 정확한 버전을 유지하기 위해 gitignore에 추가하지 않습니다.
+├── package.json        // 버전 관리 파일
+└── vite.config.js      // vite 설정 파일
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 컨벤션
 
-### `npm test`
+#### 파일, 폴더명
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 리액트 컴포넌트는 PascalCase로 작성합니다. (폴더명 파일명 동일)
+- 그 외 나머지 파일명은 camelCase로 작성합니다. (폴더명 파일명 동일)
+- 컴포넌트 함수는 PascalCase로 작성합니다.
 
-### `npm run build`
+```
+const Homepage = () => {}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 그 외 변수, 함수명은 camelCase로 작성합니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+const toNumber = () => {}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 상수, enum은 대문자 + snake_case로 작성합니다.
 
-### `npm run eject`
+```
+const ZERO = 0
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### 환경변수
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 환경 변수는 .env 파일에 VITE\_ 접두사를 붙여 만들어 주시면 됩니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+VITE_YOUTUBE_API_KEY="????"
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 짧은 변수명을 위해 constants/config.js 에서 불러와 export 하는 식으로 사용합니다.
 
-## Learn More
+```
+export const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 커밋 메시지 구조
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+1. 제목과 본문을 빈 행으로 구분할 것
+2. 제목은 50글자 이내로 제한할 것
+3. 제목의 첫 글자는 대문자로 작성할 것
+4. 제목 끝에 마침표를 넣지 않을 것
+5. 제목은 명령문으로 작성하되 과거형을 사용하지 않을 것
+6. 본문의 각 행은 72글자 내로 제한할 것
+7. 어떻게 보다는 무엇과 왜를 설명할 것
 
-### Code Splitting
+//Header, Body, Footer는 빈 행으로 구분한다.
+타입(스코프): 주제(제목) //Header
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+본문 //Body
 
-### Analyzing the Bundle Size
+바닥글 //Footer
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Header는 필수이며 스코프는 생략 가능
+- Body에서는 Header에서 표현할 수 없는 상세한 내용을 적을 것
+    - 생략 가능
+- Footer는 어떤 이슈에서 왔는지 같은 참조 정보들을 추가하는 용도로 사용
+    - e.g. issues#1234
+    - 생략 가능
 
-### Making a Progressive Web App
+- 타입은 해당 커밋의 성격을 나타내며 아래 중 하나여야 함
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### 커밋 타입
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| 키워드   | 설명                                                  |
+| -------- | ----------------------------------------------------- |
+| feat     | 새로운 기능에 대한 커밋                               |
+| fix      | 버그 수정에 대한 커밋                                 |
+| build    | 빌드 관련 파일 수정 / 모듈 설치 또는 삭제에 대한 커밋 |
+| chore    | 그 외 자잘한 수정에 대한 커밋                         |
+| ci       | ci 관련 설정 수정에 대한 커밋                         |
+| docs     | 문서 수정에 대한 커밋                                 |
+| style    | 코드 스타일 혹은 포맷 등에 관한 커밋                  |
+| refactor | 코드 리팩토링에 대한 커밋                             |
+| test     | 테스트 코드 수정에 대한 커밋                          |
+| perf     | 성능 개선에 대한 커밋                                 |
