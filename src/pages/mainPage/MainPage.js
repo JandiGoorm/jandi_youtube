@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './MainPage.css';
-import Body from "../../components/body/Body";
+import Body from "../../layouts/body/Body";
 
 
 const MainPage = () => {
