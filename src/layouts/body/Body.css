@@ -1,0 +1,15 @@
+.pageBody {
+    display: flex;
+    flex-direction: row;
+}
+.sideBody {
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto; /*
+    /*border: 1px solid red;*/
+
+}
+.realBody {
+    flex: 1;
+    padding: 20px;
+}
