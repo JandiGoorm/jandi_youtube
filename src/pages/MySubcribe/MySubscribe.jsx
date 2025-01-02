@@ -1,5 +1,6 @@
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
-import "./Home.module.css";
+import "../Home/Home.module.css";
+// import "./Home.module.css";
 
 const MySubscribePage = () => {
   return <DefaultLayout>Shorts</DefaultLayout>;
