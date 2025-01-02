@@ -1,15 +1,7 @@
-import axios from "axios";
-import { YOUTUBE_API_KEY } from "../constants/config";
-
-const instance = axios.create({
-  baseURL: "https://www.googleapis.com/youtube/v3/",
-});
-
-instance.defaults.params = {};
-instance.defaults.params["key"] = YOUTUBE_API_KEY;
+import youtubeAPI from "./youtubeInstance";
 
 const fetchVideos = async (maxResults = 10) => {
-  return await instance.get("/search", {
+  return await youtubeAPI.get("/search", {
     params: {
       part: "snippet",
       chart: "mostPopular",
@@ -20,8 +12,20 @@ const fetchVideos = async (maxResults = 10) => {
   });
 };
 
+const fetchPlayLists = async (maxResults = 10) => {
+  return await youtubeAPI.get("/playlists", {
+    params: {
+      part: "snippet",
+      lanuage: "ko",
+      mine: true,
+      maxResults,
+    },
+  });
+};
+
 const YoutubeService = {
   fetchVideos,
+  fetchPlayLists,
 };
 
 export default YoutubeService;
