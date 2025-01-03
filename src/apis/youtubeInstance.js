@@ -38,7 +38,7 @@ youtubeAPI.interceptors.response.use(
       const refreshToken = localStorage.getItem("refresh-token");
       if (refreshToken) {
         const { accessToken } = await refreshAccessToken(refreshToken);
-        console.log(accessToken);
+
         if (!accessToken) {
           return Promise.reject(
             "리프레쉬 토큰으로 액세스토큰 재발행 실패",
