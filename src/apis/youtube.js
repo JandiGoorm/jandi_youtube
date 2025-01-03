@@ -1,7 +1,8 @@
+import { apiEndPoints } from "../constants/api";
 import youtubeAPI from "./youtubeInstance";
 
 const fetchVideos = async (maxResults = 10) => {
-  return await youtubeAPI.get("/search", {
+  return await youtubeAPI.get(apiEndPoints.SEARCH, {
     params: {
       part: "snippet",
       chart: "mostPopular",
@@ -13,7 +14,7 @@ const fetchVideos = async (maxResults = 10) => {
 };
 
 const fetchPlayLists = async (maxResults = 10) => {
-  return await youtubeAPI.get("/playlists", {
+  return await youtubeAPI.get(apiEndPoints.PLAYLISTS, {
     params: {
       part: "snippet",
       lanuage: "ko",
