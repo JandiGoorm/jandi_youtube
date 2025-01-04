@@ -24,11 +24,12 @@ const fetchPlayLists = async (maxResults = 10) => {
   });
 };
 
-const fetchChannel = async () => {
-  return await instance.get("/channels", {
+const fetchChannel = async (maxResults = 10) => {
+  return await youtubeAPI.get(apiEndPoints.CHANNEL, {
     params: {
       part: "snippet",
-      forHandle: "올타쿠나",
+      forHandle: "@올타쿠나",
+      maxResults,
     }
   })
 }
