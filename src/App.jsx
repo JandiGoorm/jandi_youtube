@@ -22,7 +22,7 @@ function App() {
             element={<FeedChannelsPage />}
           /> */}
           <Route path={pageEndPoints.CHANNEL} element={<ChannelPage />} />
-          <Route path="/test" element={<TestPage />} />
+          <Route path={pageEndPoints.TEST} element={<TestPage />} />
         </Routes>
       </Router>
     </AuthProvider>

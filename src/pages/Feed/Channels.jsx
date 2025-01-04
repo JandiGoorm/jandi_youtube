@@ -8,17 +8,12 @@ import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 import styles from "./Channels.module.css";
 import youtubeService from "../../apis/youtube";
 import ChannelDes from "./ChannelDes";
-import { channelsOrder } from "../../constants/channel";
+import { channelsOrder } from "./contants";
 // import ArrowDownIcon from "../../components/Icons/ArrowDownIcon";
-
-const initialOptions = {
-  label: "관련성순",
-  value: "relevance",
-};
 
 const FeedChannelsPage = () => {
   const [subscriptions, setSubscriptions] = useState([]);
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState(channelsOrder[0]);
   const [isLoading, setIsLoading] = useState(false);
 
   const { fetchSubscriptions } = youtubeService;
