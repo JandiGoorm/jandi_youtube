@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+# .gitignore 파일
+*.idea
