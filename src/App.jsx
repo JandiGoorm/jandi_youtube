@@ -4,6 +4,7 @@ import AuthProvider from "./contexts/AuthProvider";
 import ChannelPage from "./pages/Channel/Channel";
 import HomePage from "./pages/Home/Home";
 import LoadingPage from "./pages/Loading/Loading";
+import TestPage from "./pages/Test/Test";
 //import FeedChannelsPage from "./pages/Feed/Channels";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             element={<FeedChannelsPage />}
           /> */}
           <Route path={pageEndPoints.CHANNEL} element={<ChannelPage />} />
+          <Route path="/test" element={<TestPage />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.channel_img {
+  height: 136px;
+  width: 136px;
+  aspect-ratio: auto 136 / 136;
+
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.channel_info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.channel_description {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: rgb(96, 96, 96);
+}
+
+.channel_stats {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.subscribe_btn {
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+
+  min-width: 122px;
+  padding: 8px 0;
+  border-radius: 18px;
+}
+
+.dropdown {
+  display: none;
+}
+
+.dropdown_content {
+  display: flex;
+  flex-direction: column;
+  width: 156px;
+
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 32px 0px;
+}
+
+.dropdown_content > button {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px 8px 16px;
+}
+
+.dropdown_content > button:hover {
+  background-color: #f2f2f2;
+}
+
+@media screen and (min-width: 662px) {
+  .dropdown {
+    display: block;
+  }
+}

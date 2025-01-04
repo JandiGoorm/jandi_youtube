@@ -1,15 +1,19 @@
 import { DropDownContext } from "./DropDownContext";
 import { useDropDown } from "./DropDownContext";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./DropDown.module.css";
 
 const DropDown = ({ children }) => {
   const [isVisible, setVisible] = useState(false);
   const ref = useRef(null);
 
-  const handleClickTrigger = () => {
-    setVisible(!isVisible);
-  };
+  const handleClickTrigger = useCallback(() => {
+    setVisible((prev) => !prev);
+  }, []);
+
+  const close = useCallback(() => {
+    setVisible(false);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,7 +33,7 @@ const DropDown = ({ children }) => {
       value={{
         onClick: handleClickTrigger,
         isVisible,
-        setVisible,
+        close,
       }}
     >
       <div className={styles.container} ref={ref}>
@@ -41,11 +45,16 @@ const DropDown = ({ children }) => {
 
 const DropDownTrigger = ({ children }) => {
   const { onClick } = useDropDown();
-  return <div onClick={onClick}>{children}</div>;
+
+  return (
+    <div onClick={onClick} className={styles.trigger}>
+      {children}
+    </div>
+  );
 };
 
 const DropDownContent = ({ children }) => {
-  const { isVisible } = useDropDown();
+  const { isVisible, close } = useDropDown();
 
   return (
     <div className={styles.relative}>
@@ -54,6 +63,7 @@ const DropDownContent = ({ children }) => {
         style={{
           display: isVisible ? "block" : "none",
         }}
+        onClick={close}
       >
         {children}
       </div>

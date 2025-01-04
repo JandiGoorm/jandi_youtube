@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 export const DropDownContext = createContext({
   onClick: () => {},
   isVisible: false,
-  setVisible: () => {},
+  close: () => {},
 });
 
 export const useDropDown = () => {
