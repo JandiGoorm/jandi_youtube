@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+  align-items: center;
+  padding: 0 32px 16px 32px;
+}
+
+.header {
+  font-size: 36px;
+  margin: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  gap: 8px;
+}
+
+.option_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+  cursor: pointer;
+  padding: 8px 8px 8px 12px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.arrow_down {
+  position: relative;
+  top: 1px;
+}
+
+.relative_box {
+  position: relative;
+}
+
+.options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 32px 0px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.options > button {
+  text-align: left;
+  padding: 0px 16px;
+  height: 40px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.options > button:hover {
+  background-color: #f2f2f2;
+}
+
+.channels_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 0;
+}
+
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
