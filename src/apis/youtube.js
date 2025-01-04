@@ -20,8 +20,18 @@ const fetchVideos = async (maxResults = 10) => {
   });
 };
 
+const fetchChannel = async () => {
+  return await instance.get("/channels", {
+    params: {
+      part: "snippet",
+      forHandle: "올타쿠나",
+    }
+  })
+}
+
 const YoutubeService = {
   fetchVideos,
+  fetchChannel,
 };
 
 export default YoutubeService;
