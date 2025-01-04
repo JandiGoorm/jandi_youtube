@@ -1,17 +1,24 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import HomePage from "./pages/Home/Home";
-import MySubscribePage from "./pages/MySubcribe/MySubscribe";
-import ChannelPage from "./pages/Channel/Channel";
+import LoadingPage from "./pages/Loading/Loading";
+import AuthProvider from "./contexts/AuthProvider";
+import { pageEndPoints } from "./constants/api";
+import FeedChannelsPage from "./pages/Feed/Channels";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/mypage/subscribtions" element={<MySubscribePage />} />
-        <Route path="/channel/:channelId" element={<ChannelPage />} />      
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path={pageEndPoints.HOME} element={<HomePage />} />
+          <Route path={pageEndPoints.LOADING} element={<LoadingPage />} />
+          <Route
+            path={pageEndPoints.MYSUBSCRIPTIONS}
+            element={<FeedChannelsPage />}
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
