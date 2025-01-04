@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: row;
-  height:calc(100vh - 60px);
+  height: calc(100vh - 60px);
 }
 
 .sidebar {
@@ -11,14 +11,13 @@
   scrollbar-color: transparent transparent;
 }
 
-@media (max-width: 1312px) { /*sidebar 변경*/
+@media (max-width: 1312px) {
+  /*sidebar 변경*/
   .sidebar {
     width: 72px;
   }
 }
 
-
 .content {
   flex: 1;
-  padding: 0 20px;
 }
