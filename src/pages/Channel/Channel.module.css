@@ -1,4 +1,173 @@
-.pageStyle {
-  text-align: center;
-  size: 200px;
+.channelPage {
+  width: 100%;
+}
+
+.channelBanner{
+  width: 100%;
+  height: 172px;
+  display: flex;
+}
+
+.bannerImage{
+  width: 100%;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+.channelHeader{
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 20px;
+
+}
+
+.avatarDiv{
+  width: 160px;
+  height:160px;
+
+}
+
+.channelAvatar {
+  width: 160px;
+  height: 160px;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.channelInfoDiv{
+  flex: 1;
+  width: calc(100% - 160px);
+  height: 160px;
+  margin-left: 10px;
+}
+
+.channelName{
+  font-size: clamp(24px, 5vw, 50px);
+  font-weight: bold;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  
+}
+
+.channelBasic{
+  font-size: clamp(12px,1vw, 22px);
+  height: 22px;
+  display: flex;
+  align-items: center;
+
+}
+
+.channelId{
+  font-weight: bold;
+}
+.channelInfo{
+  font-size: clamp(12px,1.3vw, 28px);
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.channelInfoP{
+  max-width: 50%;
+  overflow: hidden;
+  white-space: nowrap;  
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.moreInfo{
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.subscribeDiv{
+  height: 60px;
+  padding-left: 20px;
+  background-color: pink;
+  display: flex;
+  align-items: center;
+}
+
+.channelTabNav{
+  width: 100%;
+  height: 48px;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+}
+
+.tab {
+  font-size: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 24px;
+  height: 48px;
+  min-width: 48px;
+}
+.tab:hover {
+  border-bottom: 1px solid gray;
+}
+
+.activeTab {
+  color: black;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
+
+.channelTabContents{
+  min-height: calc(100vh - 480px);
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 0 20px;
+  border-radius: 10px;
+  width: 40vw;
+  height: 80vh;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  /* text-align: center; */
+  /* position: relative; */
+}
+
+.modalHeader {
+  width:100%;
+  height: 40px;
+  margin-top: 10px;
+  display: flex;
+}
+
+.modalInfo{
+  width:95%;
+  height:40px;
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  font-size: clamp(24px,1vw,36px);
+}
+
+.closeButton {
+  align-items: center;
+  display: flex;
+  background: transparent;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
 }

@@ -65,10 +65,21 @@ const fetchSubscriptions = async (maxResults = 20, order = "relevance") => {
   return { data: result };
 };
 
+const fetchChannel = async (maxResults = 10) => {
+  return await youtubeAPI.get(apiEndPoints.CHANNELS, {
+    params: {
+      part: "snippet",
+      forHandle: "@올타쿠나",
+      maxResults,
+    },
+  });
+};
+
 const YoutubeService = {
   fetchVideos,
   fetchPlayLists,
   fetchSubscriptions,
+  fetchChannel,
 };
 
 export default YoutubeService;
