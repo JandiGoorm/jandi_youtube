@@ -1,3 +1,5 @@
+import { BsBell } from "react-icons/bs";
+import { SlArrowDown } from "react-icons/sl";
 import {
   DropDown,
   DropDownContent,
@@ -5,7 +7,7 @@ import {
 } from "../../components/DropDown/DropDown";
 import { formatSubscriberCount } from "../../utils/channel";
 import styles from "./ChannelDes.module.css";
-// import bellIcon from "../../assets/icons/bell.svg";
+import { subscriptionDropdownOptions } from "./contants";
 
 const ChannelDes = ({ channel }) => {
   return (
@@ -30,15 +32,22 @@ const ChannelDes = ({ channel }) => {
       <div className={styles.dropdown}>
         <DropDown>
           <DropDownTrigger>
-            <button className={styles.subscribe_btn}>구독중</button>
+            <button className={styles.subscribe_btn}>
+              <BsBell size={22} />
+              <span>구독중</span>
+              <SlArrowDown size={12} className={styles.arrow_down} />
+            </button>
           </DropDownTrigger>
           <DropDownContent>
             <div className={styles.dropdown_content}>
-              <button>
-                {/* <img src={bellIcon} alt="bell-icon" /> */}
-                <span>전체</span>
-              </button>
-              <button>알림 설정</button>
+              {subscriptionDropdownOptions.map((option) => {
+                return (
+                  <button key={option.label}>
+                    {option.icons}
+                    <span>{option.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </DropDownContent>
         </DropDown>
