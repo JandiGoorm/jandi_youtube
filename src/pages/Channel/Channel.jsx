@@ -11,9 +11,9 @@ const ChannelPage = () => {
 
   const tabs = ["홈", "동영상", "Shorts","재생목록","커뮤니티","스토어"]
 
-  const fetchChannel = async () =>{
+  const fetchChannel = async (channelHandle) =>{
     try{
-      const response = await YoutubeService.fetchChannel();
+      const response = await YoutubeService.fetchChannel(channelHandle);
       console.log(response);
     }catch(error){
       console.log("error: "+ error);
@@ -30,7 +30,7 @@ const ChannelPage = () => {
 
   useEffect (()=> {
     console.log(channel);
-    fetchChannel();
+    fetchChannel(channel);
   },[channel]);
 
   return (
@@ -105,9 +105,9 @@ const ChannelPage = () => {
               </div>
               <div>
                 <div>dasfadsfadsfadsf</div>
-                <span className={styles.modalInfo}>링크</span>
+                <span className={styles.modalInfoName}>링크</span>
                 <div className={styles.modalMoreInfo}>
-                  <span className={styles.modalInfo}>채널 세부정보</span>
+                  <span className={styles.modalInfoName}>채널 세부정보</span>
                 </div>
                 <div className={styles.modalBtnDiv}>
                   

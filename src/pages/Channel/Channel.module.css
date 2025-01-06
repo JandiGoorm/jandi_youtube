@@ -1,5 +1,7 @@
 .channelPage {
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 0;
 }
 
 .channelBanner{
@@ -30,7 +32,7 @@
 
 }
 
-.channelAvatar {
+.channelAvata {
   width: 160px;
   height: 160px;
   justify-content: center;
@@ -45,7 +47,7 @@
 }
 
 .channelName{
-  font-size: clamp(24px, 5vw, 50px);
+  font-size: clamp(24px, 3vw, 45px);
   font-weight: bold;
   height: 50px;
   display: flex;
@@ -54,7 +56,7 @@
 }
 
 .channelBasic{
-  font-size: clamp(12px,1vw, 22px);
+  font-size: clamp(12px,0.8vw, 20px);
   height: 22px;
   display: flex;
   align-items: center;
@@ -65,14 +67,14 @@
   font-weight: bold;
 }
 .channelInfo{
-  font-size: clamp(12px,1.3vw, 28px);
+  font-size: clamp(12px,0.8vw, 20px);
   height: 28px;
   display: flex;
   align-items: center;
 }
 
 .channelInfoP{
-  max-width: 50%;
+  max-width: 60%;
   overflow: hidden;
   white-space: nowrap;  
   margin-right: 5px;
@@ -87,7 +89,7 @@
 .subscribeDiv{
   height: 60px;
   padding-left: 20px;
-  background-color: pink;
+  /* background-color: pink; */
   display: flex;
   align-items: center;
 }
@@ -140,8 +142,8 @@
   background: white;
   padding: 0 20px;
   border-radius: 10px;
-  width: 40vw;
-  height: 80vh;
+  width: 30vw;
+  height: 60vh;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   /* text-align: center; */
   /* position: relative; */
@@ -150,17 +152,8 @@
 .modalHeader {
   width:100%;
   height: 40px;
-  margin-top: 10px;
+  margin: 10px 0;
   display: flex;
-}
-
-.modalInfo{
-  width:95%;
-  height:40px;
-  align-items: center;
-  display: flex;
-  font-weight: bold;
-  font-size: clamp(24px,1vw,36px);
 }
 
 .closeButton {
@@ -170,4 +163,24 @@
   border: none;
   font-size: 40px;
   cursor: pointer;
+}
+
+.modalInfo{
+  width:95%;
+  height:40px;
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  font-size: clamp(24px,1vw,36px);
+  margin: 10px 0;
+}
+
+.modalInfoName{
+  width:95%;
+  height:40px;
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  font-size: clamp(24px,1vw,36px);
+  margin: 10px 0;
 }
