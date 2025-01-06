@@ -18,3 +18,33 @@ export const formatSubscriberCount = (count) => {
     return `${formatNumber(count / THOUSAND)}천명`;
   } else return `${count}명`;
 };
+
+export const formatDescriptionText = (description) => {
+  if (!description || !description.includes("\n")) {
+    return [description];
+  }
+
+  const MAX_LINE_LENGTH = 70;
+  const lines = description.split("\n").filter((line) => line.trim() !== "");
+
+  return lines
+    .reduce((formatted, currentLine) => {
+      const lastLine = formatted[formatted.length - 1] || "";
+      if (currentLine.length > MAX_LINE_LENGTH) {
+        if (lastLine) {
+          return [...formatted, currentLine];
+        }
+        return [...formatted, currentLine];
+      }
+
+      if (
+        lastLine &&
+        (lastLine + " " + currentLine).length <= MAX_LINE_LENGTH
+      ) {
+        return [...formatted.slice(0, -1), `${lastLine} ${currentLine}`];
+      }
+
+      return [...formatted, currentLine];
+    }, [])
+    .slice(0, 2);
+};
