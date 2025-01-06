@@ -52,7 +52,7 @@ const menuConstants = {
   mypagemenuitems,
   searchmenuitems,
   plusmenuitems,
-  settingmenuitems
+  settingmenuitems,
 };
 
 export default menuConstants;
