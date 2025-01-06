@@ -3,10 +3,10 @@ import {
   DropDown,
   DropDownContent,
   DropDownTrigger,
-} from "../../components/DropDown/DropDown";
-import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
+} from "../../../components/DropDown/DropDown";
+import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
 import styles from "./Channels.module.css";
-import youtubeService from "../../apis/youtube";
+import youtubeService from "../../../apis/youtube";
 import ChannelDes from "./ChannelDes";
 import { channelOrderDropdownOptions } from "./contants";
 import { IoIosArrowDown } from "react-icons/io";

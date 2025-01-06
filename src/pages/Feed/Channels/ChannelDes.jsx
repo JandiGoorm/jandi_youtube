@@ -4,11 +4,11 @@ import {
   DropDown,
   DropDownContent,
   DropDownTrigger,
-} from "../../components/DropDown/DropDown";
+} from "../../../components/DropDown/DropDown";
 import {
   formatDescriptionText,
   formatSubscriberCount,
-} from "../../utils/channel";
+} from "../../../utils/channel";
 import styles from "./ChannelDes.module.css";
 import { subscriptionDropdownOptions } from "./contants";
 
