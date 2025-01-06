@@ -13,7 +13,12 @@ function Videos() {
       setIsLoading(true);
       try {
         const response = await YoutubeService.fetchVideos(page);
-        setVideos((prevVideos) => [...prevVideos, ...response.data.items]);
+        setVideos((prevVideos) =>
+          [...prevVideos, ...response.data.items].filter(
+            (video, index, self) =>
+              index === self.findIndex((v) => v.id.videoId === video.id.videoId)
+          )
+        );
       } catch (error) {
         console.error("Error fetching videos:", error);
       } finally {
