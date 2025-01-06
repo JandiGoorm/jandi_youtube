@@ -57,3 +57,8 @@
   font-size: small;
   color: gray;
 }
+
+.loading {
+  height: 20px;
+  margin: 20px auto;
+}
