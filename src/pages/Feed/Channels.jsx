@@ -22,7 +22,7 @@ const FeedChannelsPage = () => {
     (async () => {
       setIsLoading(true);
       try {
-        const { data } = await fetchSubscriptions(10, options.value);
+        const { data } = await fetchSubscriptions(50, options.value);
 
         const detils = data.map((v) => {
           return {

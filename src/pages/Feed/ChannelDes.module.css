@@ -10,7 +10,6 @@
   aspect-ratio: auto 136 / 136;
 
   border-radius: 50%;
-  overflow: hidden;
 }
 
 .channel_info {
@@ -18,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow: hidden;
 }
 
 .channel_description {
@@ -26,6 +26,17 @@
   gap: 4px;
   font-size: 12px;
   color: rgb(96, 96, 96);
+  overflow: hidden;
+}
+
+.des_text_container {
+  overflow: hidden;
+}
+
+.des_text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .channel_stats {
@@ -56,10 +67,6 @@
 .subscribe_btn > span {
   font-size: 15px;
   font-weight: 500;
-}
-
-.dropdown {
-  display: none;
 }
 
 .dropdown_content {

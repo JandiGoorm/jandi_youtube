@@ -5,11 +5,19 @@ import {
   DropDownContent,
   DropDownTrigger,
 } from "../../components/DropDown/DropDown";
-import { formatSubscriberCount } from "../../utils/channel";
+import {
+  formatDescriptionText,
+  formatSubscriberCount,
+} from "../../utils/channel";
 import styles from "./ChannelDes.module.css";
 import { subscriptionDropdownOptions } from "./contants";
 
 const ChannelDes = ({ channel }) => {
+  const flattendDes = formatDescriptionText(channel.description, 70).slice(
+    0,
+    2
+  );
+
   return (
     <div className={styles.container}>
       <img
@@ -25,7 +33,15 @@ const ChannelDes = ({ channel }) => {
             <span>•</span>
             <span>구독자 {formatSubscriberCount(channel.subscriberCount)}</span>
           </div>
-          <span>{channel.description}</span>
+          <div className={styles.des_text_container}>
+            {flattendDes.map((text) => {
+              return (
+                <div key={text} className={styles.des_text}>
+                  {text}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 

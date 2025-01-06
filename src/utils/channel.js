@@ -19,12 +19,12 @@ export const formatSubscriberCount = (count) => {
   } else return `${count}명`;
 };
 
-export const formatDescriptionText = (description) => {
+export const formatDescriptionText = (description, maxLength) => {
   if (!description || !description.includes("\n")) {
     return [description];
   }
 
-  const MAX_LINE_LENGTH = 70;
+  const MAX_LINE_LENGTH = maxLength;
   const lines = description.split("\n").filter((line) => line.trim() !== "");
 
   return lines
