@@ -1,35 +1,32 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Menu.module.css";
-import menuItems from "./constants.js"
+import menuItems from "./constants";
 
-
-const Menu = ({menu}) => {
+const Menu = ({ menu }) => {
   const [show, setShow] = useState(false);
   const [menuName, setMenuName] = useState("");
   const [menuData, setMenuData] = useState([]);
   const [size, setSize] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      if(screenWidth<=1312){
+      if (screenWidth <= 1312) {
         setSize(false);
-      }
-      else{
+      } else {
         setSize(true);
       }
-
-  };
-  // 초기 로드와 화면 크기 변경 시에도 적용
-  handleResize();
-  window.addEventListener('resize', handleResize);
-  // 컴포넌트 언마운트 시 리스너 해제
-  return () => {
-      window.removeEventListener('resize', handleResize);
-  };
-  },[]);
+    };
+    // 초기 로드와 화면 크기 변경 시에도 적용
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    // 컴포넌트 언마운트 시 리스너 해제
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     switch (menu) {
@@ -39,25 +36,24 @@ const Menu = ({menu}) => {
         setShow(true);
         break;
       case "search":
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.searchmenuitems);
         setMenuName("탐색");
         setShow(true);
         break;
       case "plus":
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.plusmenuitems);
         setMenuName("Youtube 더보기");
         setShow(true);
         break;
       case "setting":
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.settingmenuitems);
         setShow(false);
         break;
       default:
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.firstitems);
         setShow(false);
         break;
     }
-    
   }, [menu]);
 
   const handleNavigation = (link) => {
@@ -78,7 +74,9 @@ const Menu = ({menu}) => {
             className={styles.menuItem}
             onClick={() => handleNavigation(item.link)}
           >
-            <span className={styles.icon}>{item.icon}</span>
+            <span className={styles.icon}>
+              <item.icon />
+            </span>
             {size && <span className={styles.label}>{item.label}</span>}
           </li>
         ))}

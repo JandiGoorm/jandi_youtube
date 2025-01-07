@@ -42,6 +42,16 @@ const fetchPlayLists = async (maxResults = 10) => {
   });
 };
 
+const fetchPlaylistItems = async (maxResults = 10, Id) => {
+  return await youtubeAPI.get(apiEndPoints.PLAYLISTS, {
+    params: {
+      part: "snippet,contentDetails",
+      maxResults,
+      playlistId: Id,
+    },
+  });
+};
+
 const fetchChannelDetails = async (channelId) => {
   return await youtubeAPI.get(apiEndPoints.CHANNELS, {
     params: {
@@ -83,12 +93,43 @@ const fetchSubscriptions = async (maxResults = 20, order = "relevance") => {
   return { data: result };
 };
 
-const fetchChannel = async (maxResults = 10) => {
+const fetchChannel = async (maxResults = 10, channelHandle) => {
   return await youtubeAPI.get(apiEndPoints.CHANNELS, {
     params: {
-      part: "snippet",
-      forHandle: "@올타쿠나",
+      part: "snippet, statistics, brandingSettings",
+      forHandle: channelHandle,
       maxResults,
+    },
+  });
+};
+
+const fetchChannelSections = async (channelId) => {
+  return await youtubeAPI.get(apiEndPoints.CHANNELSECTIONS, {
+    params: {
+      part: "contentDetails,id,snippet",
+      channelId: channelId,
+    },
+  });
+};
+
+const fetchChannelVideos = async (maxResults = 10,channelId) => {
+  return await youtubeAPI.get(apiEndPoints.SEARCH, {
+    params: {
+      part: "snippet",
+      type: "video",
+      channelId: channelId,
+      regionCode: "KR",
+      order: "date",
+      maxResults,
+    },
+  });
+};
+
+const fetchVideoDetails = async (Id) => {
+  return await youtubeAPI.get(apiEndPoints.VIDEOS, {
+    params: {
+      part: "contentDetails,snippet,statistics",
+      id: Id
     },
   });
 };
@@ -98,6 +139,10 @@ const YoutubeService = {
   fetchPlayLists,
   fetchSubscriptions,
   fetchChannel,
+  fetchChannelSections,
+  fetchChannelVideos,
+  fetchVideoDetails,
+  fetchPlaylistItems,
 };
 
 export default YoutubeService;
