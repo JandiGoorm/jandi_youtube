@@ -70,7 +70,7 @@ function Videos() {
   //   window.location.href = videoUrl;
   // }
   const videoOnClick = (videoId)=>{
-    const videoUrl = `/pages/VideoPlayer/VideoPlayer/watch?v==${videoId}`;
+    const videoUrl = `/pages/VideoPlayer/VideoPlayer/watch?v=${videoId}`;
     if (videoUrl.startsWith("http")) {
       window.open(videoUrl, "_blank");
     } else {
@@ -81,11 +81,11 @@ function Videos() {
   // 채널 썸네일 클릭시 해당 채널로 이동
   // 주석 부분은 실제 유튜브 링크로 이동하는 메서드입니다
   // const channelOnClick = (channelId) => {
-  //   const channelUrl = `/pages/Channel/Channel/${channelId}`;
+  //   const channelUrl = `https://www.youtube.com/channel/${channelId}`;
   //   window.location.href = channelUrl;
   // }
   const channelOnClick = (channelId)=>{
-    const channelUrl = `/pages/Channel/Channel${channelId}`;
+    const channelUrl = `/pages/Channel/Channel/${channelId}`;
     if (channelUrl.startsWith("http")) {
       window.open(channelUrl, "_blank");
     } else {
