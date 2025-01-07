@@ -10,6 +10,14 @@ import ChannelHomeSection from "./ChannelSections/ChannelHomeSection";
 import ChannelVideoSection from "./ChannelSections/ChannelVideoSection";
 import { PiShareFatLight } from "react-icons/pi";
 import { IoFlagOutline } from "react-icons/io5";
+import {
+  DropDown,
+  DropDownContent,
+  DropDownTrigger,
+} from "../../components/DropDown/DropDown";
+import { CiBellOn,CiBellOff  } from "react-icons/ci";
+import { FiUserMinus } from "react-icons/fi";
+import { BiSolidBellRing } from "react-icons/bi";
 
 const ChannelPage = () => {
   const { channel } = useParams(); // URL에서 채널 ID를 가져옵니다.
@@ -106,7 +114,34 @@ const ChannelPage = () => {
             <span className={styles.moreInfo} onClick={()=> handleModal()}>...더보기</span>
           </div>
           <div className={styles.subscribeDiv}>
-            <button>구독중</button>
+          <DropDown>
+          <DropDownTrigger>
+            <button className={styles.subscribe_btn}>
+              <div  className={styles.dropdown_icon}><CiBellOn /></div>
+              <span>구독중</span>
+            </button>
+          </DropDownTrigger>
+          <DropDownContent>
+            <div className={styles.dropdown_content}>
+              <button>
+                <div className={styles.dropdown_icon}><BiSolidBellRing /></div>
+                <span>전체</span>
+              </button>
+              <button>
+                <div  className={styles.dropdown_icon}><CiBellOn /></div>
+                <span>맞춤설정</span>
+              </button>
+              <button>
+                <div  className={styles.dropdown_icon}><CiBellOff /></div>
+                <span>없음</span>
+              </button>
+              <button>
+                <div  className={styles.dropdown_icon}><FiUserMinus /></div>
+                <span>구독취소</span>
+              </button>
+            </div>
+          </DropDownContent>
+        </DropDown>
           </div>
          </div>
         </div>
