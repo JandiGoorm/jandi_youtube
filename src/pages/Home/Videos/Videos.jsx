@@ -14,17 +14,24 @@ function Videos() {
 
 
   useEffect(() => {
-    //데이터 로드
+    //동영상+해당 동영상의 채널 정보를 함께 불러옴
     const fetchVideos = async () => {
       setIsLoading(true);
       try {
         const response = await YoutubeService.fetchVideos(page);
+        console.log(response);
         setVideos((prevVideos) =>
-          [...prevVideos, ...response.data.items].filter(
+          //중복된 동영상 제거
+          [...prevVideos, ...response.data].filter(
             (video, index, self) =>
               index === self.findIndex((v) => v.id.videoId === video.id.videoId)
           )
         );
+
+        console.log(videos);
+        console.log(videos[0].channelInfo.thumbnails.medium.url);
+        
+
       } catch (error) {
         console.error("Error fetching videos:", error);
       } finally {
@@ -32,7 +39,7 @@ function Videos() {
       }
     };
     fetchVideos();
-    console.log(videos);
+
   }, [page]);
 
   //옵저버
@@ -100,7 +107,7 @@ function Videos() {
             <div className={styles.video_information}>
               <img
                 className={styles.video_channel_img}
-                src="https://yt3.ggpht.com/yti/ANjgQV9PAjI-WMfy-zSByztHi-Gw0cX2ORxDdilHqSZCmhaR8w=s108-c-k-c0x00ffffff-no-rj"
+                src={video.channelInfo.thumbnails.medium.url}
                 onClick={()=> channelOnClick(video.snippet.channelId)}
               />
               <div>
