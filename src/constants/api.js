@@ -12,6 +12,8 @@ export const apiEndPoints = {
   PLAYLISTS: "/playlists",
   SUBSCRIPTIONS: "/subscriptions",
   CHANNELS: "/channels",
+  CHANNELSECTIONS: "/channelSections",
+  VIDEOS: "./videos"
 };
 
 export const authRequiredRoutes = [
