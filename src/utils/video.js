@@ -5,7 +5,7 @@ const THOUSAND = 1000;
 export const formatVioeo = (count) => {
   const formatNumber = (number) => {
     return number
-      .toString()
+    .toFixed(1)
       .replace(/(\.\d*?)0+$/g, "$1")
       .replace(/\.$/, "");
   };
