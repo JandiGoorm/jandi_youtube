@@ -16,7 +16,7 @@ const SubscribeMenu = () => {
   const { fetchSubscriptions } = YoutubeService;
 
   const handleClickAllSubs = useCallback(() => {
-    navigate(pageEndPoints.MYSUBSCRIPTIONS);
+    navigate(pageEndPoints.FEEDCHANNELS);
   }, [navigate]);
 
   const handleClickMore = useCallback(() => {
