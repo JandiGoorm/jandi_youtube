@@ -3,7 +3,7 @@ import { authRequiredRoutes } from "../constants/api";
 import { YOUTUBE_API_KEY } from "../constants/config";
 import AuthService from "./auth";
 
-const { redirectGoogleLogin, refreshAccessToken } = AuthService;
+const { refreshAccessToken } = AuthService;
 
 const youtubeAPI = axios.create({
   baseURL: "https://www.googleapis.com/youtube/v3/",
@@ -28,7 +28,7 @@ youtubeAPI.interceptors.request.use((config) => {
 });
 
 // 응답이 인증이 필요한 경우인 401에러가 발생
-// 리프레쉬 토큰이 있다면 액세스 토큰 재발행후 재요청, 없다면 구글 로그인 페이지로 이동합니다.
+// 리프레쉬 토큰이 있다면 액세스 토큰 재발행후 재요청
 youtubeAPI.interceptors.response.use(
   (response) => {
     return response;
@@ -49,8 +49,6 @@ youtubeAPI.interceptors.response.use(
         localStorage.setItem("access-token", accessToken);
         error.config.headers["Authorization"] = `Bearer ${accessToken}`;
         return axios.request(error.config);
-      } else {
-        redirectGoogleLogin();
       }
     }
     return Promise.reject(error);
