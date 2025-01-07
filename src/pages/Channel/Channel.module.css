@@ -142,8 +142,13 @@
   background: white;
   padding: 0 20px;
   border-radius: 10px;
-  width: 30vw;
-  height: 60vh;
+  min-width: 30vw;
+  max-width: 80vw;
+  min-height: 60vh;
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   /* text-align: center; */
   /* position: relative; */
@@ -183,4 +188,26 @@
   font-weight: bold;
   font-size: clamp(24px,1vw,36px);
   margin: 10px 0;
+}
+
+.modalBtnDiv{
+  margin-bottom: 50px;
+}
+
+.modalBtn{
+  width: 30%;
+  height: 40px;
+  border-radius: 15px;
+  margin-right: 5%;
+  font-size: clamp(12px,1vw, 20px);
+  background: transparent;
+  border: none;
+  background-color: #eeeeee;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btnIcons{
+  margin-right: 5px;
+  font-size: clamp(12px,1.5vw, 20px);
 }
