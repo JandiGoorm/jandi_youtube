@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Menu.module.css";
-import menuItems from "./constants/menuConstants"
+import menuItems from "./constants"
 
 
 const Menu = ({menu}) => {
@@ -39,21 +39,21 @@ const Menu = ({menu}) => {
         setShow(true);
         break;
       case "search":
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.searchmenuitems);
         setMenuName("탐색");
         setShow(true);
         break;
       case "plus":
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.plusmenuitems);
         setMenuName("Youtube 더보기");
         setShow(true);
         break;
       case "setting":
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.settingmenuitems);
         setShow(false);
         break;
       default:
-        setMenuData(menuItems.mypagemenuitems);
+        setMenuData(menuItems.firstitems);
         setShow(false);
         break;
     }
@@ -78,7 +78,7 @@ const Menu = ({menu}) => {
             className={styles.menuItem}
             onClick={() => handleNavigation(item.link)}
           >
-            <span className={styles.icon}>{item.icon}</span>
+            <span className={styles.icon}><item.icon /></span>
             {size && <span className={styles.label}>{item.label}</span>}
           </li>
         ))}
