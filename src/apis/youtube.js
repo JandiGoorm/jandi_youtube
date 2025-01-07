@@ -2,7 +2,7 @@ import { apiEndPoints } from "../constants/api";
 import youtubeAPI from "./youtubeInstance";
 
 const fetchVideos = async (maxResults = 10) => {
-  return await youtubeAPI.get(apiEndPoints.SEARCH, {
+  const response = await youtubeAPI.get(apiEndPoints.SEARCH, {
     params: {
       part: "snippet",
       chart: "mostPopular",
@@ -11,6 +11,24 @@ const fetchVideos = async (maxResults = 10) => {
       maxResults,
     },
   });
+
+  //채널 프로필 이미지를 불러오기 위해 channels api를 요청
+  const videos = response.data.items;
+  const channelIds = videos.map((video) => video.snippet.channelId);
+  const channelResponse = await fetchChannelDetails(channelIds.join(","));
+  const channels = channelResponse.data.items;
+
+  const result = videos.map((video) => {
+    const channelInfo = channels.find(
+      (channel) => channel.id === video.snippet.channelId
+    );
+    return {
+      ...video
+      ,channelInfo: channelInfo ? channelInfo.snippet : null,
+    }
+  });
+
+  return { data: result };
 };
 
 const fetchPlayLists = async (maxResults = 10) => {
