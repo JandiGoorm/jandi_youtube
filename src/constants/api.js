@@ -17,6 +17,7 @@ export const apiEndPoints = {
   CHANNELS: "/channels",
   ACTIVITIES: "/activities",
   VIDEOS: "/videos",
+  CHANNELSECTIONS: "/channelSections",
 };
 
 export const authRequiredRoutes = [
