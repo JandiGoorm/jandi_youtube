@@ -3,17 +3,17 @@ import {
   DropDown,
   DropDownContent,
   DropDownTrigger,
-} from "../../components/DropDown/DropDown";
-import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
+} from "../../../components/DropDown/DropDown";
+import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
 import styles from "./Channels.module.css";
-import youtubeService from "../../apis/youtube";
+import youtubeService from "../../../apis/youtube";
 import ChannelDes from "./ChannelDes";
-import { channelsOrder } from "./contants";
-// import ArrowDownIcon from "../../components/Icons/ArrowDownIcon";
+import { channelOrderDropdownOptions } from "./contants";
+import { IoIosArrowDown } from "react-icons/io";
 
 const FeedChannelsPage = () => {
   const [subscriptions, setSubscriptions] = useState([]);
-  const [options, setOptions] = useState(channelsOrder[0]);
+  const [options, setOptions] = useState(channelOrderDropdownOptions[0]);
   const [isLoading, setIsLoading] = useState(false);
 
   const { fetchSubscriptions } = youtubeService;
@@ -49,19 +49,12 @@ const FeedChannelsPage = () => {
             <DropDownTrigger>
               <button className={styles.option_btn}>
                 <span>{options.label}</span>
-                {/* <ArrowDownIcon
-                  width={18}
-                  height={18}
-                  style={{
-                    position: "relative",
-                    top: "1px",
-                  }}
-                /> */}
+                <IoIosArrowDown className={styles.arrow_down} />
               </button>
             </DropDownTrigger>
             <DropDownContent>
               <div className={styles.options}>
-                {channelsOrder.map((option) => {
+                {channelOrderDropdownOptions.map((option) => {
                   return (
                     <button
                       key={option.label}

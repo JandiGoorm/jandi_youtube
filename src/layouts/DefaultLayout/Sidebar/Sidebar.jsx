@@ -1,16 +1,15 @@
 import MenuComponent from "./Menu/Menu";
-import SubscribeMenuComponent from "./SubscribeMenu/SubscribeMenu";
-
+import SubscribeMenu from "./SidebarSubscribe/SidebarSubscibe";
 
 const Sidebar = (width) => {
   return (
     <>
       <MenuComponent menu={"first"} />
-      <MenuComponent menu={"myPage"}/>
-      <SubscribeMenuComponent menu={"subscribe"}/>
-      <MenuComponent menu={"search"}/>
+      <MenuComponent menu={"myPage"} />
+      <SubscribeMenu />
+      <MenuComponent menu={"search"} />
       <MenuComponent menu={"plus"} />
-      <MenuComponent menu={"setting"}/>
+      <MenuComponent menu={"setting"} />
       {/*<div className="sidebarDiv">*/}
       {/*    <ul className="sidebarMenu">*/}
       {/*        {menuitems.map((item, index) => (*/}
