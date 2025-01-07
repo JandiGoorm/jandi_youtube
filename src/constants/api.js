@@ -10,6 +10,7 @@ export const apiEndPoints = {
   TOKEN: "/token",
   SEARCH: "/search",
   PLAYLISTS: "/playlists",
+  PLAYLISTSITEMS: "/playlistItems",
   SUBSCRIPTIONS: "/subscriptions",
   CHANNELS: "/channels",
   CHANNELSECTIONS: "/channelSections",

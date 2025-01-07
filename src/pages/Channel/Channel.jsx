@@ -25,7 +25,6 @@ const ChannelPage = () => {
     try{
       const response = await YoutubeService.fetchChannel(10,channelHandle);
       const data = response.data.items[0];
-      console.log(data);
       const content = {
         id:data.id,
         title:data.snippet.title,

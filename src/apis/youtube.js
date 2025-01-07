@@ -24,6 +24,16 @@ const fetchPlayLists = async (maxResults = 10) => {
   });
 };
 
+const fetchPlaylistItems = async (maxResults = 10, Id) => {
+  return await youtubeAPI.get(apiEndPoints.PLAYLISTS, {
+    params: {
+      part: "snippet,contentDetails",
+      maxResults,
+      playlistId: Id,
+    },
+  });
+};
+
 const fetchChannelDetails = async (channelId) => {
   return await youtubeAPI.get(apiEndPoints.CHANNELS, {
     params: {
@@ -114,6 +124,7 @@ const YoutubeService = {
   fetchChannelSections,
   fetchChannelVideos,
   fetchVideoDetails,
+  fetchPlaylistItems,
 };
 
 export default YoutubeService;
