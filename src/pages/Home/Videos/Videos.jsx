@@ -2,12 +2,16 @@ import { useEffect, useState, useRef } from "react";
 import YoutubeService from "../../../apis/youtube";
 import {formatISO} from "../../../utils/date.js"
 import styles from "./Videos.module.css";
+import { useNavigate } from "react-router-dom";
+
 
 function Videos() {
   const [videos, setVideos] = useState([]); // 비디오 데이터
   const [page, setPage] = useState(1); // 현재 페이지
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태
   const observerTarget = useRef(null); // 관찰 대상
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     //데이터 로드
@@ -52,10 +56,19 @@ function Videos() {
     };
   }, [isLoading]);
 
-  //비디오 클릭시 해당 비디오로 이동
-  const videoOnClick = (videoId) => {
-    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-    window.location.href = videoUrl;
+  // 비디오 클릭시 해당 비디오로 이동
+  // 주석 부분은 실제 유튜브 링크로 이동하는 메서드입니다
+  // const videoOnClick = (videoId) => {
+  //   const link = `./pages/VideoPlayer/VideoPlayer`;
+  //   window.location.href = videoUrl;
+  // }
+  const videoOnClick = (videoId)=>{
+    const videoUrl = `/pages/VideoPlayer/VideoPlayer/watch?v==${videoId}`;
+    if (videoUrl.startsWith("http")) {
+      window.open(videoUrl, "_blank");
+    } else {
+      navigate(videoUrl);
+    }
   }
 
   return (
