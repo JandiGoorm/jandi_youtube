@@ -59,7 +59,7 @@ function Videos() {
   // 비디오 클릭시 해당 비디오로 이동
   // 주석 부분은 실제 유튜브 링크로 이동하는 메서드입니다
   // const videoOnClick = (videoId) => {
-  //   const link = `./pages/VideoPlayer/VideoPlayer`;
+  //   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
   //   window.location.href = videoUrl;
   // }
   const videoOnClick = (videoId)=>{
@@ -68,6 +68,21 @@ function Videos() {
       window.open(videoUrl, "_blank");
     } else {
       navigate(videoUrl);
+    }
+  }
+
+  // 채널 썸네일 클릭시 해당 채널로 이동
+  // 주석 부분은 실제 유튜브 링크로 이동하는 메서드입니다
+  // const channelOnClick = (channelId) => {
+  //   const channelUrl = `/pages/Channel/Channel/${channelId}`;
+  //   window.location.href = channelUrl;
+  // }
+  const channelOnClick = (channelId)=>{
+    const channelUrl = `/pages/Channel/Channel${channelId}`;
+    if (channelUrl.startsWith("http")) {
+      window.open(channelUrl, "_blank");
+    } else {
+      navigate(channelUrl);
     }
   }
 
@@ -81,11 +96,12 @@ function Videos() {
               src={video.snippet.thumbnails.medium.url}
               alt={video.snippet.title}
               onClick={()=> videoOnClick(video.id.videoId)}
-            />
+              />
             <div className={styles.video_information}>
               <img
                 className={styles.video_channel_img}
                 src="https://yt3.ggpht.com/yti/ANjgQV9PAjI-WMfy-zSByztHi-Gw0cX2ORxDdilHqSZCmhaR8w=s108-c-k-c0x00ffffff-no-rj"
+                onClick={()=> channelOnClick(video.snippet.channelId)}
               />
               <div>
               <p className={styles.video_title}>{video.snippet.title}</p>
