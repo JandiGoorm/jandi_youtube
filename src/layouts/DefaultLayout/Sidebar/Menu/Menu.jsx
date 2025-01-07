@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Menu.module.css";
-import menuItems from "./constants/menuConstants"
+import menuItems from "./constants.js"
 
 
 const Menu = ({menu}) => {
