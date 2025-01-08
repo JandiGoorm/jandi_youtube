@@ -103,12 +103,12 @@ const fetchChannel = async (maxResults = 10, channelHandle) => {
 };
 
 const fetchAllSubscriptions = async () => {
-  const { data, response } = await fetchSubscriptions(10);
+  const { data, response } = await fetchSubscriptions(50);
   let nextPageToken = response.data.nextPageToken;
   const subscriptions = data;
 
   while (nextPageToken) {
-    const nextResponse = await fetchSubscriptions(10, undefined, nextPageToken);
+    const nextResponse = await fetchSubscriptions(50, undefined, nextPageToken);
     subscriptions.push(...nextResponse.data);
     nextPageToken = nextResponse.response.data.nextPageToken;
   }

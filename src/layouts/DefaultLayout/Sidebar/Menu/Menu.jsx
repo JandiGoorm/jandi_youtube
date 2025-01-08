@@ -31,7 +31,7 @@ const Menu = ({ menu }) => {
   useEffect(() => {
     switch (menu) {
       case "myPage":
-        setMenuData(menuConstants.mypagemenuitems);
+        setMenuData(menuItems.mypagemenuitems);
         setMenuName("내 페이지");
         setShow(true);
         break;
