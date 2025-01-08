@@ -5,6 +5,7 @@ import ChannelPage from "./pages/Channel/Channel";
 import HomePage from "./pages/Home/Home";
 import LoadingPage from "./pages/Loading/Loading";
 import TestPage from "./pages/Test/Test";
+import VideoPlayer from "./pages/VideoPlayer/VideoPlayer"
 //import FeedChannelsPage from "./pages/Feed/Channels";
 
 function App() {
