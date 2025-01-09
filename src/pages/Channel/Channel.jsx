@@ -8,6 +8,7 @@ import { formatVioeo } from "../../utils/Video";
 import ChannelMoreInfo from "./ChannelMoreInfo";
 import ChannelHomeSection from "./ChannelSections/ChannelHomeSection";
 import ChannelVideoSection from "./ChannelSections/ChannelVideoSection";
+import ChannelShortsSection from "./ChannelSections/ChannelShortsSection";
 import { PiShareFatLight } from "react-icons/pi";
 import { IoFlagOutline } from "react-icons/io5";
 import {
@@ -161,6 +162,7 @@ const ChannelPage = () => {
         <div className={styles.channelTabContents}>
           {activeTab === "홈" && <ChannelHomeSection channelId={id}/>}
           {activeTab === "동영상" && <ChannelVideoSection channelId={id}/>}
+          {activeTab === "Shorts" && <ChannelShortsSection channelId={id}/>}
         </div>
         
         {isModalOpen &&(
