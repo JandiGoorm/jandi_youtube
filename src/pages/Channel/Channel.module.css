@@ -2,6 +2,10 @@
   width: 80%;
   margin: 0 auto;
   padding: 10px 0;
+  height: calc(100vh - 30px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 }
 
 .channelBanner{
