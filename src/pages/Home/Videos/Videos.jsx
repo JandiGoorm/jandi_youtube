@@ -12,15 +12,19 @@ function Videos() {
   const observerTarget = useRef(null); // 관찰 대상
   const navigate = useNavigate();
 
+  // 로컬 캐싱된 데이터 여부 확인 후 로드
   useEffect(() => {
-    // 로컬 캐싱된 데이터를 먼저 로드
     const cachedVideos = localStorage.getItem("cachedVideos");
     if (cachedVideos) {
+      console.log("로드된 로컬 캐싱된 데이터:", cachedVideos);
+
       try {
         //객체 형태로 저장된 cachedVideos를 하나의 배열로 전처리
         const parsedVideos = JSON.parse(cachedVideos);
         const preprocessedCachedVideos = Object.values(parsedVideos).flat(); // 전처리
         
+        console.log("전처리된 로컬 캐싱 데이터:", preprocessedCachedVideos);
+
         //전처리된 로컬 캐싱 데이터를 동영상 리스트에 넣기
         if (Array.isArray(preprocessedCachedVideos)) {
           setVideos(preprocessedCachedVideos);
@@ -33,25 +37,29 @@ function Videos() {
     }
   }, []);
 
+  //서버로부터 동영상 리스트 요청 및 기존 리스트와 병합
   useEffect(() => {
-    //동영상+해당 동영상의 채널 정보를 함께 불러옴
+    
     const fetchVideos = async () => {
       setIsLoading(true);
       try {
         const response = await YoutubeService.fetchVideos(50);
-        const newVideos = response.data; //새로 가져온 동영상 저장
+        const newVideos = response.data; //새로 가져온 동영상 리스트
 
+        console.log("서버에서 새로 받아온 동영상 리스트 데이터: ", newVideos);
+
+        //기존 데이터와 새로운 데이터를 병합하고 중복 제거
         setVideos((prevVideos) => {
-          // 기존 데이터와 새로운 데이터를 병합하고 중복 제거
           const updatedVideos = [...prevVideos, ...newVideos].filter(
             (video, index, self) =>
               index === self.findIndex((v) => v.id.videoId === video.id.videoId)
-          
           );
 
-          // 업데이트된 비디오 리스트를 로컬 스토리지에 저장
+          console.log("기존 데이터와 병합된 동영상 리스트 데이터: ", updatedVideos);
+
+          //업데이트된 비디오 리스트를 로컬 스토리지에 저장
           localStorage.setItem("cachedVideos", JSON.stringify(updatedVideos));
-          return updatedVideos; // 병합된 데이터를 상태로 업데이트
+          return updatedVideos; // 병합된 동영상 리스트
         });
 
       } catch (error) {
@@ -64,12 +72,14 @@ function Videos() {
 
   }, [page]);
 
-  //옵저버
+  //Intersection Observer API
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !isLoading) {
+          console.log(`observer: 새 페이지 로드...(${page})`)
           setPage((prevPage) => prevPage + 1); 
+          console.log(`observer: 새 페이지 로드 완료(${page})`)
       }},
       { threshold: 0.5 }
     );
@@ -86,12 +96,8 @@ function Videos() {
   }, [isLoading]);
 
   // 비디오 클릭시 해당 비디오로 이동
-  // 주석 부분은 실제 유튜브 링크로 이동하는 메서드입니다
-  // const videoOnClick = (videoId) => {
-  //   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  //   window.location.href = videoUrl;
-  // }
   const videoOnClick = (videoId)=>{
+    // 실제 유튜브 링크 포맷: `https://www.youtube.com/watch?v=${videoId}`
     const videoUrl = `/pages/VideoPlayer/VideoPlayer/watch?v=${videoId}`;
     if (videoUrl.startsWith("http")) {
       window.open(videoUrl, "_blank");
@@ -101,12 +107,8 @@ function Videos() {
   }
 
   // 채널 썸네일 클릭시 해당 채널로 이동
-  // 주석 부분은 실제 유튜브 링크로 이동하는 메서드입니다
-  // const channelOnClick = (channelId) => {
-  //   const channelUrl = `https://www.youtube.com/channel/${channelId}`;
-  //   window.location.href = channelUrl;
-  // }
   const channelOnClick = (channelId)=>{
+    // 실제 유튜브 링크 포맷: `https://www.youtube.com/channel/${channelId}`;
     const channelUrl = `/pages/Channel/Channel/${channelId}`;
     if (channelUrl.startsWith("http")) {
       window.open(channelUrl, "_blank");
@@ -140,7 +142,6 @@ function Videos() {
                   <p className={styles.video_published_time}>{formatISO(video.snippet.publishTime)}</p>
                 </div>
               </div>
-
             </div>
           </li>
         ))}
@@ -151,3 +152,5 @@ function Videos() {
 }
 
 export default Videos;
+
+
