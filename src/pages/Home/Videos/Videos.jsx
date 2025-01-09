@@ -12,25 +12,47 @@ function Videos() {
   const observerTarget = useRef(null); // 관찰 대상
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // 로컬 캐싱된 데이터를 먼저 로드
+    const cachedVideos = localStorage.getItem("cachedVideos");
+    if (cachedVideos) {
+      try {
+        //객체 형태로 저장된 cachedVideos를 하나의 배열로 전처리
+        const parsedVideos = JSON.parse(cachedVideos);
+        const preprocessedCachedVideos = Object.values(parsedVideos).flat(); // 전처리
+        
+        //전처리된 로컬 캐싱 데이터를 동영상 리스트에 넣기
+        if (Array.isArray(preprocessedCachedVideos)) {
+          setVideos(preprocessedCachedVideos);
+        } else {
+          console.error(`로컬 데이터 전처리 경고: 전처리된 배열의 type이 ${typeof preprocessedCachedVideos}임`);
+        }
+      } catch (error) {
+        console.error("cachedVideos 파싱 중 오류 발생:", error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     //동영상+해당 동영상의 채널 정보를 함께 불러옴
     const fetchVideos = async () => {
       setIsLoading(true);
       try {
-        const response = await YoutubeService.fetchVideos(page);
-        console.log(response);
-        setVideos((prevVideos) =>
-          //중복된 동영상 제거
-          [...prevVideos, ...response.data].filter(
+        const response = await YoutubeService.fetchVideos(50);
+        const newVideos = response.data; //새로 가져온 동영상 저장
+
+        setVideos((prevVideos) => {
+          // 기존 데이터와 새로운 데이터를 병합하고 중복 제거
+          const updatedVideos = [...prevVideos, ...newVideos].filter(
             (video, index, self) =>
               index === self.findIndex((v) => v.id.videoId === video.id.videoId)
-          )
-        );
+          
+          );
 
-        console.log(videos);
-        console.log(videos[0].channelInfo.thumbnails.medium.url);
-        
+          // 업데이트된 비디오 리스트를 로컬 스토리지에 저장
+          localStorage.setItem("cachedVideos", JSON.stringify(updatedVideos));
+          return updatedVideos; // 병합된 데이터를 상태로 업데이트
+        });
 
       } catch (error) {
         console.error("Error fetching videos:", error);
