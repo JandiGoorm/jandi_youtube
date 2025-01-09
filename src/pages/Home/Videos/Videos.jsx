@@ -85,7 +85,7 @@ function Videos() {
   //   window.location.href = channelUrl;
   // }
   const channelOnClick = (channelId)=>{
-    const channelUrl = `/pages/Channel/Channel/${channelId}`;
+    const channelUrl = `/pages/Channel/${channelId}`;
     if (channelUrl.startsWith("http")) {
       window.open(channelUrl, "_blank");
     } else {

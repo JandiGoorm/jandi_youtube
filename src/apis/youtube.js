@@ -61,6 +61,17 @@ const fetchChannelDetails = async (channelId) => {
   });
 };
 
+
+const fetchChannel = async (maxResults = 10, channelId) => {
+  return await youtubeAPI.get(apiEndPoints.CHANNELS, {
+    params: {
+      part: "snippet, statistics, brandingSettings",
+      id: channelId,
+      maxResults,
+    },
+  });
+};
+
 const fetchSubscriptions = async (
   maxResults = 20,
   order = "relevance",
@@ -90,16 +101,6 @@ const fetchSubscriptions = async (
   });
 
   return { data: result, response };
-};
-
-const fetchChannel = async (maxResults = 10, channelHandle) => {
-  return await youtubeAPI.get(apiEndPoints.CHANNELS, {
-    params: {
-      part: "snippet, statistics, brandingSettings",
-      forHandle: channelHandle,
-      maxResults,
-    },
-  });
 };
 
 const fetchAllSubscriptions = async () => {
