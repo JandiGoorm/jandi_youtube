@@ -24,7 +24,7 @@ function App() {
           /> */}
           <Route path={pageEndPoints.CHANNEL} element={<ChannelPage />} />
           <Route path={pageEndPoints.TEST} element={<TestPage />} />
-          <Route path={pageEndPoints.TEST} element={<VideoPlayer />} />
+          <Route path="/watch" element={<VideoPlayer />} />
         </Routes>
       </Router>
     </AuthProvider>
