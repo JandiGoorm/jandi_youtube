@@ -1,4 +1,99 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.videoFrame {
+  width: 70%;
+  height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.channelSection {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.channelImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.channelDetails {
+  flex: 1;
+}
+
+.channelTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.subscriberCount {
+  font-size: 14px;
+  color: #666;
+}
+
+.channelActions {
+  display: flex;
+  gap: 10px;
+}
+
+.subscribeButton,
+.likeButton,
+.shareButton,
+.saveButton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.subscribeButton {
+  background-color: #cc0000;
+  color: white;
+  font-weight: bold;
+}
+
+.likeButton {
+  background-color: #ddd;
+}
+
+.shareButton,
+.saveButton {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.descriptionSection {
+  width: 70%;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.descriptionSection h2 {
+  margin-bottom: 10px;
+}
+
 .commentsSection {
+  width: 70%;
   margin-top: 20px;
 }
 
@@ -21,4 +116,83 @@
 
 .text {
   margin: 0;
+}
+
+.commentsSection {
+  width: 70%;
+  margin-top: 20px;
+}
+
+.commentsSection h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.commentsList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.author {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.text {
+  margin: 0;
+}
+
+.descriptionSection {
+  width: 70%;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.metaData {
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.viewCount {
+  font-weight: bold;
+}
+
+.publishedAt {
+  font-weight: normal;
+}
+
+.tags {
+  margin-bottom: 10px;
+}
+
+.tag {
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 14px;
+  color: #0073e6;
+  cursor: pointer;
+}
+
+.tag:hover {
+  text-decoration: underline;
+}
+
+.descriptionText {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
 }

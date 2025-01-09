@@ -6,10 +6,7 @@ import HomePage from "./pages/Home/Home";
 import LoadingPage from "./pages/Loading/Loading";
 import TestPage from "./pages/Test/Test";
 import VideoPlayer from "./pages/VideoPlayer/VideoPlayer";
-//import FeedChannelsPage from "./pages/Feed/Channels";
-// import VideoPlayer from "./pages/VideoPlayer/VideoPlayer";
 import FeedChannelsPage from "./pages/Feed/Channels/Channels";
-import FeedHistoryPage from "./pages/Feed/History/History";
 import FeedSubscriptionsPage from "./pages/Feed/Subscriptions/Subscriptions";
 
 function App() {
@@ -26,15 +23,11 @@ function App() {
           <Route path="/watch" element={<VideoPlayer />} />
           <Route path={pageEndPoints.CHANNEL} element={<ChannelPage />} />
           <Route path={pageEndPoints.TEST} element={<TestPage />} />
-          <Route path={pageEndPoints.TEST} element={<VideoPlayer />} />
-          <Route
-            path={pageEndPoints.FEEDHISTORY}
-            element={<FeedHistoryPage />}
-          />
           <Route
             path={pageEndPoints.FEEDSUBSCRIPTIONS}
             element={<FeedSubscriptionsPage />}
           />
+          <Route path="/watch" element={<VideoPlayer />} />
         </Routes>
       </Router>
     </AuthProvider>
