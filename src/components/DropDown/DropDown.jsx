@@ -31,13 +31,8 @@ const DropDown = ({ children }) => {
 
     if (viewportHeight - triggerRect.bottom >= contentRect.height) {
       top = 0;
-    } else if (triggerRect.top >= contentRect.height) {
-      top = -contentRect.height;
     } else {
-      top =
-        viewportHeight - triggerRect.bottom >= triggerRect.top
-          ? triggerRect.height
-          : -contentRect.height;
+      top = -contentRect.height - triggerRect.height - 8;
     }
 
     if (viewportWidth - triggerRect.left >= contentRect.width) {
