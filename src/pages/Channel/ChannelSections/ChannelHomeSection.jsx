@@ -37,11 +37,11 @@ const ChannelHomeSection = ({channelId}) => {
     <div className={styles.container}>
     {sections.map((section, index) => (
       <div key={index}>
-         {isSingleOrPopular(section.snippet.type) ? (
+         {/* {isSingleOrPopular(section.snippet.type) ? (
           <SinglePlayList section={section} />
         ) : isRecent(section.snippet.type) ?(
           <RecentPlayList section={section} />
-        ): null}
+        ): null} */}
       </div>
     ))}
   </div>

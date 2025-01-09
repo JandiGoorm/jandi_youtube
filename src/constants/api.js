@@ -12,6 +12,7 @@ export const apiEndPoints = {
   TOKEN: "/token",
   SEARCH: "/search",
   PLAYLISTS: "/playlists",
+  CHANNELPLAYLISTS: "/playlists",
   PLAYLISTSITEMS: "/playlistItems",
   SUBSCRIPTIONS: "/subscriptions",
   CHANNELS: "/channels",
@@ -21,6 +22,6 @@ export const apiEndPoints = {
 };
 
 export const authRequiredRoutes = [
-  apiEndPoints.PLAYLISTS,
+  // apiEndPoints.PLAYLISTS,
   apiEndPoints.SUBSCRIPTIONS,
 ];

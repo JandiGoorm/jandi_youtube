@@ -9,6 +9,7 @@ import ChannelMoreInfo from "./ChannelMoreInfo";
 import ChannelHomeSection from "./ChannelSections/ChannelHomeSection";
 import ChannelVideoSection from "./ChannelSections/ChannelVideoSection";
 import ChannelShortsSection from "./ChannelSections/ChannelShortsSection";
+import ChannelPlayListSection from "./ChannelSections/ChannelPlayListSection";
 import { PiShareFatLight } from "react-icons/pi";
 import { IoFlagOutline } from "react-icons/io5";
 import {
@@ -33,7 +34,6 @@ const ChannelPage = () => {
     try{
       const response = await YoutubeService.fetchChannel(10,channelId);
       const data = response.data.items[0];
-      console.log(data);
       const content = {
         id:data.id,
         handle: data.snippet.customUrl,
@@ -160,9 +160,10 @@ const ChannelPage = () => {
         </div>
         {/* 탭 컨텐츠 */}
         <div className={styles.channelTabContents}>
-          {/* {activeTab === "홈" && <ChannelHomeSection channelId={channel}/>} */}
+          {activeTab === "홈" && <ChannelHomeSection channelId={channel}/>}
           {activeTab === "동영상" && <ChannelVideoSection channelId={channel}/>}
           {activeTab === "Shorts" && <ChannelShortsSection channelId={channel}/>}
+          {activeTab === "재생목록" && <ChannelPlayListSection channelId={channel}/>}
         </div>
         
         {isModalOpen &&(

@@ -42,12 +42,12 @@ const fetchPlayLists = async (maxResults = 10) => {
   });
 };
 
-const fetchPlaylistItems = async (maxResults = 10, Id) => {
-  return await youtubeAPI.get(apiEndPoints.PLAYLISTS, {
+const fetchPlaylistItems = async (channelId) => {
+  console.log(channelId);
+  return await youtubeAPI.get(apiEndPoints.CHANNELPLAYLISTS, {
     params: {
       part: "snippet,contentDetails",
-      maxResults,
-      playlistId: Id,
+      channelId: channelId,
     },
   });
 };
