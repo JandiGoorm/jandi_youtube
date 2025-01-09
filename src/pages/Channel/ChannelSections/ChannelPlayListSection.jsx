@@ -26,7 +26,7 @@ const ChannelPlayListSection = ({channelId}) => {
 
   return (
     <div>
-         <div class={styles.playList_header}></div>
+         <div class={styles.playList_header}>생성된 재생목록</div>
          <ul className={styles.video_list}>
                      {lists.map((list) => (
                        <li className={styles.video_item} key={list.id}>
