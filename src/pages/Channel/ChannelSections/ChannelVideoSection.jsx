@@ -9,6 +9,9 @@ import { formatDuration } from "../../../utils/time";
 const ChannelVideoSection = ({channelId}) => {
   console.log(channelId);
   const [videos, setVideos] = useState([]);
+  const [activeTab, setActiveTab] = useState("최신순");
+
+  const tabs = ["최신순", "인기순", "날짜순"];
   
   const fetchChannelVideos = async (channelId) =>{
     try{
@@ -37,6 +40,11 @@ const ChannelVideoSection = ({channelId}) => {
       console.log("error: "+ error);
     }
   }
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   
   useEffect(()=> {
     fetchChannelVideos(channelId);
@@ -44,6 +52,17 @@ const ChannelVideoSection = ({channelId}) => {
 
   return (
     <div>
+      <div className={styles.video_header}>
+       {tabs.map((tab) => (
+                   <button
+                     key={tab}
+                     className={`${styles.header_button} ${activeTab === tab ? styles.active_header_button : ""}`}
+                     onClick={() => handleTabClick(tab)}
+                   >
+                     {tab}
+                   </button>
+                 ))}
+      </div>
           <ul className={styles.video_list}>
             {videos.map((video) => (
               <li className={styles.video_item} key={video.id}>
