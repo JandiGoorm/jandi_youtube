@@ -5,20 +5,11 @@ import {
   TbUserX,
 } from "react-icons/tb";
 
-export const channelOrderDropdownOptions = [
-  {
-    label: "관련성순",
-    value: "relevance",
-  },
-  {
-    label: "새 활동순",
-    value: "unread",
-  },
-  {
-    label: "가나다순",
-    value: "alphabetical",
-  },
-];
+export const channelOrderDropdownOptions = {
+  관련성순: "relevance",
+  "새 활동순": "unread",
+  가나다순: "alphabetical",
+};
 
 export const subscriptionDropdownOptions = [
   {
