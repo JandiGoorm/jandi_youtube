@@ -5,39 +5,40 @@ import {
   DropDownContent,
   DropDownTrigger,
 } from "../../../components/DropDown/DropDown";
-import {
-  formatDescriptionText,
-  formatSubscriberCount,
-} from "../../../utils/channel";
+import { formatSubscriberCount } from "../../../utils/channel";
 import styles from "./ChannelItem.module.css";
 import { subscriptionDropdownOptions } from "./contants";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { buildPath } from "../../../utils/path";
+import { pageEndPoints } from "../../../constants/api";
 
 const ChannelItem = ({ item }) => {
-  const flattendDes = formatDescriptionText(item.description, 70).slice(0, 2);
+  const navigate = useNavigate();
+  const handleNavigate = useCallback(() => {
+    navigate(buildPath(pageEndPoints.CHANNEL, { channel: item.channelId }));
+  }, [item.channelId, navigate]);
 
   return (
     <div className={styles.container}>
-      <img
-        src={item.thumbnails.medium.url}
-        alt="channel"
-        className={styles.channel_img}
-      />
-      <div className={styles.channel_info}>
-        <span>{item.title}</span>
-        <div className={styles.channel_description}>
-          <div className={styles.channel_stats}>
-            <span>{item.customUrl}</span>
-            <span>•</span>
-            <span>구독자 {formatSubscriberCount(item.subscriberCount)}</span>
-          </div>
-          <div className={styles.des_text_container}>
-            {flattendDes.map((text) => {
-              return (
-                <div key={text} className={styles.des_text}>
-                  {text}
-                </div>
-              );
-            })}
+      <div
+        style={{ flex: 1, display: "flex", gap: "16px", cursor: "pointer" }}
+        onClick={handleNavigate}
+      >
+        <img
+          src={item.thumbnails.medium.url}
+          alt="channel"
+          className={styles.channel_img}
+        />
+        <div className={styles.channel_info}>
+          <span>{item.title}</span>
+          <div className={styles.channel_description}>
+            <div className={styles.channel_stats}>
+              <span>{item.customUrl}</span>
+              <span>•</span>
+              <span>구독자 {formatSubscriberCount(item.subscriberCount)}</span>
+            </div>
+            <div className={styles.des_text_container}>{item.description}</div>
           </div>
         </div>
       </div>

@@ -30,13 +30,12 @@
 }
 
 .des_text_container {
-  overflow: hidden;
-}
-
-.des_text {
-  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .channel_stats {

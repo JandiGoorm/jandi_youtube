@@ -51,8 +51,16 @@ const FeedChannelsPage = () => {
       });
 
       const hash = {};
+
       channelsResponse.data.items.forEach((v) => {
-        hash[v.id] = v;
+        const channelId = response.data.items.find(
+          (v2) => v2.snippet.title === v.snippet.title
+        ).snippet.resourceId.channelId;
+
+        hash[v.id] = {
+          ...v,
+          channelId,
+        };
       });
 
       const data = channelIds.map((id) => {
@@ -63,6 +71,8 @@ const FeedChannelsPage = () => {
         return {
           ...v.snippet,
           ...v.statistics,
+          ...v.contentDetails,
+          channelId: v.channelId,
         };
       });
 
