@@ -13,11 +13,7 @@ import { MdOutlineNotInterested } from "react-icons/md";
 
 const SubscriptionItem = ({ item }) => {
   const { allSubs } = useSubscriptions();
-
   const channelInfo = allSubs.find((v) => v.id === item.snippet.channelId);
-
-  console.log("channelInfo", channelInfo);
-  console.log(item);
 
   return (
     <li className={styles.container} key={item.id}>

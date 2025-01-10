@@ -15,10 +15,6 @@ const SubscriptionsProvider = ({ children }) => {
     })();
   }, [fetchAllSubscriptions]);
 
-  useEffect(() => {
-    console.log("allSubs", allSubs);
-  }, [allSubs]);
-
   return (
     <SubscriptionsContext.Provider value={{ allSubs, setAllSubs }}>
       {children}

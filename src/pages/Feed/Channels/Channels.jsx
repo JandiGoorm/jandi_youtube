@@ -16,10 +16,9 @@ import { pageEndPoints } from "../../../constants/api";
 
 const FeedChannelsPage = () => {
   const navigate = useNavigate();
+  const { fetchSubscriptions, fetchChannels } = youtubeService;
 
-  const { fetchSubscriptions } = youtubeService;
   const { search } = useLocation();
-
   const optionQuery = new URLSearchParams(search).get("option") || "관련성순";
 
   const handleOrderClick = useCallback(
@@ -33,11 +32,32 @@ const FeedChannelsPage = () => {
 
   const fetchCallback = async (nextToken = "") => {
     try {
-      const { data, response } = await fetchSubscriptions(
-        10,
-        channelOrderDropdownOptions[optionQuery],
-        nextToken
+      const response = await fetchSubscriptions({
+        part: "snippet,contentDetails",
+        mine: true,
+        maxResults: 10,
+        order: channelOrderDropdownOptions[optionQuery],
+        pageToken: nextToken,
+      });
+
+      const subscriptions = response.data.items;
+      const channelIds = subscriptions.map(
+        (v) => v.snippet.resourceId.channelId
       );
+
+      const channelsResponse = await fetchChannels({
+        part: "snippet,statistics,contentDetails",
+        id: channelIds.join(","),
+      });
+
+      const hash = {};
+      channelsResponse.data.items.forEach((v) => {
+        hash[v.id] = v;
+      });
+
+      const data = channelIds.map((id) => {
+        return hash[id];
+      });
 
       const detils = data.map((v) => {
         return {
