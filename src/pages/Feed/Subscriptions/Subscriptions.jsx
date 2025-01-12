@@ -51,13 +51,14 @@ const FeedSubscriptionsPage = () => {
 
         //shorts 제외
         const detailVideos = await fetchDetailVideos(videosId);
-        const flattend = detailVideos
-          .map((v) => v.data.items)
-          .flat()
-          .filter((v) => !isShrots(v.contentDetails.duration));
+
+        const flattend = detailVideos.map((v) => v.data.items).flat();
+        const filtered = flattend.filter(
+          (v) => !isShrots(v.contentDetails.duration)
+        );
 
         return {
-          items: flattend.sort(
+          items: filtered.sort(
             (a, b) =>
               new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
           ),
@@ -83,6 +84,7 @@ const FeedSubscriptionsPage = () => {
 
   function isShrots(duration) {
     const matches = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    if (!matches) return false;
     const hours = matches[1] ? parseInt(matches[1]) : 0;
     const minutes = matches[2] ? parseInt(matches[2]) : 0;
     const seconds = matches[3] ? parseInt(matches[3]) : 0;
