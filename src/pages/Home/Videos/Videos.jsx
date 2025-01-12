@@ -98,7 +98,7 @@ function Videos() {
   // 비디오 클릭시 해당 비디오로 이동
   const videoOnClick = (videoId)=>{
     // 실제 유튜브 링크 포맷: `https://www.youtube.com/watch?v=${videoId}`
-    const videoUrl = `/pages/VideoPlayer/VideoPlayer/watch?v=${videoId}`;
+    const videoUrl = `watch?v=${videoId}`;
     if (videoUrl.startsWith("http")) {
       window.open(videoUrl, "_blank");
     } else {
@@ -109,7 +109,7 @@ function Videos() {
   // 채널 썸네일 클릭시 해당 채널로 이동
   const channelOnClick = (channelId)=>{
     // 실제 유튜브 링크 포맷: `https://www.youtube.com/channel/${channelId}`;
-    const channelUrl = `/pages/Channel/Channel/${channelId}`;
+    const channelUrl = `channel/${channelId}`;
     if (channelUrl.startsWith("http")) {
       window.open(channelUrl, "_blank");
     } else {
