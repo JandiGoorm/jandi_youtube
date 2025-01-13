@@ -11,17 +11,28 @@ const ChannelVideoSection = ({channelId}) => {
   const [videos, setVideos] = useState([]);
   const [activeTab, setActiveTab] = useState("최신순");
 
-  const tabs = ["최신순", "인기순", "날짜순"];
-  
-  const fetchChannelVideos = async (channelId) =>{
-    try{
-      
+  const tabs = ["최신순", "인기순", "이름순"];
+
+  const getOrderValue = (tab) => {
+    switch (tab) {
+      case "최신순":
+        return "date";
+      case "인기순":
+        return "viewCount";
+      case "이름순":
+        return "title";
+      default:
+        return "date";
+    }
+  }; 
+  const fetchChannelVideos = async (channelId, order) =>{
+    try{     
       const response = await YoutubeService.fetchSearch({
         part: "snippet",
         type: "video",
         channelId: channelId,
         regionCode: "KR",
-        order: "date",
+        order: order,
         maxResults: 20,
       });
       const videoIds = response.data.items.map((item) => item.id.videoId);
@@ -58,8 +69,9 @@ const ChannelVideoSection = ({channelId}) => {
 
   
   useEffect(()=> {
-    fetchChannelVideos(channelId);
-  },[]);
+    const order = getOrderValue(activeTab);
+    fetchChannelVideos(channelId, order);
+  },[activeTab, channelId]);
 
   return (
     <div>
