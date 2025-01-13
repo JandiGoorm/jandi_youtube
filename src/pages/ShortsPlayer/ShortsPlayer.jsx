@@ -5,7 +5,11 @@ import { useParams } from "react-router-dom";
 import styles from "./ShortsPlayer.module.css";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 
+//모달 컴포넌트
+import DescriptionModal from "./Modal/DescriptionModal";
 
+
+//버튼 아이콘
 import { IoMdPlay} from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
 import { CgMaximize } from "react-icons/cg";
@@ -26,6 +30,8 @@ const ShortsPlayer = () => {
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
   const [isDisliked, setIsDisliked] = useState(false); // 싫어요 상태
   const [isSubscribe, setIsSubscribe] = useState(false); //구독 상태
+
+  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false); //설명모달창 오픈 상태
 
   useEffect(() => {
     const fetchShortsData = async () => {
@@ -79,6 +85,14 @@ const ShortsPlayer = () => {
     //TODO: 본인의 구독 정보에 반영
   };
 
+  // 모달 열기/닫기 핸들러
+  const handleOpenDescriptionModal = () => {
+    setIsDescriptionModalOpen(true);
+  };
+  const handleCloseDescriptionModal = () => {
+    setIsDescriptionModalOpen(false);
+  };
+
   return (
     <DefaultLayout>
       <div className={styles.shortsContainer}>
@@ -110,11 +124,14 @@ const ShortsPlayer = () => {
               <button className={classNames(styles.subscribeBtn, {
                 [styles.active]: isSubscribe, // 활성화된 경우 클래스 추가
                 })}
-                onClick={handleSubscribeClick} // 좋아요 클릭 이벤트
+                onClick={handleSubscribeClick} // 구독 클릭 이벤트
                 >{isSubscribe? "구독중" : "구독"}
               </button>
             </div>
-            <p>{shortsData.snippet.title}</p>
+            <p 
+              onClick={handleOpenDescriptionModal} // 설명란 클릭 시 모달창 띄우기
+              >{shortsData.snippet.title}
+            </p>
           </div>
 
           {/* 플레이어 사이드 버튼 */}
@@ -169,7 +186,25 @@ const ShortsPlayer = () => {
           data-tooltip="다음 동영상"><FaArrowDown /></button>
         </div>
 
-        
+        {/* 설명 모달창 */}
+        <DescriptionModal isOpen={isDescriptionModalOpen} onClose={handleCloseDescriptionModal}>
+          <main>{shortsData.snippet.title}</main>
+          <article>
+            <section>
+              <p>1.3만</p>
+              <p>좋아요 수</p>
+            </section>
+            <section>
+              <p>132,915</p>
+              <p>조회수</p>
+            </section>
+            <section>
+              <p>6시간</p>
+              <p>전</p>
+            </section>
+          </article>
+          <footer>{shortsData.snippet.description}</footer>
+        </DescriptionModal>
 
         {/* Shorts 정보 */}
         {/* <div className={styles.videoDetails}>
