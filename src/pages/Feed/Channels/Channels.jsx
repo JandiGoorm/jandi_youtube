@@ -1,44 +1,59 @@
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
+import { IoIosArrowDown } from "react-icons/io";
+import youtubeService from "../../../apis/youtube";
 import {
   DropDown,
   DropDownContent,
   DropDownTrigger,
 } from "../../../components/DropDown/DropDown";
+import InfiniteScroll from "../../../components/InfiniteScroll/InfiniteScroll";
 import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
+import ChannelItem from "./ChannelItem";
 import styles from "./Channels.module.css";
-import youtubeService from "../../../apis/youtube";
-import ChannelDes from "./ChannelDes";
 import { channelOrderDropdownOptions } from "./contants";
-import { IoIosArrowDown } from "react-icons/io";
+import { useLocation, useNavigate } from "react-router-dom";
+import { pageEndPoints } from "../../../constants/api";
 
 const FeedChannelsPage = () => {
-  const [subscriptions, setSubscriptions] = useState([]);
-  const [options, setOptions] = useState(channelOrderDropdownOptions[0]);
-  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const { fetchSubscriptions } = youtubeService;
+  const { search } = useLocation();
 
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      try {
-        const { data } = await fetchSubscriptions(10, options.value);
+  const optionQuery = new URLSearchParams(search).get("option") || "관련성순";
 
-        const detils = data.map((v) => {
-          return {
-            ...v.snippet,
-            ...v.statistics,
-          };
-        });
+  const handleOrderClick = useCallback(
+    (option) => {
+      const parmas = new URLSearchParams({ option });
+      navigate(`${pageEndPoints.FEEDCHANNELS}?${parmas.toString()}`);
+      window.location.reload();
+    },
+    [navigate]
+  );
 
-        setSubscriptions(detils);
-      } catch (err) {
-        console.error("구독채널 불러오기 Api Error :", err);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [fetchSubscriptions, options.value]);
+  const fetchCallback = async (nextToken = "") => {
+    try {
+      const { data, response } = await fetchSubscriptions(
+        10,
+        channelOrderDropdownOptions[optionQuery],
+        nextToken
+      );
+
+      const detils = data.map((v) => {
+        return {
+          ...v.snippet,
+          ...v.statistics,
+        };
+      });
+
+      return {
+        items: detils,
+        nextToken: response.data.nextPageToken,
+      };
+    } catch (err) {
+      console.error("구독채널 불러오기 Api Error :", err);
+    }
+  };
 
   return (
     <DefaultLayout>
@@ -48,21 +63,16 @@ const FeedChannelsPage = () => {
           <DropDown>
             <DropDownTrigger>
               <button className={styles.option_btn}>
-                <span>{options.label}</span>
+                <span>{optionQuery}</span>
                 <IoIosArrowDown className={styles.arrow_down} />
               </button>
             </DropDownTrigger>
             <DropDownContent>
               <div className={styles.options}>
-                {channelOrderDropdownOptions.map((option) => {
+                {Object.entries(channelOrderDropdownOptions).map(([key]) => {
                   return (
-                    <button
-                      key={option.label}
-                      onClick={() => {
-                        setOptions(option);
-                      }}
-                    >
-                      {option.label}
+                    <button key={key} onClick={() => handleOrderClick(key)}>
+                      {key}
                     </button>
                   );
                 })}
@@ -70,13 +80,11 @@ const FeedChannelsPage = () => {
             </DropDownContent>
           </DropDown>
 
-          <div
-            className={styles.channels_container}
-            style={{ opacity: isLoading ? 0.5 : 1 }}
-          >
-            {subscriptions.map((channel) => {
-              return <ChannelDes channel={channel} key={channel.customUrl} />;
-            })}
+          <div className={styles.channels_container}>
+            <InfiniteScroll
+              fetch={fetchCallback}
+              RenderComponent={ChannelItem}
+            />
           </div>
         </div>
       </div>

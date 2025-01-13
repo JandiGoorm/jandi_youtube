@@ -4,6 +4,8 @@ export const DropDownContext = createContext({
   onClick: () => {},
   isVisible: false,
   close: () => {},
+  contentRef: null,
+  position: null,
 });
 
 export const useDropDown = () => {
