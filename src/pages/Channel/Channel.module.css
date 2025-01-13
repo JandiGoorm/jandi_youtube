@@ -1,5 +1,5 @@
 .channelPage {
-  width: 80%;
+  width: 80vw;
   margin: 0 auto;
   padding: 10px 0;
   height: calc(100vh - 30px);
@@ -78,7 +78,7 @@
 }
 
 .channelInfoP{
-  max-width: 60%;
+  max-width: 35%;
   overflow: hidden;
   white-space: nowrap;  
   margin-right: 5px;
