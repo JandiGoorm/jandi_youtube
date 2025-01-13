@@ -3,6 +3,24 @@
 /*                     모달창 기본 CS                     */
 /*                                                     */
 /*******************************************************/
+@media (min-width: 1312px) {
+    .modalContent {
+        left: 120px;
+    }
+}
+  
+/*1312이하: 사이드바 축소에 맞춰 모달 위치 옮기기*/
+@media (max-width: 1312px) {
+    .modalContent {
+        left: 35px;
+    }
+}
+
+/*******************************************************/
+/*                                                     */
+/*                     모달창 기본 CS                     */
+/*                                                     */
+/*******************************************************/
 
 .modalOverlay {
     position: fixed;
@@ -23,12 +41,10 @@
     padding: 4px 16px;
     width: 400px;
     height: 500px;
-    
     overflow-y: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     position: relative;
-
 }
 
 /*******************************************************/
