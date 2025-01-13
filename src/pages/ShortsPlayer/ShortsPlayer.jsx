@@ -26,6 +26,18 @@ const ShortsPlayer = () => {
   const [shortsData, setShortsData] = useState(null);
   const [comments, setComments] = useState([]);
 
+  function change_btn(e) {
+    var btns = document.querySelectorAll(".button");
+    btns.forEach(function (btn, i) {
+      if (e.currentTarget == btn) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+    console.log(e.currentTarget);
+  }
+
   useEffect(() => {
     const fetchShortsData = async () => {
       try {
@@ -94,27 +106,27 @@ const ShortsPlayer = () => {
           {/* 플레이어 사이드 버튼 */}
           <div className={styles.playerSideActions}>
             <div>
-              <button className={classNames(styles.playBtn, styles.tooltip)} 
+              <button className={classNames(styles.likeBtn, styles.tooltip)} 
               data-tooltip="이 동영상이 마음에 듭니다."><BiSolidLike /></button>
               <p id="likeCnt">5.9천</p>
             </div>
             <div>
-              <button className={classNames(styles.volumeBtn, styles.tooltip)} 
+              <button className={classNames(styles.dislikeBtn, styles.tooltip)} 
               data-tooltip="이 동영상이 마음에 들지 않습니다."><BiSolidDislike /></button>
               <p id="dislike">싫어요</p>
             </div>
             <div>
-              <button className={classNames(styles.maximizeBtn, styles.tooltip)} 
+              <button className={classNames(styles.commentBtn, styles.tooltip)} 
               data-tooltip="댓글"><BiSolidCommentDetail /></button>
               <p id="commentCnt">122</p>
             </div>
             <div>
-              <button className={classNames(styles.maximizeBtn, styles.tooltip)} 
+              <button className={classNames(styles.shareBtn, styles.tooltip)} 
               data-tooltip="공유"><RiShareForwardFill /></button>
               <p id="share">공유</p>
             </div>
             <div>
-              <button className={styles.maximizeBtn}><MdMoreVert /></button></div>
+              <button className={styles.moreBtn}><MdMoreVert /></button></div>
             <div>
               <img 
               src="https://yt3.ggpht.com/IFGGaDpj5cbS5ZvfEm-hpMh4mFQX_wCSReSumZVwXukAJmC4T9Q30BrqU7OAqQL4dHDWUA1_=s88-c-k-c0x00ffffff-no-rj"
@@ -125,9 +137,9 @@ const ShortsPlayer = () => {
         </div>
         
         <div className={styles.mover}>
-          <button className={classNames(styles.playBtn, styles.tooltip)} 
+          <button className={classNames(styles.prevBtn, styles.tooltip)} 
           data-tooltip="이전 동영상"><FaArrowUp /></button>
-          <button className={classNames(styles.volumeBtn, styles.tooltip)} 
+          <button className={classNames(styles.nextBtn, styles.tooltip)} 
           data-tooltip="다음 동영상"><FaArrowDown /></button>
         </div>
 
