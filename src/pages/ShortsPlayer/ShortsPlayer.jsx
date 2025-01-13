@@ -17,7 +17,8 @@ import DescriptionModal from "./Modal/DescriptionModal";
 //버튼 아이콘
 import { IoMdPlay} from "react-icons/io";
 import { IoIosPause } from "react-icons/io";
-import { FaVolumeUp } from "react-icons/fa";
+import { IoMdVolumeHigh } from "react-icons/io";
+import { IoMdVolumeOff } from "react-icons/io";
 import { CgMaximize } from "react-icons/cg";
 import { BiSolidLike } from "react-icons/bi";
 import { BiSolidDislike } from "react-icons/bi";
@@ -32,8 +33,10 @@ const ShortsPlayer = () => {
   const [shortsData, setShortsData] = useState(null);
   const [comments, setComments] = useState([]);
 
-  const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 관리
   const playerRef = useRef(null); // iframe 참조
+  const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 관리
+  const [isMuted, setIsMuted] = useState(false); //무음 여부
+  const [volume, setVolume] = useState(50); // 볼륨 상태 관리
 
   //TODO: 상태는 추후 구독 정보에서 본인의 좋아요/싫어요/구독 여부를 가져올 예정
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
@@ -79,10 +82,10 @@ const ShortsPlayer = () => {
     return <div>Loading...</div>;
   }
 
-  // 동영상 재생 버튼 클릭 시
-  const togglePlayPause = () => {
-    const player = playerRef.current.contentWindow;
 
+  //동영상 상태 제어
+  const dealVideoState = () => {
+    const player = playerRef.current.contentWindow;
     if (isPlaying) {
       // 동영상 정지
       player.postMessage(
@@ -94,7 +97,44 @@ const ShortsPlayer = () => {
         JSON.stringify({ event: "command", func: "playVideo" }), "*"
       );
     }
+  }
+
+  //동영상 음량 제어
+  const dealVideoVolume = (newVolume) => {
+    if(newVolume==0) setIsMuted(true);
+    else setIsMuted(false);
+
+    const player = playerRef.current.contentWindow;
+    player.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: "setVolume",
+        args: [newVolume],
+      }),
+      "*"
+    );
+  }
+
+  // 동영상 재생 버튼 클릭 핸들러
+  const handlePlayClick = () => {
+    dealVideoState();
     setIsPlaying((prev) => !prev); // 재생 상태 업데이트
+  };
+
+  // 동영상 음소거 버튼 클릭 핸들러
+  const handleVolumeClick = () => {
+    const newVolume = isMuted? 50 : 0;
+
+    //TODO: 버튼 클릭에 따라 슬라이더 조정
+    dealVideoVolume(newVolume); // 볼륨 업데이트
+  };
+
+  //동영상 음량 조절 슬라이더 이동 핸들러
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value;
+    setVolume(newVolume);
+
+    dealVideoVolume(newVolume); // 볼륨 업데이트
   };
 
   // 좋아요 버튼 클릭 핸들러
@@ -125,6 +165,7 @@ const ShortsPlayer = () => {
     setIsDescriptionModalOpen(false);
   };
 
+  
   return (
     <DefaultLayout>
       <div className={styles.shortsContainer}>
@@ -132,8 +173,14 @@ const ShortsPlayer = () => {
           {/* 플레이어 상단 버튼 */}
           <div className={styles.playerTopActions}>
             <button className={styles.playBtn}
-            onClick={togglePlayPause}>{isPlaying? <IoIosPause /> : <IoMdPlay />}</button>
-            <button className={styles.volumeBtn}><FaVolumeUp /></button>
+            onClick={handlePlayClick}>{isPlaying? <IoIosPause /> : <IoMdPlay />}</button>
+            <div className={styles.volumeContainer}>
+              <button className={styles.volumeBtn}
+                onClick={handleVolumeClick}>{isMuted? <IoMdVolumeOff /> : <IoMdVolumeHigh />}</button>
+              <input className={styles.volumeSlider} 
+                type="range" min="0" max="100"
+                onChange={handleVolumeChange}></input>
+            </div>
             <button className={styles.maximizeBtn}><CgMaximize /></button>
           </div>
 
