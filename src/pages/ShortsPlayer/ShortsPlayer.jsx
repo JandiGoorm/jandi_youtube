@@ -17,26 +17,15 @@ import { MdMoreVert } from "react-icons/md";
 import { FaArrowUp } from "react-icons/fa6";
 import { FaArrowDown } from "react-icons/fa6";
 
-
-
-
-
 const ShortsPlayer = () => {
   const { shortsId } = useParams();
   const [shortsData, setShortsData] = useState(null);
   const [comments, setComments] = useState([]);
 
-  function change_btn(e) {
-    var btns = document.querySelectorAll(".button");
-    btns.forEach(function (btn, i) {
-      if (e.currentTarget == btn) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-    console.log(e.currentTarget);
-  }
+  //TODO: 상태는 추후 구독 정보에서 본인의 좋아요/싫어요/구독 여부를 가져올 예정
+  const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
+  const [isDisliked, setIsDisliked] = useState(false); // 싫어요 상태
+  const [isSubscribe, setIsSubscribe] = useState(false); //구독 상태
 
   useEffect(() => {
     const fetchShortsData = async () => {
@@ -70,6 +59,26 @@ const ShortsPlayer = () => {
     return <div>Loading...</div>;
   }
 
+  // 좋아요 버튼 클릭 핸들러
+  const handleLikeClick = () => {
+    setIsLiked((prev) => !prev);
+    if (isDisliked) setIsDisliked(false); // 좋아요/싫어요 중 하나만 눌리도록 상태 초기화
+    //TODO: 본인의 좋아요 정보에 반영
+  };
+  
+  // 싫어요 버튼 클릭 핸들러
+  const handleDislikeClick = () => {
+    setIsDisliked((prev) => !prev);
+    if (isLiked) setIsLiked(false); // 좋아요/싫어요 중 하나만 눌리도록 좋아요 상태 초기화
+    //TODO: 본인의 싫어요 정보에 반영
+  };
+  
+  // 구독 버튼 클릭 핸들러
+  const handleSubscribeClick = () => {
+    setIsSubscribe((prev) => !prev);
+    //TODO: 본인의 구독 정보에 반영
+  };
+
   return (
     <DefaultLayout>
       <div className={styles.shortsContainer}>
@@ -98,7 +107,12 @@ const ShortsPlayer = () => {
                 src="https://yt3.ggpht.com/IFGGaDpj5cbS5ZvfEm-hpMh4mFQX_wCSReSumZVwXukAJmC4T9Q30BrqU7OAqQL4dHDWUA1_=s88-c-k-c0x00ffffff-no-rj"
               />
               <p>{shortsData.snippet.channelTitle}</p>
-              <button className={styles.subscribeBtn}>구독</button>
+              <button className={classNames(styles.subscribeBtn, {
+                [styles.active]: isSubscribe, // 활성화된 경우 클래스 추가
+                })}
+                onClick={handleSubscribeClick} // 좋아요 클릭 이벤트
+                >{isSubscribe? "구독중" : "구독"}
+              </button>
             </div>
             <p>{shortsData.snippet.title}</p>
           </div>
@@ -106,13 +120,25 @@ const ShortsPlayer = () => {
           {/* 플레이어 사이드 버튼 */}
           <div className={styles.playerSideActions}>
             <div>
-              <button className={classNames(styles.likeBtn, styles.tooltip)} 
-              data-tooltip="이 동영상이 마음에 듭니다."><BiSolidLike /></button>
+              <button
+                className={classNames(styles.likeBtn, styles.tooltip, {
+                  [styles.active]: isLiked, // 활성화된 경우 클래스 추가
+                })}
+                data-tooltip="이 동영상이 마음에 듭니다."
+                onClick={handleLikeClick} // 좋아요 클릭 이벤트
+                ><BiSolidLike />
+              </button>
               <p id="likeCnt">5.9천</p>
             </div>
             <div>
-              <button className={classNames(styles.dislikeBtn, styles.tooltip)} 
-              data-tooltip="이 동영상이 마음에 들지 않습니다."><BiSolidDislike /></button>
+              <button
+                className={classNames(styles.dislikeBtn, styles.tooltip, {
+                  [styles.active]: isDisliked, // 활성화된 경우 클래스 추가
+                })}
+                data-tooltip="이 동영상이 마음에 들지 않습니다."
+                onClick={handleDislikeClick} // 싫어요 클릭 이벤트
+                ><BiSolidDislike />
+              </button>
               <p id="dislike">싫어요</p>
             </div>
             <div>

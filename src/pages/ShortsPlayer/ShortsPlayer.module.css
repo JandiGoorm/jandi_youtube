@@ -224,6 +224,7 @@ iframe{
 /*                        애니메이션                      */
 /*                                                     */
 /*******************************************************/
+/*                         hover                       */
 /*이전/다음 버튼 호버*/
 .mover button:hover{
   background-color: rgba(41, 40, 40, 0.2);
@@ -234,10 +235,22 @@ iframe{
   background-color: rgb(238, 238, 238);
 }
 
+/*구독 버튼 활성화 상태에서 호버*/
+.subscribeBtn.active:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 /*플레이어 상단 버튼 호버*/
 .playerTopActions button:hover{
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+/*좋아요/싫어요 버튼 활성화 상태에서 호버*/
+.likeBtn.active:hover, .dislikeBtn.active:hover{
+  color: white;
+  background-color: rgb(29, 29, 29);
+}
+
 /*플레이어 사이드 버튼 호버*/
 .playerSideActions button:hover{
   background-color: rgba(41, 40, 40, 0.2);
@@ -268,3 +281,16 @@ iframe{
 }
 
 
+
+/*                        active                       */
+/*좋아요/싫어요 버튼 활성화 상태*/
+.likeBtn.active, .dislikeBtn.active{
+  color: white;
+  background-color: black;
+}
+
+.subscribeBtn.active{
+  width: 55.12px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.05);
+}
