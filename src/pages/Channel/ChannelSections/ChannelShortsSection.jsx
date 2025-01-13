@@ -9,15 +9,31 @@ import { formatDuration } from "../../../utils/time";
 const ChannelShortsSection = ({channelId}) => {
   console.log(channelId);
   const [videos, setVideos] = useState([]);
+    const [activeTab, setActiveTab] = useState("최신순");
   
-  const fetchChannelVideos = async (channelId) =>{
+    const tabs = ["최신순", "인기순", "이름순"];
+
+    const getOrderValue = (tab) => {
+      switch (tab) {
+        case "최신순":
+          return "date";
+        case "인기순":
+          return "viewCount";
+        case "이름순":
+          return "title";
+        default:
+          return "date";
+      }
+    }; 
+
+  const fetchChannelVideos = async (channelId, order) =>{
     try{
       const response = await YoutubeService.fetchSearch({
         part: "snippet",
         type: "video",
         channelId: channelId,
         regionCode: "KR",
-        order: "date",
+        order: order,
         maxResults: 20,
       });
       const videoIds = response.data.items.map((item) => item.id.videoId);
@@ -47,13 +63,29 @@ const ChannelShortsSection = ({channelId}) => {
       console.log("error: "+ error);
     }
   }
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
   
   useEffect(()=> {
-    fetchChannelVideos(channelId);
-  },[]);
+    const order = getOrderValue(activeTab);
+    fetchChannelVideos(channelId, order);
+  },[activeTab, channelId]);
 
   return (
     <div>
+      <div className={styles.video_header}>
+             {tabs.map((tab) => (
+                <button
+                    key={tab}
+                    className={`${styles.header_button} ${activeTab === tab ? styles.active_header_button : ""}`}
+                    onClick={() => handleTabClick(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+      </div>
           <ul className={styles.video_list}>
             {videos.map((video) => (
               <li className={styles.video_item} key={video.id}>

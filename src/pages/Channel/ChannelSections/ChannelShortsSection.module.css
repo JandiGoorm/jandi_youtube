@@ -1,3 +1,28 @@
+.video_header{
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header_button{
+  background-color: #eeeeee;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 10px 0px 5px 10px;
+}
+.header_button:hover {
+  background-color: rgb(189, 189, 189);
+}
+
+.active_header_button{
+  background-color: black;
+  color: white;
+}
 
 .video_list {
     list-style-type: none;
