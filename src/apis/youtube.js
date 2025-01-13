@@ -134,6 +134,14 @@ const fetchVideoDetails = async (Id) => {
   });
 };
 
+const fetchShorts = async (shortsId) => {
+  return await youtubeAPI.get(apiEndPoints.VIDEOS, {
+    params: {
+      part: "snippet,contentDetails,statistics",
+      id: shortsId,
+    },
+  });
+};
 const YoutubeService = {
   fetchVideos,
   fetchPlayLists,
@@ -143,6 +151,9 @@ const YoutubeService = {
   fetchChannelVideos,
   fetchVideoDetails,
   fetchPlaylistItems,
+  fetchShorts, // 추가
 };
+
+
 
 export default YoutubeService;
