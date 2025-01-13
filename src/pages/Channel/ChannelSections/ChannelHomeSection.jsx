@@ -10,7 +10,10 @@ const ChannelHomeSection = ({channelId}) => {
   
   const fetchChannelSections = async (channelId) =>{
     try{
-      const response = await YoutubeService.fetchChannelSections(channelId);
+      const response = await YoutubeService.fetchChannelSections({
+        part: "contentDetails,id,snippet",
+        channelId: channelId,
+      });
       
       const filteredSections = response.data.items.filter(
         (item) => item.snippet.type !== "channelsectiontypeundefined"
@@ -37,11 +40,11 @@ const ChannelHomeSection = ({channelId}) => {
     <div className={styles.container}>
     {sections.map((section, index) => (
       <div key={index}>
-         {/* {isSingleOrPopular(section.snippet.type) ? (
+         {isSingleOrPopular(section.snippet.type) ? (
           <SinglePlayList section={section} />
         ) : isRecent(section.snippet.type) ?(
           <RecentPlayList section={section} />
-        ): null} */}
+        ): null}
       </div>
     ))}
   </div>

@@ -12,10 +12,20 @@ const ChannelShortsSection = ({channelId}) => {
   
   const fetchChannelVideos = async (channelId) =>{
     try{
-      const response = await YoutubeService.fetchChannelVideos(20, channelId);
+      const response = await YoutubeService.fetchSearch({
+        part: "snippet",
+        type: "video",
+        channelId: channelId,
+        regionCode: "KR",
+        order: "date",
+        maxResults: 20,
+      });
       const videoIds = response.data.items.map((item) => item.id.videoId);
 
-      const videoDetailsResponse = await YoutubeService.fetchVideoDetails(videoIds.join(","));
+      const videoDetailsResponse = await YoutubeService.fetchVideos({
+        part: "contentDetails,snippet,statistics",
+        id: videoIds.join(","),
+      });
       const filteredVideos = videoDetailsResponse.data.items.filter((video) => {
         const duration = video.contentDetails.duration;
 

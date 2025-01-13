@@ -32,7 +32,11 @@ const ChannelPage = () => {
 
   const fetchChannel = async (channelId) =>{
     try{
-      const response = await YoutubeService.fetchChannel(10,channelId);
+      const response = await YoutubeService.fetchChannels({
+        part: "snippet, statistics, brandingSettings",
+        id: channelId,
+        maxResults: 10,
+      });
       const data = response.data.items[0];
       const content = {
         id:data.id,

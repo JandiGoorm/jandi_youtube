@@ -6,7 +6,11 @@ const RecentPlayList = ({section}) => {
   const fetchPlayList = async(playlistId) => {
     try{
       console.log(playlistId);
-        const response = await YoutubeService.fetchPlaylistItems(10,playlistId);
+      const response = await YoutubeService.fetchPlaylistItems({
+        part: "snippet,contentDetails",
+        maxResults: 10,
+        playlistId: playlistId,
+      });
         console.log(response);
     }catch(error){
         console.log("error: "+ error);

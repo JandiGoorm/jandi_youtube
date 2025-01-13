@@ -10,7 +10,11 @@ const ChannelPlayListSection = ({channelId}) => {
   
   const fetchChannelVideos = async (channelId) =>{
     try{
-      const response = await YoutubeService.fetchPlaylistItems(channelId);
+      // const response = await YoutubeService.fetchPlaylistItems(channelId);
+      const response = await YoutubeService.fetchPlayLists({
+        part: "snippet,contentDetails",
+        playlistId: channelId,
+      });
       const data = response.data.items;
       console.log(data);
 
