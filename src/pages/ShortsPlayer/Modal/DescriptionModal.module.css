@@ -100,6 +100,8 @@ section p:nth-child(2){
 
 footer{
     padding: 12px;
+    white-space: pre-line;
+    text-align: left;
     border-radius: 10px;
     background-color: rgb(236, 236, 236);
 }

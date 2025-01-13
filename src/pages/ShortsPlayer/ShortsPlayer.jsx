@@ -213,7 +213,9 @@ const ShortsPlayer = () => {
               <p>전</p>
             </section>
           </article>
-          <footer>{shortsData.snippet.description}</footer>
+          <footer>
+            {shortsData.snippet.description}
+          </footer>
         </DescriptionModal>
 
         {/* Shorts 정보 */}
