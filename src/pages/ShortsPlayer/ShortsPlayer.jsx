@@ -5,9 +5,14 @@ import { useParams } from "react-router-dom";
 import styles from "./ShortsPlayer.module.css";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 
+//util 함수
+import {formatISO} from "../../utils/date.js"
+import {formatLikeCount} from "../../utils/likeCount.js"
+import {formatHitCount} from "../../utils/hit.js"
+import {formatCommentCount} from "../../utils/commentCount.js"
+
 //모달 컴포넌트
 import DescriptionModal from "./Modal/DescriptionModal";
-
 
 //버튼 아이콘
 import { IoMdPlay} from "react-icons/io";
@@ -38,6 +43,7 @@ const ShortsPlayer = () => {
       try {
         const response = await YoutubeService.fetchShorts(shortsId);
         setShortsData(response.data.items[0]); // Shorts 정보 저장
+        console.log(response);
       } catch (error) {
         console.error("Error fetching Shorts data:", error);
       }
@@ -59,6 +65,10 @@ const ShortsPlayer = () => {
       fetchShortsData();
       //fetchComments();
     }
+
+    console.log(shortsId);
+    console.log(shortsData);
+
   }, [shortsId]);
 
   if (!shortsData) {
@@ -145,7 +155,7 @@ const ShortsPlayer = () => {
                 onClick={handleLikeClick} // 좋아요 클릭 이벤트
                 ><BiSolidLike />
               </button>
-              <p id="likeCnt">5.9천</p>
+              <p id="likeCnt">{formatLikeCount(shortsData.statistics.likeCount)}</p>
             </div>
             <div>
               <button
@@ -161,7 +171,7 @@ const ShortsPlayer = () => {
             <div>
               <button className={classNames(styles.commentBtn, styles.tooltip)} 
               data-tooltip="댓글"><BiSolidCommentDetail /></button>
-              <p id="commentCnt">122</p>
+              <p id="commentCnt">{formatCommentCount(shortsData.statistics.commentCount)}</p>
             </div>
             <div>
               <button className={classNames(styles.shareBtn, styles.tooltip)} 
@@ -191,15 +201,15 @@ const ShortsPlayer = () => {
           <main>{shortsData.snippet.title}</main>
           <article>
             <section>
-              <p>1.3만</p>
+              <p>{formatLikeCount(shortsData.statistics.likeCount)}</p>
               <p>좋아요 수</p>
             </section>
             <section>
-              <p>132,915</p>
+              <p>{formatHitCount(shortsData.statistics.viewCount).split(" ", 1)}</p>
               <p>조회수</p>
             </section>
             <section>
-              <p>6시간</p>
+              <p>{formatISO(shortsData.snippet.publishedAt).split(" ", 1)}</p>
               <p>전</p>
             </section>
           </article>
