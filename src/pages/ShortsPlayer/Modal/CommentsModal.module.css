@@ -18,7 +18,7 @@
 
 /*******************************************************/
 /*                                                     */
-/*                     모달창 기본 CS                     */
+/*                     모달창 기본 CSS                    */
 /*                                                     */
 /*******************************************************/
 
@@ -47,11 +47,38 @@
     position: relative;
 }
 
+.filterContainer {
+    position: relative;
+}
+
 /*******************************************************/
 /*                                                     */
 /*                   모달창 내부 CSS                      */
 /*                                                     */
 /*******************************************************/
+/*인기댓글순/최신순 미니모달창 관련*/
+.dropdownMenu {
+    position: absolute;
+    top: 40px; /* 버튼 바로 아래에 위치 */
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdownMenu button {
+    display: block;
+    width: 110px;
+    height: auto;
+    padding: 8px 16px;
+    text-align: left;
+    font-size: small;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px;
+  }
+
 /*DescriptionModal.jsx 자체 부분*/
 header{
     display: flex;
@@ -156,4 +183,12 @@ section div button{
   
 header button:hover{
     background-color: rgb(220, 220, 220);
+}
+
+.dropdownMenu button:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+button:active{
+    background-color: #606060;
 }
