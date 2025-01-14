@@ -13,6 +13,7 @@ import {formatCommentCount} from "../../utils/commentCount.js"
 
 //모달 컴포넌트
 import DescriptionModal from "./Modal/DescriptionModal";
+import CommentsModal from "./Modal/CommentsModal";
 
 //버튼 아이콘
 import { IoMdPlay} from "react-icons/io";
@@ -27,11 +28,16 @@ import { RiShareForwardFill } from "react-icons/ri";
 import { MdMoreVert } from "react-icons/md";
 import { FaArrowUp } from "react-icons/fa6";
 import { FaArrowDown } from "react-icons/fa6";
+import { BiLike } from "react-icons/bi";
+import { BiDislike } from "react-icons/bi";
+
+
 
 const ShortsPlayer = () => {
   const { shortsId } = useParams();
   const [shortsData, setShortsData] = useState(null);
   const [comments, setComments] = useState([]);
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY; // YouTube Data API 키
 
   const playerRef = useRef(null); // iframe 참조
   const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 관리
@@ -44,6 +50,7 @@ const ShortsPlayer = () => {
   const [isSubscribe, setIsSubscribe] = useState(false); //구독 상태
 
   const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false); //설명모달창 오픈 상태
+  const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false); //설명모달창 오픈 상태
 
   useEffect(() => {
     const fetchShortsData = async () => {
@@ -59,10 +66,11 @@ const ShortsPlayer = () => {
     const fetchComments = async () => {
       try {
         const response = await fetch(
-          `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${shortsId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+          `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${shortsId}&key=${API_KEY}`
         );
         const data = await response.json();
         setComments(data.items || []); // 댓글 데이터 저장
+        console.log("댓글데이터: ", data);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -70,7 +78,7 @@ const ShortsPlayer = () => {
 
     if (shortsId) {
       fetchShortsData();
-      //fetchComments();
+      fetchComments();
     }
 
     console.log(shortsId);
@@ -157,11 +165,20 @@ const ShortsPlayer = () => {
     //TODO: 본인의 구독 정보에 반영
   };
 
-  // 모달 열기/닫기 핸들러
+  // 모달창 열기/닫기 핸들러
+  // 설명 모달창
   const handleOpenDescriptionModal = () => {
     setIsDescriptionModalOpen(true);
   };
   const handleCloseDescriptionModal = () => {
+    setIsDescriptionModalOpen(false);
+  };
+
+  //댓글 모달창
+  const handleOpenCommentsModal = () => {
+    setIsDescriptionModalOpen(true);
+  };
+  const handleCloseCommentsModal = () => {
     setIsDescriptionModalOpen(false);
   };
 
@@ -240,7 +257,8 @@ const ShortsPlayer = () => {
               <p id="dislike">싫어요</p>
             </div>
             <div>
-              <button className={classNames(styles.commentBtn, styles.tooltip)} 
+              <button className={classNames(styles.commentBtn, styles.tooltip)}
+              onClick={handleOpenCommentsModal} // 댓글 버튼 클릭 시 모달창 띄우기 
               data-tooltip="댓글"><BiSolidCommentDetail /></button>
               <p id="commentCnt">{formatCommentCount(shortsData.statistics.commentCount)}</p>
             </div>
@@ -288,6 +306,43 @@ const ShortsPlayer = () => {
             {shortsData.snippet.description}
           </footer>
         </DescriptionModal>
+
+        {/* 댓글 모달창 */}
+        <CommentsModal isOpen={isDescriptionModalOpen} onClose={handleCloseDescriptionModal}>
+          <main>
+          {comments.length > 0 ? (
+            <ul>
+              {comments.map((comment) => (
+                <li key={comment.id} >
+                  <img
+                    src="https://yt3.ggpht.com/ytc/AIdro_kovJB0p4amgp5AriYf9cig9455OFtyuPCfZVCJgLM=s88-c-k-c0x00ffffff-no-rj"
+                  />
+
+                  <section>
+                    <div>
+                      <p>{comment.snippet.topLevelComment.snippet.authorDisplayName}</p>
+                      <p>{formatISO(shortsData.snippet.publishedAt)}</p>
+                    </div>
+
+                    <p dangerouslySetInnerHTML={{
+                      __html: //HTML 엔티티를 실제로 브라우저에서 적용되도록 렌더링
+                        comment.snippet.topLevelComment.snippet.textDisplay,
+                    }}></p>
+
+                    <div>
+                      <button><BiLike /></button>
+                      <p>{comment.snippet.topLevelComment.snippet.likeCount}</p>
+                      <button><BiDislike /></button>
+                    </div>
+                  </section>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>댓글이 없습니다.</p>
+          )}
+          </main>
+        </CommentsModal>
 
         {/* Shorts 정보 */}
         {/* <div className={styles.videoDetails}>
