@@ -38,7 +38,7 @@ useEffect (()=> {
 
   return (
     <div>
-      <h1>동영상</h1>
+      <h1 className={styles.video_header}>동영상</h1>
       <ul className={styles.video_list}>
                   {videos.map((video) => (
                     <li className={styles.video_item} key={video.id}>
