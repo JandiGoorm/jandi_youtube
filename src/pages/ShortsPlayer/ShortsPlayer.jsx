@@ -58,19 +58,20 @@ const ShortsPlayer = () => {
         const response = await YoutubeService.fetchShorts(shortsId);
         setShortsData(response.data.items[0]); // Shorts 정보 저장
         console.log(response);
-      } catch (error) {
-        console.error("Error fetching Shorts data:", error);
-      }
-    };
+        } catch (error) {
+          console.error("Error fetching Shorts data:", error);
+        }
+      };
 
-    const fetchComments = async () => {
+      const fetchComments = async () => {
       try {
-        const response = await fetch(
-          `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${shortsId}&key=${API_KEY}`
+        const response = await fetch( //댓글+답글 가져오기
+          `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${shortsId}&key=${API_KEY}`
         );
         const data = await response.json();
+        console.log("댓글 데이터: ", data.items);
+
         setComments(data.items || []); // 댓글 데이터 저장
-        console.log("댓글데이터: ", data);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -321,7 +322,7 @@ const ShortsPlayer = () => {
                   <section>
                     <div>
                       <p>{comment.snippet.topLevelComment.snippet.authorDisplayName}</p>
-                      <p>{formatISO(shortsData.snippet.publishedAt)}</p>
+                      <p>{formatISO(comment.snippet.publishedAt)}</p>
                     </div>
 
                     <p dangerouslySetInnerHTML={{
@@ -334,6 +335,34 @@ const ShortsPlayer = () => {
                       <p>{comment.snippet.topLevelComment.snippet.likeCount}</p>
                       <button><BiDislike /></button>
                     </div>
+
+                    {/* 답글 */}
+                    <ul className={styles.replies}>
+                        {comment.replies?.comments?.map((replie)=>(
+                          <li>
+                            <img
+                              src="https://yt3.ggpht.com/ytc/AIdro_kovJB0p4amgp5AriYf9cig9455OFtyuPCfZVCJgLM=s88-c-k-c0x00ffffff-no-rj"
+                            />
+                            <section>
+                              <div>
+                                <p>{replie.snippet.authorDisplayName}</p>
+                                <p>{formatISO(replie.snippet.publishedAt)}</p>
+                              </div>
+
+                              <p dangerouslySetInnerHTML={{
+                                __html: //HTML 엔티티를 실제로 브라우저에서 적용되도록 렌더링
+                                  replie.snippet.textDisplay,
+                              }}></p>
+
+                              <div>
+                                <button><BiLike /></button>
+                                <p>{replie.snippet.likeCount}</p>
+                                <button><BiDislike /></button>
+                              </div>
+                            </section>
+                          </li>
+                        )) || <li> </li>}
+                      </ul>
                   </section>
                 </li>
               ))}
