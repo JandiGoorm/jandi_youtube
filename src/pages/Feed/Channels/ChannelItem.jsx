@@ -9,29 +9,26 @@ import {
   formatDescriptionText,
   formatSubscriberCount,
 } from "../../../utils/channel";
-import styles from "./ChannelDes.module.css";
+import styles from "./ChannelItem.module.css";
 import { subscriptionDropdownOptions } from "./contants";
 
-const ChannelDes = ({ channel }) => {
-  const flattendDes = formatDescriptionText(channel.description, 70).slice(
-    0,
-    2
-  );
+const ChannelItem = ({ item }) => {
+  const flattendDes = formatDescriptionText(item.description, 70).slice(0, 2);
 
   return (
     <div className={styles.container}>
       <img
-        src={channel.thumbnails.medium.url}
+        src={item.thumbnails.medium.url}
         alt="channel"
         className={styles.channel_img}
       />
       <div className={styles.channel_info}>
-        <span>{channel.title}</span>
+        <span>{item.title}</span>
         <div className={styles.channel_description}>
           <div className={styles.channel_stats}>
-            <span>{channel.customUrl}</span>
+            <span>{item.customUrl}</span>
             <span>•</span>
-            <span>구독자 {formatSubscriberCount(channel.subscriberCount)}</span>
+            <span>구독자 {formatSubscriberCount(item.subscriberCount)}</span>
           </div>
           <div className={styles.des_text_container}>
             {flattendDes.map((text) => {
@@ -72,4 +69,4 @@ const ChannelDes = ({ channel }) => {
   );
 };
 
-export default ChannelDes;
+export default ChannelItem;

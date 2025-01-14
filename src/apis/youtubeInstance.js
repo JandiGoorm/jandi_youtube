@@ -1,5 +1,4 @@
 import axios from "axios";
-import { authRequiredRoutes } from "../constants/api";
 import { YOUTUBE_API_KEY } from "../constants/config";
 import AuthService from "./auth";
 
@@ -14,10 +13,7 @@ youtubeAPI.defaults.params["key"] = YOUTUBE_API_KEY;
 
 //요청 중 인증이 필요한 경로일 경우 헤더에 액세스 토큰을 추가합니다.
 youtubeAPI.interceptors.request.use((config) => {
-  const requestUrl = config.url;
-  const isRequiredAuth = authRequiredRoutes.some((route) =>
-    requestUrl.includes(route)
-  );
+  const isRequiredAuth = config.params.mine;
 
   if (isRequiredAuth) {
     const accessToken = localStorage.getItem("access-token");
