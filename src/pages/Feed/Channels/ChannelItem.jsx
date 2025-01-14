@@ -21,14 +21,14 @@ const ChannelItem = ({ item }) => {
 
   return (
     <div className={styles.container}>
-      <div
-        style={{ flex: 1, display: "flex", gap: "16px", cursor: "pointer" }}
-        onClick={handleNavigate}
-      >
+      <div className={styles.pointer_box} onClick={handleNavigate}>
         <img
           src={item.thumbnails.medium.url}
           alt="channel"
           className={styles.channel_img}
+          onError={(e) => {
+            e.currentTarget.src = item.thumbnails.default.url;
+          }}
         />
         <div className={styles.channel_info}>
           <span>{item.title}</span>

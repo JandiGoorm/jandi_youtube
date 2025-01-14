@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import YoutubeService from "../../../apis/youtube";
+import YoutubeService from "../apis/youtube";
 import { SubscriptionsContext } from "./SubscriptionsContext";
 
 const SubscriptionsProvider = ({ children }) => {

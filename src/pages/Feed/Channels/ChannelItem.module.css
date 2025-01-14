@@ -4,6 +4,14 @@
   gap: 16px;
 }
 
+.pointer_box {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
 .channel_img {
   height: 136px;
   width: 136px;

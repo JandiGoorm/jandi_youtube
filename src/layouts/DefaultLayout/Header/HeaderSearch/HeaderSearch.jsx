@@ -7,12 +7,14 @@ import {
   DropDownTrigger,
 } from "../../../../components/DropDown/DropDown";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { pageEndPoints } from "../../../../constants/api";
 
 const HeaderSearch = () => {
   const [inputWidth, setInputWidth] = useState();
   const [searchList, setSearchList] = useState([]);
-
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSearchSubmit = useCallback(
     (e) => {
@@ -21,6 +23,7 @@ const HeaderSearch = () => {
       const newSearchList = [...searchList, inputRef.current.value];
       const newSearchListSet = new Set(newSearchList);
       const newSearchListUnique = [...newSearchListSet];
+      const query = inputRef.current.value;
 
       if (newSearchListUnique.length >= 10) {
         newSearchListUnique.splice(0, newSearchListUnique.length - 10);
@@ -29,9 +32,17 @@ const HeaderSearch = () => {
       inputRef.current.value = "";
       localStorage.setItem("search-list", JSON.stringify(newSearchListUnique));
       setSearchList(newSearchListUnique);
-      // + 페이지이동
+      navigate(`${pageEndPoints.RESULTS}?query=${query}`);
     },
-    [searchList]
+    [navigate, searchList]
+  );
+
+  const handleClickListItem = useCallback(
+    (e, searchItem) => {
+      e.stopPropagation();
+      navigate(`${pageEndPoints.RESULTS}?query=${searchItem}`);
+    },
+    [navigate]
   );
 
   const handleDeleteSearchItem = useCallback(
@@ -83,7 +94,11 @@ const HeaderSearch = () => {
             >
               {searchList.map((v) => {
                 return (
-                  <li key={v} className={styles.search_item}>
+                  <li
+                    key={v}
+                    className={styles.search_item}
+                    onClick={(e) => handleClickListItem(e, v)}
+                  >
                     <CiSearch size={24} />
                     <div className={styles.search_item_text}>{v}</div>
                     <button

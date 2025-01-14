@@ -4,7 +4,7 @@ import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
 import InfiniteScroll from "../../../components/InfiniteScroll/InfiniteScroll";
 import styles from "./Subscriptions.module.css";
 import SubscriptionItem from "./SubscriptionItem";
-import SubscriptionsProvider from "./SubsCriptionsProvider";
+import { isShortVideo } from "../../../utils/time";
 
 const FeedSubscriptionsPage = () => {
   const youtubeServiceRef = useRef(YoutubeService);
@@ -54,7 +54,7 @@ const FeedSubscriptionsPage = () => {
 
         const flattend = detailVideos.map((v) => v.data.items).flat();
         const filtered = flattend.filter(
-          (v) => !isShrots(v.contentDetails.duration)
+          (v) => !isShortVideo(v.contentDetails.duration)
         );
 
         return {
@@ -82,37 +82,25 @@ const FeedSubscriptionsPage = () => {
     return result;
   };
 
-  function isShrots(duration) {
-    const matches = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-    if (!matches) return false;
-    const hours = matches[1] ? parseInt(matches[1]) : 0;
-    const minutes = matches[2] ? parseInt(matches[2]) : 0;
-    const seconds = matches[3] ? parseInt(matches[3]) : 0;
-
-    return hours === 0 && minutes <= 1 && seconds <= 30;
-  }
-
   return (
     <DefaultLayout>
-      <SubscriptionsProvider>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            backgroundColor: "white",
-            flexDirection: "column",
-            padding: "8px 12px",
-          }}
-        >
-          <h3 className={styles.title}>최신순</h3>
-          <ul className={styles.grid_box}>
-            <InfiniteScroll
-              fetch={fetchCallback}
-              RenderComponent={SubscriptionItem}
-            />
-          </ul>
-        </div>
-      </SubscriptionsProvider>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          backgroundColor: "white",
+          flexDirection: "column",
+          padding: "8px 12px",
+        }}
+      >
+        <h3 className={styles.title}>최신순</h3>
+        <ul className={styles.grid_box}>
+          <InfiniteScroll
+            fetch={fetchCallback}
+            RenderComponent={SubscriptionItem}
+          />
+        </ul>
+      </div>
     </DefaultLayout>
   );
 };

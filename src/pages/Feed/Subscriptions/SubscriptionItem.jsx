@@ -8,7 +8,7 @@ import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { videoDropdownOptions } from "./constants";
 import styles from "./SubscriptionItem.module.css";
-import { useSubscriptions } from "./SubscriptionsContext";
+import { useSubscriptions } from "../../../contexts/SubscriptionsContext";
 import { MdOutlineNotInterested } from "react-icons/md";
 
 const SubscriptionItem = ({ item }) => {
