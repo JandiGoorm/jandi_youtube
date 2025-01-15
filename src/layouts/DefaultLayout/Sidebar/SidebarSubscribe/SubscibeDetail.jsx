@@ -11,10 +11,10 @@ const SubscribeDetail = ({ subscribe }) => {
   const handleClick = useCallback(() => {
     navigate(
       buildPath(pageEndPoints.CHANNEL, {
-        channel: snippet.customUrl,
+        channel: snippet.channelId,
       })
     );
-  }, [navigate, snippet.customUrl]);
+  }, [navigate, snippet.channelId]);
 
   return (
     <div className={styles.container} onClick={handleClick}>

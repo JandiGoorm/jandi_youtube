@@ -8,16 +8,12 @@ import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { videoDropdownOptions } from "./constants";
 import styles from "./SubscriptionItem.module.css";
-import { useSubscriptions } from "./SubscriptionsContext";
+import { useSubscriptions } from "../../../contexts/SubscriptionsContext";
 import { MdOutlineNotInterested } from "react-icons/md";
 
 const SubscriptionItem = ({ item }) => {
   const { allSubs } = useSubscriptions();
-
   const channelInfo = allSubs.find((v) => v.id === item.snippet.channelId);
-
-  console.log("channelInfo", channelInfo);
-  console.log(item);
 
   return (
     <li className={styles.container} key={item.id}>

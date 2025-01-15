@@ -8,28 +8,33 @@ import TestPage from "./pages/Test/Test";
 import VideoPlayer from "./pages/VideoPlayer/VideoPlayer";
 import FeedChannelsPage from "./pages/Feed/Channels/Channels";
 import FeedSubscriptionsPage from "./pages/Feed/Subscriptions/Subscriptions";
+import ResultsPage from "./pages/Results/Results";
+import SubscriptionsProvider from "./contexts/SubscriptionsProvider";
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path={pageEndPoints.HOME} element={<HomePage />} />
-          <Route path={pageEndPoints.LOADING} element={<LoadingPage />} />
-          <Route
-            path={pageEndPoints.FEEDCHANNELS}
-            element={<FeedChannelsPage />}
-          />
-          <Route path="/watch" element={<VideoPlayer />} />
-          <Route path={pageEndPoints.CHANNEL} element={<ChannelPage />} />
-          <Route path={pageEndPoints.TEST} element={<TestPage />} />
-          <Route
-            path={pageEndPoints.FEEDSUBSCRIPTIONS}
-            element={<FeedSubscriptionsPage />}
-          />
-          <Route path="/watch" element={<VideoPlayer />} />
-        </Routes>
-      </Router>
+      <SubscriptionsProvider>
+        <Router>
+          <Routes>
+            <Route path={pageEndPoints.HOME} element={<HomePage />} />
+            <Route path={pageEndPoints.LOADING} element={<LoadingPage />} />
+            <Route
+              path={pageEndPoints.FEEDCHANNELS}
+              element={<FeedChannelsPage />}
+            />
+            <Route path="/watch" element={<VideoPlayer />} />
+            <Route path={pageEndPoints.CHANNEL} element={<ChannelPage />} />
+            <Route path={pageEndPoints.TEST} element={<TestPage />} />
+            <Route
+              path={pageEndPoints.FEEDSUBSCRIPTIONS}
+              element={<FeedSubscriptionsPage />}
+            />
+            <Route path="/watch" element={<VideoPlayer />} />
+            <Route path={pageEndPoints.RESULTS} element={<ResultsPage />} />
+          </Routes>
+        </Router>
+      </SubscriptionsProvider>
     </AuthProvider>
   );
 }

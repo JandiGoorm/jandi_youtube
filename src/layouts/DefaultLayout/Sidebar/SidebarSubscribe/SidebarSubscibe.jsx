@@ -25,8 +25,15 @@ const SubscribeMenu = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await fetchSubscriptions(50);
-      setSubscriptions(data);
+      const {
+        data: { items },
+      } = await fetchSubscriptions({
+        part: "snippet,contentDetails",
+        mine: true,
+        maxResults: 50,
+      });
+
+      setSubscriptions(items);
     })();
   }, [fetchSubscriptions]);
 

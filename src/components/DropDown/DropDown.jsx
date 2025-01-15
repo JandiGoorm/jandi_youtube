@@ -3,7 +3,7 @@ import { useDropDown } from "./DropDownContext";
 import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./DropDown.module.css";
 
-const DropDown = ({ children }) => {
+const DropDown = ({ children, style = {} }) => {
   const [isVisible, setVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const ref = useRef(null);
@@ -77,18 +77,18 @@ const DropDown = ({ children }) => {
         position,
       }}
     >
-      <div className={styles.container} ref={ref}>
+      <div className={styles.container} ref={ref} style={style}>
         {children}
       </div>
     </DropDownContext.Provider>
   );
 };
 
-const DropDownTrigger = ({ children }) => {
+const DropDownTrigger = ({ children, style = {} }) => {
   const { onClick } = useDropDown();
 
   return (
-    <div onClick={onClick} className={styles.trigger}>
+    <div onClick={onClick} className={styles.trigger} style={style}>
       {children}
     </div>
   );
