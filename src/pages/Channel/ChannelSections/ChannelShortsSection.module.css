@@ -23,6 +23,7 @@
   background-color: black;
   color: white;
 }
+
 .video_list {
     list-style-type: none;
     display: flex;
@@ -35,23 +36,14 @@
   .video_item {
     list-style: none;
     display: inline-block;
-    width: 310px;
+    width: 200px;
     position: relative;
-  }
-
-  .video_duration {
-    position: absolute; 
-    top: 140px; 
-    right: 10px; 
-    background-color: rgba(0, 0, 0, 0.5); 
-    color: white; 
-    padding: 5px 10px; 
-    border-radius: 5px; 
-    font-size: 12px;
   }
   
   .video_thumbnail {
     width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
     border-radius: 10px;
     display: block;
   }

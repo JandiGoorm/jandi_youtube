@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import YoutubeService from "../../../../apis/youtube";
-import styles from "./RecentPlayList.module.css";
+import styles from "./PopularPlayList.module.css";
 import { formatHitCount } from "../../../../utils/hit";
 import { formatDuration } from "../../../../utils/time";
 import { formatISO } from "../../../../utils/date";
 
-const RecentPlayList = ({section}) => {
+const PopularPlayList = ({section}) => {
   const [videos, setVideos] = useState([]);
 
   const fetchPlayList = async(playlistId) => {
@@ -16,7 +16,7 @@ const RecentPlayList = ({section}) => {
         type: "video",
         channelId: playlistId,
         regionCode: "KR",
-        order: "date",
+        order: "viewCount",
         maxResults: 12,
       });
       const videoIds = response.data.items.map((item) => item.id.videoId);
@@ -38,7 +38,7 @@ useEffect (()=> {
 
   return (
     <div>
-      <h1 className={styles.video_header}>동영상</h1>
+      <h1 className={styles.video_header}>인기 동영상</h1>
       <ul className={styles.video_list}>
                   {videos.map((video) => (
                     <li className={styles.video_item} key={video.id}>
@@ -61,4 +61,4 @@ useEffect (()=> {
   );
 };
 
-export default RecentPlayList;
+export default PopularPlayList;
