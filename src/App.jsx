@@ -6,6 +6,7 @@ import HomePage from "./pages/Home/Home";
 import LoadingPage from "./pages/Loading/Loading";
 import TestPage from "./pages/Test/Test";
 import VideoPlayer from "./pages/VideoPlayer/VideoPlayer";
+import FeedplayListsPage from "./pages/Feed/PlayLists/PlayLists";
 import FeedChannelsPage from "./pages/Feed/Channels/Channels";
 import FeedSubscriptionsPage from "./pages/Feed/Subscriptions/Subscriptions";
 import ResultsPage from "./pages/Results/Results";
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path={pageEndPoints.HOME} element={<HomePage />} />
             <Route path={pageEndPoints.LOADING} element={<LoadingPage />} />
+            <Route path={pageEndPoints.FEEDPLAYLISTS} element={<FeedplayListsPage />} />
             <Route
               path={pageEndPoints.FEEDCHANNELS}
               element={<FeedChannelsPage />}

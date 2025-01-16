@@ -24,7 +24,7 @@ export const firstitems = [
 
 export const mypagemenuitems = [
   { icon: RxCountdownTimer, label: "시청기록", link: "/" },
-  { icon: CgPlayList, label: "재생목록", link: "/" },
+  { icon: CgPlayList, label: "재생목록", link: "/feed/playlists" },
   { icon: RiVideoLine, label: "내 동영상", link: "/feed/subscriptions" },
   {
     icon: LuClock4,
