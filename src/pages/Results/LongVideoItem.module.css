@@ -1,21 +1,23 @@
 .video_box {
   display: flex;
-  max-height: 280px;
+  min-height: 200px;
+  gap: 10px;
 }
 
 .video_img_box {
   flex: 3;
-  padding-right: 10px;
   overflow: hidden;
-  min-height: 200px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  max-height: 340px;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .video_img {
-  overflow: hidden;
-  border-radius: 8px;
-  object-fit: cover;
   width: 100%;
-  aspect-ratio: 580/280;
+  aspect-ratio: 480/360;
 }
 
 .video_info {
