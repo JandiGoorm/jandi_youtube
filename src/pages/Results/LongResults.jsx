@@ -1,9 +1,9 @@
-import { useLocation } from "react-router-dom";
 import { useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
-import { isShortVideo } from "../../utils/time";
 import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
 import LongVideoItem from "./LongVideoItem";
+import { isShortVideo } from "../../utils/time";
 
 const LongVideoResults = () => {
   const { search } = useLocation();
@@ -57,7 +57,6 @@ const LongVideoResults = () => {
         };
       });
 
-      //shorts가 아닌 value만 배열로만듬
       const longData = Object.values(hash).filter(
         (v) => !isShortVideo(v.contentDetails.duration)
       );

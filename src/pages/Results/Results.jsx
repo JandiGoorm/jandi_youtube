@@ -3,9 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 import AllResults from "./AllResults";
 import { categories } from "./constansts";
+import LongResults from "./LongResults";
+import RecentResults from "./ResentResults";
 import styles from "./Results.module.css";
 import ShortResults from "./ShortsResults";
-import LongResults from "./LongResults";
+import ChannelResults from "./ChannelResults";
 
 const ResultsPage = () => {
   const navigate = useNavigate();
@@ -30,6 +32,10 @@ const ResultsPage = () => {
         return <ShortResults />;
       case "동영상":
         return <LongResults />;
+      case "최근에 업로드된 동영상":
+        return <RecentResults />;
+      case "채널":
+        return <ChannelResults />;
       default:
         return <AllResults />;
     }

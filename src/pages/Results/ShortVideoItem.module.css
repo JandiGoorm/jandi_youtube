@@ -30,7 +30,7 @@
 }
 
 .video_info {
-  flex: 4;
+  flex: 5;
   display: flex;
   flex-direction: column;
   gap: 4px;

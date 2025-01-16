@@ -2,7 +2,6 @@ import { useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
 import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
-import { isShortVideo } from "../../utils/time";
 import ShortVideoItem from "./ShortVideoItem";
 
 const ShortResults = () => {
@@ -15,10 +14,11 @@ const ShortResults = () => {
     async (nextPageToken = "") => {
       const videoResponse = await fetchSearch({
         part: "snippet",
-        maxResults: 50,
+        maxResults: 20,
         q: searchParams,
         type: "video",
         pageToken: nextPageToken,
+        videoDuration: "short",
       });
 
       const videos = videoResponse.data.items;
@@ -57,10 +57,7 @@ const ShortResults = () => {
         };
       });
 
-      //shorts가 아닌 value만 배열로만듬
-      const shortVideos = Object.values(hash).filter((v) =>
-        isShortVideo(v.contentDetails.duration)
-      );
+      const shortVideos = Object.values(hash);
 
       return {
         items: shortVideos,

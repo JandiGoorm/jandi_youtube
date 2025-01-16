@@ -1,42 +1,21 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
-import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
 import { isShortVideo } from "../../utils/time";
-import styles from "./AllResults.module.css";
-import ChannelItem from "./ChannelItem";
+import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
 import LongVideoItem from "./LongVideoItem";
 
-const AllResults = () => {
-  const [channel, setChannel] = useState(null);
-
+const RecentResults = () => {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search).get("query");
 
-  const { fetchSearch, fetchChannels, fetchVideos } = YoutubeService;
-
-  const fetchSearchChannel = useCallback(async () => {
-    const channelResponse = await fetchSearch({
-      part: "snippet",
-      maxResults: 1,
-      q: searchParams,
-      type: "channel",
-    });
-
-    const channel = channelResponse.data.items[0];
-    const channelDetail = await fetchChannels({
-      part: "snippet,statistics",
-      id: channel.id.channelId,
-    });
-
-    setChannel(channelDetail.data.items[0]);
-  }, [fetchChannels, fetchSearch, searchParams]);
+  const { fetchSearch, fetchVideos, fetchChannels } = YoutubeService;
 
   const fetchCallback = useCallback(
     async (nextPageToken = "") => {
       const videoResponse = await fetchSearch({
         part: "snippet",
-        maxResults: 10,
+        maxResults: 20,
         q: searchParams,
         type: "video",
         pageToken: nextPageToken,
@@ -77,11 +56,12 @@ const AllResults = () => {
           id: v.id,
         };
       });
-
-      //shorts가 아닌 value만 배열로만듬
-      const longData = Object.values(hash).filter(
-        (v) => !isShortVideo(v.contentDetails.duration)
-      );
+      const longData = Object.values(hash)
+        .filter((v) => !isShortVideo(v.contentDetails.duration))
+        .sort(
+          (a, b) =>
+            new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
+        );
 
       return {
         items: longData,
@@ -91,21 +71,9 @@ const AllResults = () => {
     [fetchChannels, fetchSearch, fetchVideos, searchParams]
   );
 
-  useEffect(() => {
-    (async () => {
-      await fetchSearchChannel();
-    })();
-  }, [fetchSearchChannel]);
-
   return (
-    <>
-      <ChannelItem item={channel} />
-
-      <div className={styles.divider} />
-
-      <InfiniteScroll fetch={fetchCallback} RenderComponent={LongVideoItem} />
-    </>
+    <InfiniteScroll fetch={fetchCallback} RenderComponent={LongVideoItem} />
   );
 };
 
-export default AllResults;
+export default RecentResults;
