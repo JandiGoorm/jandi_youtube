@@ -55,7 +55,10 @@ const ShortsPlayer = () => {
   useEffect(() => {
     const fetchShortsData = async () => {
       try {
-        const response = await YoutubeService.fetchShorts(shortsId);
+        const response = await YoutubeService.fetchVideos({
+          part: "snippet,contentDetails,statistics",
+          id: shortsId,
+        });
         setShortsData(response.data.items[0]); // Shorts 정보 저장
         console.log(response);
         } catch (error) {
