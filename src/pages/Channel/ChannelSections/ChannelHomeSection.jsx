@@ -20,7 +20,7 @@ const ChannelHomeSection = ({channelId}) => {
         (item) => item.snippet.type !== "channelsectiontypeundefined"
       );
       setSections(filteredSections); 
-      
+      console.log(filteredSections);  
     }catch(error){
       console.log("error: "+ error);
     }
