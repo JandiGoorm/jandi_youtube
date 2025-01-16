@@ -32,6 +32,7 @@
     width:240px;
     position: relative;
     flex: 0 0 auto;
+    cursor: pointer;
   }
 
   .video_duration {

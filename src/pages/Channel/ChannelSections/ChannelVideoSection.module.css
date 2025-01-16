@@ -37,6 +37,7 @@
     display: inline-block;
     width: 310px;
     position: relative;
+    cursor: pointer;
   }
 
   .video_duration {
