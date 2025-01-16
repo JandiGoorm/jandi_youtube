@@ -88,29 +88,29 @@ const fetchAllSubscriptions = async () => {
 
 // const fetchVideos = async (maxResults = 10) => {
 //   const response = await youtubeAPI.get(apiEndPoints.SEARCH, {
-//     params: {
-//       part: "snippet",
-//       chart: "mostPopular",
-//       type: "video",
-//       regionCode: "KR",
-//       maxResults,
-//     },
-//   });
+  //   params: {
+  //     part: "snippet",
+  //     chart: "mostPopular",
+  //     type: "video",
+  //     regionCode: "KR",
+  //     maxResults,
+  //   },
+  // });
 
-//   const videos = response.data.items;
-//   const channelIds = videos.map((video) => video.snippet.channelId);
-//   const channelResponse = await fetchChannelDetails(channelIds.join(","));
-//   const channels = channelResponse.data.items;
+  // const videos = response.data.items;
+  // const channelIds = videos.map((video) => video.snippet.channelId);
+  // const channelResponse = await fetchChannelDetails(channelIds.join(","));
+  // const channels = channelResponse.data.items;
 
-//   const result = videos.map((video) => {
-//     const channelInfo = channels.find(
-//       (channel) => channel.id === video.snippet.channelId
-//     );
-//     return {
-//       ...video,
-//       channelInfo: channelInfo ? channelInfo.snippet : null,
-//     };
-//   });
+  // const result = videos.map((video) => {
+  //   const channelInfo = channels.find(
+  //     (channel) => channel.id === video.snippet.channelId
+  //   );
+  //   return {
+  //     ...video,
+  //     channelInfo: channelInfo ? channelInfo.snippet : null,
+  //   };
+  // });
 
 //   return { data: result };
 // };
