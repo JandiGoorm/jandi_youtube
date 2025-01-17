@@ -10,6 +10,7 @@ import FeedChannelsPage from "./pages/Feed/Channels/Channels";
 import FeedSubscriptionsPage from "./pages/Feed/Subscriptions/Subscriptions";
 import ResultsPage from "./pages/Results/Results";
 import SubscriptionsProvider from "./contexts/SubscriptionsProvider";
+import Like from "./pages/Like/Like";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             />
             <Route path="/watch" element={<VideoPlayer />} />
             <Route path={pageEndPoints.RESULTS} element={<ResultsPage />} />
+            <Route path="/playlist" element={<Like />} />
           </Routes>
         </Router>
       </SubscriptionsProvider>
