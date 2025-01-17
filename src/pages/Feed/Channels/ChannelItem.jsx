@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import SubscriptionButton from "../../../components/Button/SubscriptionButton";
-import { pageEndPoints } from "../../../constants/api";
+import { PageEndPoints } from "../../../constants/api";
 import { formatSubscriberCount } from "../../../utils/channel";
 import { buildPath } from "../../../utils/path";
 import styles from "./ChannelItem.module.css";
@@ -9,7 +9,7 @@ import styles from "./ChannelItem.module.css";
 const ChannelItem = ({ item }) => {
   const navigate = useNavigate();
   const handleNavigate = useCallback(() => {
-    navigate(buildPath(pageEndPoints.CHANNEL, { channel: item.channelId }));
+    navigate(buildPath(PageEndPoints.CHANNEL, { channel: item.channelId }));
   }, [item.channelId, navigate]);
 
   return (

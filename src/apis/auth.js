@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiEndPoints } from "../constants/api";
+import { ApiEndPoints } from "../constants/api";
 import { clientID, clientSecret, redirectURI } from "../constants/config";
 
 const userinfoURL = "https://www.googleapis.com/oauth2/v1/userinfo";
@@ -20,7 +20,7 @@ const redirectGoogleLogin = () => {
 
 const exchangeCodeWithToken = async (code) => {
   try {
-    const { data } = await authAPI.post(apiEndPoints.TOKEN, {
+    const { data } = await authAPI.post(ApiEndPoints.TOKEN, {
       code,
       client_id: clientID,
       client_secret: clientSecret,
@@ -57,7 +57,7 @@ const getUserInfo = async (accessToken) => {
 
 const refreshAccessToken = async (refreshToken) => {
   try {
-    const { data } = await authAPI.post(apiEndPoints.TOKEN, {
+    const { data } = await authAPI.post(ApiEndPoints.TOKEN, {
       refresh_token: refreshToken,
       client_id: clientID,
       client_secret: clientSecret,
