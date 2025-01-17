@@ -34,7 +34,7 @@ export const mypagemenuitems = [
   {
     icon: AiOutlineLike,
     label: "좋아요 표시한 동영상",
-    link: "https://music.youtube.com/",
+    link: "/playlist?list=LL",
   },
   {
     icon: TfiDownload,
