@@ -6,7 +6,12 @@
   justify-content: space-between;
 }
 
+.logo_box {
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+}
+
 .logo {
-  height: 40px;
   cursor: pointer;
 }

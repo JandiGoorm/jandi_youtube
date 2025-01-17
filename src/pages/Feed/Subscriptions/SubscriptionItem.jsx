@@ -10,18 +10,39 @@ import { videoDropdownOptions } from "./constants";
 import styles from "./SubscriptionItem.module.css";
 import { useSubscriptions } from "../../../contexts/SubscriptionsContext";
 import { MdOutlineNotInterested } from "react-icons/md";
+import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { pageEndPoints } from "../../../constants/api";
 
 const SubscriptionItem = ({ item }) => {
+  const [isPreview, setIsPreview] = useState(false);
+  const navigate = useNavigate();
   const { allSubs } = useSubscriptions();
   const channelInfo = allSubs.find((v) => v.id === item.snippet.channelId);
 
+  const handleClickVideo = useCallback(() => {
+    navigate(`${pageEndPoints.WATCH}?v=${item.id}`);
+  }, [item.id, navigate]);
+
   return (
-    <li className={styles.container} key={item.id}>
-      <img
-        src={item.snippet.thumbnails.medium.url}
-        alt="thumbnail"
-        className={styles.thumbnail}
-      />
+    <li className={styles.container} key={item.id} onClick={handleClickVideo}>
+      {isPreview ? (
+        <iframe
+          className={styles.thumbnail}
+          src={`https://www.youtube.com/embed/${item.id}?autoplay=1&enablejsapi=1&playlist=${item.id}&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3`}
+          title="video"
+          allow="autoplay; picture-in-picture"
+          allowFullScreen
+          onMouseLeave={() => setIsPreview(false)}
+        />
+      ) : (
+        <img
+          src={item.snippet.thumbnails.medium.url}
+          alt="thumbnail"
+          className={styles.thumbnail}
+          onMouseEnter={() => setIsPreview(true)}
+        />
+      )}
       <div className={styles.flex_row}>
         <img
           src={channelInfo.snippet.thumbnails.default.url}

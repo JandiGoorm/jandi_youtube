@@ -16,12 +16,14 @@ const Header = () => {
   return (
     <>
       <header className={styles.container}>
-        <img
-          src={logo}
-          alt="YouTube Logo"
-          className={styles.logoStyle}
-          onClick={handleLogoClick}
-        />
+        <div className={styles.logo_box}>
+          <img
+            src={logo}
+            alt="YouTube Logo"
+            className={styles.logo}
+            onClick={handleLogoClick}
+          />
+        </div>
         <HeaderSearch />
         <HeaderIcons />
       </header>

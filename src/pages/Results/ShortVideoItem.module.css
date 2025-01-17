@@ -1,23 +1,32 @@
 .video_box {
   display: flex;
-  min-height: 165px;
-  gap: 10px;
+  max-height: 280px;
 }
 
 .video_img_box {
   flex: 3;
+  padding-right: 10px;
   overflow: hidden;
+  background: rgb(181, 182, 187);
+  background: radial-gradient(
+    circle,
+    rgba(181, 182, 187, 1) 0%,
+    rgba(105, 102, 102, 0.9864320728291317) 100%
+  );
+  margin-right: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+
   display: flex;
-  justify-items: center;
-  align-items: center;
-  max-height: 22vh;
-  overflow: hidden;
-  border-radius: 8px;
+  justify-content: center;
 }
 
 .video_img {
-  width: 100%;
-  aspect-ratio: 480/360;
+  overflow: hidden;
+  border-radius: 8px;
+  object-fit: cover;
+  aspect-ratio: 9/16;
+  height: 100%;
 }
 
 .video_info {

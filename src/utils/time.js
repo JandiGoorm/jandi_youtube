@@ -24,5 +24,5 @@ export const isShortVideo = (duration) => {
     total = parts[0] * 3600 + parts[1] * 60 + parts[2];
   }
 
-  return total <= 61;
+  return total <= 239;
 };
