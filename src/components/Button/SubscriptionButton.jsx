@@ -33,8 +33,9 @@ const SubscriptionButton = ({ channelId }) => {
                     <button
                       key={option.label}
                       onClick={
-                        option.label === "구독 취소" &&
-                        (() => deleteSubscription(channelId))
+                        option.label === "구독 취소"
+                          ? () => deleteSubscription(channelId)
+                          : null
                       }
                     >
                       {option.icons}

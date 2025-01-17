@@ -35,6 +35,7 @@
   flex-direction: column;
   gap: 4px;
   position: relative;
+  padding-right: 20px;
 }
 
 .video_title {

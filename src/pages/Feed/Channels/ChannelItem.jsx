@@ -36,7 +36,9 @@ const ChannelItem = ({ item }) => {
         </div>
       </div>
 
-      <SubscriptionButton channelId={item.channelId} />
+      <div className={styles.subs_btn_box}>
+        <SubscriptionButton channelId={item.channelId} />
+      </div>
     </div>
   );
 };
