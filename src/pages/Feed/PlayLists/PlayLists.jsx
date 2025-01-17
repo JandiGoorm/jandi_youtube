@@ -3,7 +3,12 @@ import YoutubeService from "../../../apis/youtube";
 import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
 import styles from "./Playlists.module.css";
 import { FaPlay } from "react-icons/fa";
-import { CgPlayList } from "react-icons/cg"
+import { CgPlayList } from "react-icons/cg";
+import {
+  DropDown,
+  DropDownContent,
+  DropDownTrigger,
+} from "../../../components/DropDown/DropDown";
 
 const FeedplayListsPage = () => {
   const [lists, setLists] = useState([]);
@@ -33,6 +38,25 @@ const FeedplayListsPage = () => {
         <div className={styles.headerContainer} >
           <h1 className={styles.header}>재생목록</h1>
         </div>
+        <div className={styles.subscribeDiv}>
+          <DropDown>
+          <DropDownTrigger>
+            <button className={styles.subscribe_btn}>
+              <span>최신순</span>
+            </button>
+          </DropDownTrigger>
+          <DropDownContent>
+            <div className={styles.dropdown_content}>
+              <button>
+                <span>가나다순</span>
+              </button>
+              <button>
+                <span>최신순</span>
+              </button>
+            </div>
+          </DropDownContent>
+        </DropDown>
+          </div>
         <div className={styles.playListContainer}>
           <ul className={styles.video_list}>
             {lists.map((list) => (

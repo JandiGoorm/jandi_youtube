@@ -102,3 +102,46 @@
 .video_item:hover .hover_overlay {
   opacity: 1;
 }
+
+.subscribe_btn {
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+
+  min-width: 80px;
+  padding: 8px 0;
+  border-radius: 8px;
+}
+
+
+.dropdown {
+  display: none;
+}
+
+.dropdown_content {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  list-style-type: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 32px 0px;
+  position: absolute;
+  z-index: 9999; 
+  background-color: white;
+}
+
+.dropdown_content > button {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px 8px 16px;
+}
+
+.dropdown_content > button:hover {
+  background-color: #f2f2f2;
+}
