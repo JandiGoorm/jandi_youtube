@@ -1,0 +1,133 @@
+/*******************************************************/
+/*                                                     */
+/*                     모달창 기본 CS                     */
+/*                                                     */
+/*******************************************************/
+@media (min-width: 1312px) {
+    .modalContent {
+        left: 120px;
+    }
+}
+  
+/*1312이하: 사이드바 축소에 맞춰 모달 위치 옮기기*/
+@media (max-width: 1312px) {
+    .modalContent {
+        left: 35px;
+    }
+}
+
+/*******************************************************/
+/*                                                     */
+/*                     모달창 기본 CS                     */
+/*                                                     */
+/*******************************************************/
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    border-radius: 8px;
+    padding: 4px 16px;
+    width: 400px;
+    height: 500px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+/*******************************************************/
+/*                                                     */
+/*                   모달창 내부 CSS                      */
+/*                                                     */
+/*******************************************************/
+/*DescriptionModal.jsx 자체 부분*/
+header{
+    display: flex;
+    border-bottom: solid thin #d6d6d6;
+}
+
+header p{
+    display: flex;
+    flex-grow: 10;
+    margin: 10px 0px;
+
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+header button{
+    width: 40px;
+    height: 40px;
+    margin: 2px 0px;
+    
+    text-align: center;
+    border: transparent;
+    border-radius: 50%;
+    background-color:transparent;
+}
+
+/*DescriptionModal.jsx {children} 부분*/
+main{
+    padding: 16px 0px;
+
+    text-align: left;
+    font-size: 14px;
+    border-bottom: solid thin #d6d6d6;
+}
+
+article{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 16px 0px;
+}
+
+section p:nth-child(1){
+    margin: 5px 0px;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+section p:nth-child(2){
+    margin: 0px;
+
+    font-size: 12px;
+    color: #606060;
+}
+
+footer{
+    padding: 12px;
+    white-space: pre-line;
+    text-align: left;
+    border-radius: 10px;
+    background-color: rgb(236, 236, 236);
+}
+
+/*******************************************************/
+/*                                                     */
+/*                        애니메이션                      */
+/*                                                     */
+/*******************************************************/
+  
+header button:hover{
+    background-color: rgb(220, 220, 220);
+}

@@ -1,0 +1,198 @@
+/*******************************************************/
+/*                                                     */
+/*                     모달창 기본 CS                     */
+/*                                                     */
+/*******************************************************/
+@media (min-width: 1312px) {
+    .modalContent {
+        left: 120px;
+    }
+}
+  
+/*1312이하: 사이드바 축소에 맞춰 모달 위치 옮기기*/
+@media (max-width: 1312px) {
+    .modalContent {
+        left: 35px;
+    }
+}
+
+/*******************************************************/
+/*                                                     */
+/*                     모달창 기본 CSS                    */
+/*                                                     */
+/*******************************************************/
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    border-radius: 8px;
+    padding: 4px 16px;
+    width: 400px;
+    height: 500px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.filterContainer {
+    position: relative;
+}
+
+/*******************************************************/
+/*                                                     */
+/*                   모달창 내부 CSS                      */
+/*                                                     */
+/*******************************************************/
+/*인기댓글순/최신순 미니모달창 관련*/
+.dropdownMenu {
+    position: absolute;
+    top: 40px; /* 버튼 바로 아래에 위치 */
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdownMenu button {
+    display: block;
+    width: 110px;
+    height: auto;
+    padding: 8px 16px;
+    text-align: left;
+    font-size: small;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px;
+  }
+
+/*DescriptionModal.jsx 자체 부분*/
+header{
+    display: flex;
+    border-bottom: solid thin #d6d6d6;
+}
+
+header p{
+    display: flex;
+    flex-grow: 10;
+    margin: 10px 0px;
+
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+header button{
+    width: 40px;
+    height: 40px;
+    margin: 2px 0px;
+    
+    text-align: center;
+    border: transparent;
+    border-radius: 50%;
+    background-color:transparent;
+}
+
+/*DescriptionModal.jsx {children} 부분*/
+/*전체 리스트 레이아웃*/
+main ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*개별 리스트 레이아웃*/
+li{
+    display: flex;
+    align-items: flex-start;
+}
+
+/*프로필 이미지*/
+li img{
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+}
+
+/*댓글 작성자명*/
+section div p:nth-child(1) {
+    margin: 5px 5px 5px 0px;
+
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f0f0f;
+}
+
+/*댓글 작성일, 댓글 내용*/
+section div p:nth-child(2) {
+    margin: 5px 0px;
+
+    font-size: 12px;
+    color: #606060;
+}
+
+section {
+    margin: 0px 15px;
+    display: flex;
+}
+
+section div{
+    display: flex;
+    align-items: center;
+}
+
+/*좋아요/싫어요 버튼*/
+section button{
+    width: 32px;
+    height: 32px;
+
+    white-space: pre-line;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+section div button{
+    width: 32px;
+    height: 32px;
+
+    white-space: pre-line;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.replies{
+    display: none;
+}
+  
+/*******************************************************/
+/*                                                     */
+/*                        애니메이션                      */
+/*                                                     */
+/*******************************************************/
+  
+header button:hover{
+    background-color: rgb(220, 220, 220);
+}
+
+.dropdownMenu button:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+button:active{
+    background-color: #606060;
+}

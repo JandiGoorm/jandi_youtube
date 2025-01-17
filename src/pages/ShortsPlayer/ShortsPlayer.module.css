@@ -1,0 +1,313 @@
+/*******************************************************/
+/*                                                     */
+/*                        미디어 쿼리                     */
+/*                                                     */
+/*******************************************************/
+@media (min-width: 840px) {
+  .mover{
+    display: flex;
+  }
+  .playerSideActions{
+    right: -60px;
+  }
+  .playerSideActions button{
+    background-color: rgba(0, 0, 0, 0.05);
+    color: black;
+  }
+}
+
+/*840이하: mover 숨기기*/
+@media (max-width: 840px) {
+  .mover{
+    display: none;
+  }
+  .playerSideActions{
+    right: -60px;
+  }
+  .playerSideActions button{
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+  }
+}
+
+/*600이하: playerSideActions 영상 안으로 이동*/
+@media (max-width: 600px) {
+  .mover{
+    display: none;
+  }
+  .playerSideActions{
+    right: 15px;
+  }
+  .playerSideActions button{
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+  }
+  .playerSideActions p{
+    color:white;
+  }
+}
+
+
+/*******************************************************/
+/*                                                     */
+/*                       화면 전체 CSS                   */
+/*                                                     */
+/*******************************************************/
+/*전체 레이아웃*/
+.shortsContainer{
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+}
+
+/*이전/다음 버튼 위치*/
+.mover{
+  justify-content: center;
+  flex-direction: column;
+
+  position: absolute;
+  top: 50%;
+  right: 10px;
+}
+
+/*이전/다음 버튼 디자인*/
+.mover button{
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 10px;
+
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: black;
+}
+
+/*******************************************************/
+/*                                                     */
+/*                       플레이어 CSS                    */
+/*                                                     */
+/*******************************************************/
+
+/*플레이어 박스*/
+.player{
+  position: relative;
+}
+
+/*동영상 재생기*/
+iframe{
+  width: 50.5vh;
+  height: 90vh;
+
+  border-radius: 10px;
+}
+
+/*동영상 설명부분 위치*/
+.videoDetails{
+  position: absolute;
+  z-index: 1;
+  bottom: 0%;
+  left: 0%;
+
+  width: 100%;
+  height: auto;
+  padding: 16px 16px 0px;
+  margin-bottom: 10px;
+}
+
+/*동영상 설명부분 디자인*/
+.videoDetails p{
+  font-size: 14px;
+  color: white;
+}
+
+.channelInfo{
+  display: flex;
+  align-items: center;
+
+  padding-top: 8px;
+}
+
+.channelInfo img{
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+}
+
+.channelInfo p{
+  padding: 0px 8px;
+  margin: 0px;
+}
+
+.subscribeBtn{
+  width: 44.75px;
+  height: 32px;
+
+  border: none;
+  border-radius: 25px;
+  background-color: white;
+  color: black;
+}
+
+/*플레이어 상단 버튼 위치*/
+.playerTopActions{
+  position: absolute;
+  z-index: 1;
+  display: flex;
+
+  width: 100%;
+  height: auto;
+}
+
+/*플레이어 상단 버튼 디자인*/
+.playerTopActions button{
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 10px;
+
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.volumeContainer{
+  display: flex;
+  flex-grow: 8;
+  border-radius: 40px;
+}
+
+.volumeSlider{
+  /* display: none; */
+  width: 75%;
+}
+
+/*플레이어 사이드 버튼 위치*/
+.playerSideActions{
+  position: absolute;
+  z-index: 1;
+  bottom: 0%;
+  /* right: -60px; */
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+/*플레이어 사이드 버튼 디자인*/
+.playerSideActions button{
+  position: relative;
+  width: 48px;
+  height: 48px;
+  
+  text-align: center;
+  border: none;
+  border-radius: 50%;
+  /* background-color: rgba(0, 0, 0, 0.05);
+  color: black; */
+}
+
+.playerSideActions div{
+  padding-top: 16px;
+}
+
+.playerSideActions p{
+  margin-top: 5px;
+  margin-bottom: 0px;
+
+  font-size:14px;
+  text-align: center;
+}
+
+/*플레이어 사이드 채널 이미지 위치&디자인*/
+.playerSideActions img{
+  width: 40px;
+  height: auto;
+
+  border: none;
+  border-radius: 5px;
+}
+
+/*******************************************************/
+/*                                                     */
+/*                        애니메이션                      */
+/*                                                     */
+/*******************************************************/
+/*                         hover                       */
+/*이전/다음 버튼 호버*/
+.mover button:hover{
+  background-color: rgba(41, 40, 40, 0.2);
+}
+
+/*구독 버튼 호버*/
+.subscribeBtn:hover{
+  background-color: rgb(238, 238, 238);
+}
+
+/*구독 버튼 활성화 상태에서 호버*/
+.subscribeBtn.active:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/*플레이어 상단 버튼 호버*/
+.playerTopActions button:hover{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.volumeBtn:hover ~ .volumeSlider{
+  display: block;
+  width: 75%;
+}
+
+/*좋아요/싫어요 버튼 활성화 상태에서 호버*/
+.likeBtn.active:hover, .dislikeBtn.active:hover{
+  color: white;
+  background-color: rgb(29, 29, 29);
+}
+
+/*플레이어 사이드 버튼 호버*/
+.playerSideActions button:hover{
+  background-color: rgba(41, 40, 40, 0.2);
+}
+
+/*사이드 및 이전/다음 버튼 호버 시 설명 툴팁 띄우기*/
+.tooltip::after {
+  position: absolute;
+  right: 65px;
+  bottom: 20%;
+  padding: 0.5rem 1rem;
+
+  font-size: smaller;
+  font-weight:400;
+  color: rgb(240, 240, 240);
+
+  content: attr(data-tooltip);
+  border-radius: 0.25rem;
+  background-color: rgba(56, 56, 56, 0.7);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+
+
+/*                        active                       */
+/*좋아요/싫어요 버튼 활성화 상태*/
+.likeBtn.active, .dislikeBtn.active{
+  color: white;
+  background-color: black;
+}
+
+.subscribeBtn.active{
+  width: 55.12px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.05);
+}
