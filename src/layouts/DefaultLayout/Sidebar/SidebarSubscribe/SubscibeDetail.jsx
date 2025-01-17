@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import styles from "./SubscribeDetail.module.css";
 import { useNavigate } from "react-router-dom";
-import { pageEndPoints } from "../../../../constants/api";
+import { PageEndPoints } from "../../../../constants/api";
 import { buildPath } from "../../../../utils/path";
 
 const SubscribeDetail = ({ subscribe }) => {
@@ -10,7 +10,7 @@ const SubscribeDetail = ({ subscribe }) => {
 
   const handleClick = useCallback(() => {
     navigate(
-      buildPath(pageEndPoints.CHANNEL, {
+      buildPath(PageEndPoints.CHANNEL, {
         channel: snippet.channelId,
       })
     );

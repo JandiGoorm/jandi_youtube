@@ -12,7 +12,7 @@ import { useSubscriptions } from "../../../contexts/SubscriptionsContext";
 import { MdOutlineNotInterested } from "react-icons/md";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { pageEndPoints } from "../../../constants/api";
+import { PageEndPoints } from "../../../constants/api";
 
 const SubscriptionItem = ({ item }) => {
   const [isPreview, setIsPreview] = useState(false);
@@ -21,7 +21,7 @@ const SubscriptionItem = ({ item }) => {
   const channelInfo = allSubs.find((v) => v.id === item.snippet.channelId);
 
   const handleClickVideo = useCallback(() => {
-    navigate(`${pageEndPoints.WATCH}?v=${item.id}`);
+    navigate(`${PageEndPoints.WATCH}?v=${item.id}`);
   }, [item.id, navigate]);
 
   return (

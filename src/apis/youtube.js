@@ -1,44 +1,44 @@
-import { apiEndPoints } from "../constants/api";
+import { ApiEndPoints } from "../constants/api";
 import youtubeAPI from "./youtubeInstance";
 
 const fetchSearch = async (params) => {
-  return await youtubeAPI.get(apiEndPoints.SEARCH, {
+  return await youtubeAPI.get(ApiEndPoints.SEARCH, {
     params,
   });
 };
 
 const fetchVideos = async (params) => {
-  return await youtubeAPI.get(apiEndPoints.VIDEOS, {
+  return await youtubeAPI.get(ApiEndPoints.VIDEOS, {
     params,
   });
 };
 
 const fetchPlayLists = async (params) => {
-  return await youtubeAPI.get(apiEndPoints.PLAYLISTS, {
+  return await youtubeAPI.get(ApiEndPoints.PLAYLISTS, {
     params,
   });
 };
 
 const fetchPlaylistItems = async (params) => {
-  return await youtubeAPI.get(apiEndPoints.PLAYLISTSITEMS, {
+  return await youtubeAPI.get(ApiEndPoints.PLAYLISTSITEMS, {
     params,
   });
 };
 
 const fetchChannels = async (params) => {
-  return await youtubeAPI.get(apiEndPoints.CHANNELS, {
+  return await youtubeAPI.get(ApiEndPoints.CHANNELS, {
     params,
   });
 };
 
 const fetchSubscriptions = async (params) => {
-  return await youtubeAPI.get(apiEndPoints.SUBSCRIPTIONS, {
+  return await youtubeAPI.get(ApiEndPoints.SUBSCRIPTIONS, {
     params,
   });
 };
 
 const fetchChannelSections = async (params) => {
-  return await youtubeAPI.get(apiEndPoints.CHANNELSECTIONS, {
+  return await youtubeAPI.get(ApiEndPoints.CHANNELSECTIONS, {
     params,
   });
 };

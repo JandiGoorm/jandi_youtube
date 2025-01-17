@@ -5,7 +5,7 @@ import SubscribeDetail from "./SubscibeDetail";
 import { FaListUl } from "react-icons/fa";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { pageEndPoints } from "../../../../constants/api";
+import { PageEndPoints } from "../../../../constants/api";
 
 const SubscribeMenu = () => {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -16,7 +16,7 @@ const SubscribeMenu = () => {
   const { fetchSubscriptions } = YoutubeService;
 
   const handleClickAllSubs = useCallback(() => {
-    navigate(pageEndPoints.FEEDCHANNELS);
+    navigate(PageEndPoints.FEEDCHANNELS);
   }, [navigate]);
 
   const handleClickMore = useCallback(() => {
