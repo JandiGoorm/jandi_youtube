@@ -20,7 +20,7 @@ const Header = () => {
           <img
             src={logo}
             alt="YouTube Logo"
-            className={styles.logoStyle}
+            className={styles.logo}
             onClick={handleLogoClick}
           />
         </div>

@@ -25,7 +25,6 @@ const FeedChannelsPage = () => {
     (option) => {
       const parmas = new URLSearchParams({ option });
       navigate(`${pageEndPoints.FEEDCHANNELS}?${parmas.toString()}`);
-      window.location.reload();
     },
     [navigate]
   );
