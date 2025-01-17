@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 40px;
+  cursor: pointer;
+}

@@ -8,6 +8,8 @@ import { formatVioeo } from "../../utils/Video";
 import ChannelMoreInfo from "./ChannelMoreInfo";
 import ChannelHomeSection from "./ChannelSections/ChannelHomeSection";
 import ChannelVideoSection from "./ChannelSections/ChannelVideoSection";
+import ChannelShortsSection from "./ChannelSections/ChannelShortsSection";
+import ChannelPlayListSection from "./ChannelSections/ChannelPlayListSection";
 import { PiShareFatLight } from "react-icons/pi";
 import { IoFlagOutline } from "react-icons/io5";
 import {
@@ -21,7 +23,6 @@ import { BiSolidBellRing } from "react-icons/bi";
 
 const ChannelPage = () => {
   const { channel } = useParams(); // URL에서 채널 ID를 가져옵니다.
-  const [id, setId] = useState("");
   const [activeTab, setActiveTab] = useState("홈");
   const [detail, setDetail] = useState([]);
   const [modalDetail, setModalDetail] = useState([]);
@@ -29,12 +30,17 @@ const ChannelPage = () => {
 
   const tabs = ["홈", "동영상", "Shorts","재생목록","커뮤니티","스토어"]
 
-  const fetchChannel = async (channelHandle) =>{
+  const fetchChannel = async (channelId) =>{
     try{
-      const response = await YoutubeService.fetchChannel(10,channelHandle);
+      const response = await YoutubeService.fetchChannels({
+        part: "snippet, statistics, brandingSettings",
+        id: channelId,
+        maxResults: 10,
+      });
       const data = response.data.items[0];
       const content = {
         id:data.id,
+        handle: data.snippet.customUrl,
         title:data.snippet.title,
         customUrl: data.snippet.customUrl,
         description: data.snippet.description,
@@ -45,7 +51,7 @@ const ChannelPage = () => {
       }
       const modalContent = {
         email: "email@example.com",
-        url: `https://www.youtube.com/${channel}`,
+        url: `https://www.youtube.com/${data.snippet.customUrl}`,
         구독자: formatSubscriberCount(data.statistics.subscriberCount),
         동영상: data.statistics.videoCount+"개",
         조회수: data.statistics.viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +"회",
@@ -56,7 +62,6 @@ const ChannelPage = () => {
         }).replace(/-/g, "."),
         country: data.snippet.country
       }
-      setId(content.id);
       setDetail(content);
       setModalDetail(modalContent);
 
@@ -159,8 +164,10 @@ const ChannelPage = () => {
         </div>
         {/* 탭 컨텐츠 */}
         <div className={styles.channelTabContents}>
-          {activeTab === "홈" && <ChannelHomeSection channelId={id}/>}
-          {activeTab === "동영상" && <ChannelVideoSection channelId={id}/>}
+          {activeTab === "홈" && <ChannelHomeSection channelId={channel}/>}
+          {activeTab === "동영상" && <ChannelVideoSection channelId={channel}/>}
+          {activeTab === "Shorts" && <ChannelShortsSection channelId={channel}/>}
+          {activeTab === "재생목록" && <ChannelPlayListSection channelId={channel}/>}
         </div>
         
         {isModalOpen &&(

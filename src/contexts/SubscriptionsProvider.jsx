@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import YoutubeService from "../../../apis/youtube";
+import YoutubeService from "../apis/youtube";
 import { SubscriptionsContext } from "./SubscriptionsContext";
 
 const SubscriptionsProvider = ({ children }) => {
@@ -14,10 +14,6 @@ const SubscriptionsProvider = ({ children }) => {
       });
     })();
   }, [fetchAllSubscriptions]);
-
-  useEffect(() => {
-    console.log("allSubs", allSubs);
-  }, [allSubs]);
 
   return (
     <SubscriptionsContext.Provider value={{ allSubs, setAllSubs }}>

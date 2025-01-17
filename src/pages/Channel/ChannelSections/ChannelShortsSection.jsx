@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
-import styles from "./ChannelVideoSection.module.css";
+import styles from "./ChannelShortsSection.module.css";
 import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { formatDuration } from "../../../utils/time";
 
 
-const ChannelVideoSection = ({channelId}) => {
+const ChannelShortsSection = ({channelId}) => {
   console.log(channelId);
   const [videos, setVideos] = useState([]);
-  const [activeTab, setActiveTab] = useState("최신순");
+    const [activeTab, setActiveTab] = useState("최신순");
+  
+    const tabs = ["최신순", "인기순", "이름순"];
 
-  const tabs = ["최신순", "인기순", "이름순"];
+    const getOrderValue = (tab) => {
+      switch (tab) {
+        case "최신순":
+          return "date";
+        case "인기순":
+          return "viewCount";
+        case "이름순":
+          return "title";
+        default:
+          return "date";
+      }
+    }; 
 
-  const getOrderValue = (tab) => {
-    switch (tab) {
-      case "최신순":
-        return "date";
-      case "인기순":
-        return "viewCount";
-      case "이름순":
-        return "title";
-      default:
-        return "date";
-    }
-  }; 
   const fetchChannelVideos = async (channelId, order) =>{
-    try{     
+    try{
       const response = await YoutubeService.fetchSearch({
         part: "snippet",
         type: "video",
@@ -52,7 +53,7 @@ const ChannelVideoSection = ({channelId}) => {
         const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
         // 쇼츠(1분 이하 영상) 제외
-        return totalSeconds > 60;
+        return totalSeconds <= 60;
       });
 
       console.log(filteredVideos);
@@ -66,7 +67,6 @@ const ChannelVideoSection = ({channelId}) => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-
   
   useEffect(()=> {
     const order = getOrderValue(activeTab);
@@ -76,15 +76,15 @@ const ChannelVideoSection = ({channelId}) => {
   return (
     <div>
       <div className={styles.video_header}>
-       {tabs.map((tab) => (
-                   <button
-                     key={tab}
-                     className={`${styles.header_button} ${activeTab === tab ? styles.active_header_button : ""}`}
-                     onClick={() => handleTabClick(tab)}
-                   >
-                     {tab}
-                   </button>
-                 ))}
+             {tabs.map((tab) => (
+                <button
+                    key={tab}
+                    className={`${styles.header_button} ${activeTab === tab ? styles.active_header_button : ""}`}
+                    onClick={() => handleTabClick(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
       </div>
           <ul className={styles.video_list}>
             {videos.map((video) => (
@@ -92,14 +92,13 @@ const ChannelVideoSection = ({channelId}) => {
                 <div>
                 <img
                   className={styles.video_thumbnail}
-                  src={video.snippet.thumbnails.medium.url}
+                  src={video.snippet.thumbnails.high.url}
                   alt={video.snippet.localized.title}
                 />
-                <p className={styles.video_duration}>{formatDuration(video.contentDetails.duration)}</p>
                 </div>
                 <div className={styles.video_description}>
                   <p className={styles.video_title}>{video.snippet.localized.title}</p>
-                  <p className={styles.video_sub}>{formatHitCount(video.statistics.viewCount)}﹒{formatISO(video.snippet.publishedAt)}</p>
+                  <p className={styles.video_sub}>{formatHitCount(video.statistics.viewCount)}</p>
                 </div>
               </li>
             ))}
@@ -108,4 +107,4 @@ const ChannelVideoSection = ({channelId}) => {
   );
 };
 
-export default ChannelVideoSection;
+export default ChannelShortsSection;

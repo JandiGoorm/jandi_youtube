@@ -4,6 +4,14 @@
   gap: 16px;
 }
 
+.pointer_box {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
 .channel_img {
   height: 136px;
   width: 136px;
@@ -30,13 +38,12 @@
 }
 
 .des_text_container {
-  overflow: hidden;
-}
-
-.des_text {
-  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .channel_stats {

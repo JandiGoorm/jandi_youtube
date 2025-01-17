@@ -34,6 +34,7 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
   const fetchCallback = useCallback(async () => {
     try {
       const newData = await fetch(nextToken.current);
+      if (!newData) return;
       setData((prevData) => {
         const newItems = newData.items
           .map((v) => {
