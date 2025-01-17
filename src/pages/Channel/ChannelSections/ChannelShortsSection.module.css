@@ -38,6 +38,7 @@
     display: inline-block;
     width: 200px;
     position: relative;
+    cursor: pointer;
   }
   
   .video_thumbnail {

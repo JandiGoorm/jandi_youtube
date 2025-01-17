@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import YoutubeService from "../../../../apis/youtube";
 import styles from "./PopularPlayList.module.css";
 import { formatHitCount } from "../../../../utils/hit";
 import { formatDuration } from "../../../../utils/time";
 import { formatISO } from "../../../../utils/date";
+import { useNavigate } from "react-router-dom";
+import { pageEndPoints } from "../../../../constants/api";
 
 const PopularPlayList = ({section}) => {
   const [videos, setVideos] = useState([]);
+  const navigate = useNavigate();
 
   const fetchPlayList = async(playlistId) => {
     try{
@@ -31,6 +34,9 @@ const PopularPlayList = ({section}) => {
         console.log("error: "+ error);
       }
 }
+  const handleClick = useCallback((id) => {
+    navigate(`/watch?v=${id}`);
+  }, [navigate]);
 
 useEffect (()=> {
     fetchPlayList(section.snippet.channelId);
@@ -41,7 +47,7 @@ useEffect (()=> {
       <h1 className={styles.video_header}>인기 동영상</h1>
       <ul className={styles.video_list}>
                   {videos.map((video) => (
-                    <li className={styles.video_item} key={video.id}>
+                    <li className={styles.video_item} key={video.id} onClick={() => handleClick(video.id)}>
                       <div>
                       <img
                         className={styles.video_thumbnail}
