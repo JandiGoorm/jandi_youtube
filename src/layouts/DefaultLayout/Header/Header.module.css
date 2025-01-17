@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  justify-content: space-between;
+}
+
+.logo_box {
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  cursor: pointer;
+}

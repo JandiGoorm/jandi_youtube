@@ -1,21 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./ChannelVideoSection.module.css";
 import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { formatDuration } from "../../../utils/time";
+import { useNavigate } from "react-router-dom";
 
 
 const ChannelVideoSection = ({channelId}) => {
   console.log(channelId);
   const [videos, setVideos] = useState([]);
-  
-  const fetchChannelVideos = async (channelId) =>{
-    try{
-      const response = await YoutubeService.fetchChannelVideos(20, channelId);
+  const [activeTab, setActiveTab] = useState("최신순");
+  const navigate = useNavigate();
+
+  const tabs = ["최신순", "인기순", "이름순"];
+
+  const getOrderValue = (tab) => {
+    switch (tab) {
+      case "최신순":
+        return "date";
+      case "인기순":
+        return "viewCount";
+      case "이름순":
+        return "title";
+      default:
+        return "date";
+    }
+  }; 
+  const fetchChannelVideos = async (channelId, order) =>{
+    try{     
+      const response = await YoutubeService.fetchSearch({
+        part: "snippet",
+        type: "video",
+        channelId: channelId,
+        regionCode: "KR",
+        order: order,
+        maxResults: 20,
+      });
       const videoIds = response.data.items.map((item) => item.id.videoId);
 
-      const videoDetailsResponse = await YoutubeService.fetchVideoDetails(videoIds.join(","));
+      const videoDetailsResponse = await YoutubeService.fetchVideos({
+        part: "contentDetails,snippet,statistics",
+        id: videoIds.join(","),
+      });
       const filteredVideos = videoDetailsResponse.data.items.filter((video) => {
         const duration = video.contentDetails.duration;
 
@@ -37,16 +64,37 @@ const ChannelVideoSection = ({channelId}) => {
       console.log("error: "+ error);
     }
   }
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   
   useEffect(()=> {
-    fetchChannelVideos(channelId);
-  },[]);
+    const order = getOrderValue(activeTab);
+    fetchChannelVideos(channelId, order);
+  },[activeTab, channelId]);
+
+  const handleClick = useCallback((id) => {
+    navigate(`/watch?v=${id}`);
+  }, [navigate]);
 
   return (
     <div>
+      <div className={styles.video_header}>
+       {tabs.map((tab) => (
+                   <button
+                     key={tab}
+                     className={`${styles.header_button} ${activeTab === tab ? styles.active_header_button : ""}`}
+                     onClick={() => handleTabClick(tab)}
+                   >
+                     {tab}
+                   </button>
+                 ))}
+      </div>
           <ul className={styles.video_list}>
             {videos.map((video) => (
-              <li className={styles.video_item} key={video.id}>
+              <li className={styles.video_item} key={video.id} onClick={() => handleClick(video.id)}>
                 <div>
                 <img
                   className={styles.video_thumbnail}

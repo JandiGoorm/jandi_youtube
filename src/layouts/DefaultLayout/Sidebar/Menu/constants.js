@@ -24,7 +24,7 @@ export const firstitems = [
 
 export const mypagemenuitems = [
   { icon: RxCountdownTimer, label: "시청기록", link: "/" },
-  { icon: CgPlayList, label: "재생목록", link: "/" },
+  { icon: CgPlayList, label: "재생목록", link: "/feed/playlists" },
   { icon: RiVideoLine, label: "내 동영상", link: "/feed/subscriptions" },
   {
     icon: LuClock4,
@@ -34,7 +34,7 @@ export const mypagemenuitems = [
   {
     icon: AiOutlineLike,
     label: "좋아요 표시한 동영상",
-    link: "https://music.youtube.com/",
+    link: "/playlist?list=LL",
   },
   {
     icon: TfiDownload,
