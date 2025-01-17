@@ -1,6 +1,7 @@
 import { formatISO } from "../../utils/date";
 import { formatHitCount } from "../../utils/hit";
 import styles from "./ShortVideoItem.module.css";
+import VideoMenu from "./VideoMenu";
 
 const ShortVideoItem = ({ item }) => {
   return (
@@ -32,6 +33,9 @@ const ShortVideoItem = ({ item }) => {
         <span className={styles.video_channel_des}>
           {item.snippet.description}
         </span>
+        <div className={styles.menu_box}>
+          <VideoMenu />
+        </div>
       </div>
     </div>
   );

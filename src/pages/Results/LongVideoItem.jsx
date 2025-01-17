@@ -2,6 +2,7 @@ import SkeletonImage from "../../components/SkeletonImage/SkeletonImage";
 import { formatISO } from "../../utils/date";
 import { formatHitCount } from "../../utils/hit";
 import styles from "./LongVideoItem.module.css";
+import VideoMenu from "./VideoMenu";
 
 const LongVideoItem = ({ item }) => {
   return (
@@ -38,6 +39,9 @@ const LongVideoItem = ({ item }) => {
         <span className={styles.video_channel_des}>
           {item.snippet.description}
         </span>
+        <div className={styles.menu_box}>
+          <VideoMenu />
+        </div>
       </div>
     </div>
   );
