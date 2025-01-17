@@ -52,7 +52,7 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
 
   useEffect(() => {
     setData([]);
-    nextToken.current = null;
+    nextToken.current = undefined;
   }, [fetch]);
 
   return (

@@ -34,11 +34,12 @@ const FeedSubscriptionsPage = () => {
       try {
         //채널별 영상 10개 불러오기
         const playlistsRequests = channels.map(async (v, i) => {
+          const pageToken = nextPageToken[i] ?? null;
           return fetchPlaylistItems({
             part: "snippet,contentDetails",
             playlistId: v,
             maxResult: 10,
-            pageToken: nextPageToken[i],
+            pageToken,
           });
         });
 
