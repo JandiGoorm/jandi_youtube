@@ -180,10 +180,10 @@ const ShortsPlayer = () => {
 
   //댓글 모달창
   const handleOpenCommentsModal = () => {
-    setIsDescriptionModalOpen(true);
+    setIsCommentsModalOpen(true);
   };
   const handleCloseCommentsModal = () => {
-    setIsDescriptionModalOpen(false);
+    setIsCommentsModalOpen(false);
   };
 
   
@@ -312,7 +312,7 @@ const ShortsPlayer = () => {
         </DescriptionModal>
 
         {/* 댓글 모달창 */}
-        <CommentsModal isOpen={isDescriptionModalOpen} onClose={handleCloseDescriptionModal}>
+        <CommentsModal isOpen={isCommentsModalOpen} onClose={handleCloseCommentsModal}>
           <main>
           {comments.length > 0 ? (
             <ul>
