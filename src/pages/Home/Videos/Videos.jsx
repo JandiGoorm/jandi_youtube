@@ -43,36 +43,14 @@ function Videos() {
     const fetchVideos = async () => {
       setIsLoading(true);
       try {
-        const response = await YoutubeService.fetchVideos({
-          part: "snippet",
-          chart: "mostPopular",
-          type: "video",
-          regionCode: "KR",
-          maxResults: 50,
-        });
-        const newVideos = response.data.items; // 새로 가져온 동영상 리스트
-        const channelIds = newVideos.map((video) => video.snippet.channelId);
-        const channelResponse = await YoutubeService.fetchChannels({
-          part: "snippet,statistics,contentDetails",
-          id: channelIds.join(","),
-        });
-        const channels = channelResponse.data.items;
-        // 새로운 비디오 리스트에 채널 정보를 병합
-        const result = newVideos.map((video) => {
-          const channelInfo = channels.find(
-            (channel) => channel.id === video.snippet.channelId
-          );
-          return {
-            ...video,
-            channelInfo: channelInfo ? channelInfo.snippet : null,
-          };
-        });
-    
-        console.log("서버에서 새로 받아온 동영상 리스트 데이터: ", result);
-    
-         //기존 데이터와 새로운 데이터를 병합하고 중복 제거
-         setVideos((prevVideos) => {
-          const updatedVideos = [...prevVideos, ...result].filter(
+        const response = await YoutubeService.fetchVideos(50);
+        const newVideos = response.data; //새로 가져온 동영상 리스트
+
+        console.log("서버에서 새로 받아온 동영상 리스트 데이터: ", newVideos);
+
+        //기존 데이터와 새로운 데이터를 병합하고 중복 제거
+        setVideos((prevVideos) => {
+          const updatedVideos = [...prevVideos, ...newVideos].filter(
             (video, index, self) =>
               index === self.findIndex((v) => v.id === video.id)
           );
@@ -86,6 +64,7 @@ function Videos() {
           localStorage.setItem("cachedVideos", JSON.stringify(updatedVideos));
           return updatedVideos; // 병합된 동영상 리스트
         });
+
       } catch (error) {
         console.error("Error fetching videos:", error);
       } finally {
