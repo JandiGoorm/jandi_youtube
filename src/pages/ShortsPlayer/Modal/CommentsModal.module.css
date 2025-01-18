@@ -1,6 +1,6 @@
 /*******************************************************/
 /*                                                     */
-/*                     모달창 기본 CS                     */
+/*                     모달창 반응형 CSS                   */
 /*                                                     */
 /*******************************************************/
 @media (min-width: 1312px) {
@@ -21,7 +21,6 @@
 /*                     모달창 기본 CSS                    */
 /*                                                     */
 /*******************************************************/
-
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -67,7 +66,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .dropdownMenu button {
+.dropdownMenuBtn {
     display: block;
     width: 110px;
     height: auto;
@@ -80,12 +79,12 @@
   }
 
 /*DescriptionModal.jsx 자체 부분*/
-header{
+.modalHeader{
     display: flex;
     border-bottom: solid thin #d6d6d6;
 }
 
-header p{
+.modalHeader p{
     display: flex;
     flex-grow: 10;
     margin: 10px 0px;
@@ -94,7 +93,7 @@ header p{
     font-weight: bolder;
 }
 
-header button{
+.modalHeader button{
     width: 40px;
     height: 40px;
     margin: 2px 0px;
@@ -104,80 +103,6 @@ header button{
     border-radius: 50%;
     background-color:transparent;
 }
-
-/*DescriptionModal.jsx {children} 부분*/
-/*전체 리스트 레이아웃*/
-main ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-/*개별 리스트 레이아웃*/
-li{
-    display: flex;
-    align-items: flex-start;
-}
-
-/*프로필 이미지*/
-li img{
-    width: 40px;
-    height: 40px;
-
-    border-radius: 50%;
-}
-
-/*댓글 작성자명*/
-section div p:nth-child(1) {
-    margin: 5px 5px 5px 0px;
-
-    font-size: 13px;
-    font-weight: 500;
-    color: #0f0f0f;
-}
-
-/*댓글 작성일, 댓글 내용*/
-section div p:nth-child(2) {
-    margin: 5px 0px;
-
-    font-size: 12px;
-    color: #606060;
-}
-
-section {
-    margin: 0px 15px;
-    display: flex;
-}
-
-section div{
-    display: flex;
-    align-items: center;
-}
-
-/*좋아요/싫어요 버튼*/
-section button{
-    width: 32px;
-    height: 32px;
-
-    white-space: pre-line;
-    border: none;
-    border-radius: 50%;
-    background-color: transparent;
-}
-
-section div button{
-    width: 32px;
-    height: 32px;
-
-    white-space: pre-line;
-    border: none;
-    border-radius: 50%;
-    background-color: transparent;
-}
-
-.replies{
-    display: none;
-}
   
 /*******************************************************/
 /*                                                     */
@@ -185,14 +110,10 @@ section div button{
 /*                                                     */
 /*******************************************************/
   
-header button:hover{
+.modalHeader button:hover{
     background-color: rgb(220, 220, 220);
 }
 
 .dropdownMenu button:hover {
     background-color: rgb(220, 220, 220);
-}
-
-button:active{
-    background-color: #606060;
 }
