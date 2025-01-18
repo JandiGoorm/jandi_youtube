@@ -291,44 +291,44 @@ const ShortsPlayer = () => {
 
         {/* 설명 모달창 */}
         <DescriptionModal isOpen={isDescriptionModalOpen} onClose={handleCloseDescriptionModal}>
-          <main>{shortsData.snippet.title}</main>
-          <article>
-            <section>
+          <main className={styles.descriptionModalMain}> {shortsData.snippet.title}</main>
+          <article className={styles.descriptionModalArticle}>
+            <section className={styles.descriptionModalSection}>
               <p>{formatLikeCount(shortsData.statistics.likeCount)}</p>
               <p>좋아요 수</p>
             </section>
-            <section>
+            <section className={styles.descriptionModalSection}>
               <p>{formatHitCount(shortsData.statistics.viewCount).split(" ", 1)}</p>
               <p>조회수</p>
             </section>
-            <section>
+            <section className={styles.descriptionModalSection}>
               <p>{formatISO(shortsData.snippet.publishedAt).split(" ", 1)}</p>
               <p>전</p>
             </section>
           </article>
-          <footer>
+          <footer className={styles.descriptionModalFooter}>
             {shortsData.snippet.description}
           </footer>
         </DescriptionModal>
 
         {/* 댓글 모달창 */}
         <CommentsModal isOpen={isCommentsModalOpen} onClose={handleCloseCommentsModal}>
-          <main>
+          <main className={styles.commentsModalMain}>
           {comments.length > 0 ? (
             <ul>
               {comments.map((comment) => (
-                <li key={comment.id} >
+                <li className={styles.commentsItem} key={comment.id} >
                   <img
                     src="https://yt3.ggpht.com/ytc/AIdro_kovJB0p4amgp5AriYf9cig9455OFtyuPCfZVCJgLM=s88-c-k-c0x00ffffff-no-rj"
                   />
 
-                  <section>
+                  <section className={styles.commentSection} >
                     <div>
-                      <p>{comment.snippet.topLevelComment.snippet.authorDisplayName}</p>
-                      <p>{formatISO(comment.snippet.publishedAt)}</p>
+                      <p className={styles.commentAuthor}>{comment.snippet.topLevelComment.snippet.authorDisplayName}</p>
+                      <p className={styles.commentTime}>{formatISO(comment.snippet.publishedAt)}</p>
                     </div>
 
-                    <p dangerouslySetInnerHTML={{
+                    <p className={styles.commentContents} dangerouslySetInnerHTML={{
                       __html: //HTML 엔티티를 실제로 브라우저에서 적용되도록 렌더링
                         comment.snippet.topLevelComment.snippet.textDisplay,
                     }}></p>
