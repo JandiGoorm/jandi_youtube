@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./DescriptionModal.module.css"; 
+import styles from "./DescriptionModal.module.css";
 import { TfiClose } from "react-icons/tfi";
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -8,9 +8,11 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <header>
+        <header className={styles.modalHeader}>
           <p>설명</p>
-          <button onClick={onClose}><TfiClose /></button>
+          <button onClick={onClose}>
+            <TfiClose />
+          </button>
         </header>
         {children}
       </div>
