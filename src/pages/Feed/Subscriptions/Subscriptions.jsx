@@ -55,7 +55,7 @@ const FeedSubscriptionsPage = () => {
 
         const flattend = detailVideos.map((v) => v.data.items).flat();
         const filtered = flattend.filter(
-          (v) => !isShortVideo(v.contentDetails.duration)
+          (v) => isShortVideo(v.contentDetails.duration) === false
         );
 
         return {
