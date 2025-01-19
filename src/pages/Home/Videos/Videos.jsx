@@ -150,26 +150,26 @@ function Videos() {
 
   return (
     <div>
-      <ul className={styles.video_list}>
+      <ul className={styles.videoList}>
         {videos.map((video) => (
-          <li className={styles.video_item} key={video.videoId}>
+          <li className={styles.videoItem} key={video.videoId}>
             <img
-              className={styles.video_thumbnail}
+              className={styles.videoThumbnail}
               src={video.videoThumbnail}
               onClick={()=> videoOnClick(video.videoId)}
               />
-            <div className={styles.video_information}>
+            <div className={styles.videoInfo}>
               <img
-                className={styles.video_channel_img}
+                className={styles.channelThumbnail}
                 src={video.channelThumbnail}
                 onClick={() => channelOnClick(video.channelId)}
               />
               <div>
-                <p className={styles.video_title}>{video.videoTitle}</p>
-                <p className={styles.video_channeltitle}>{video.channelTitle}</p>
+                <p className={styles.videoTitle}>{video.videoTitle}</p>
+                <p className={styles.channelTitle}>{video.channelTitle}</p>
                 <span className={styles.video_view_count}>{formatHitCount(video.viewCount)}</span>
                 <span>·</span>
-                <span className={styles.video_published_time}>{formatISO(video.publishTime)}</span>
+                <span className={styles.videoPublishTime}>{formatISO(video.publishTime)}</span>
               </div>
             </div>
           </li>

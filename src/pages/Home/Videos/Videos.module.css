@@ -1,50 +1,50 @@
 @media (min-width: 0px) {
-  .video_item {
+  .videoItem {
     width: 100%; /*한줄에 영상 1개*/
     padding: 0px;
   }
 }
 
 @media (min-width: 576px) {
-  .video_item {
+  .videoItem {
     width: 45%; /*한줄에 영상 2개*/
   }
 }
 
 @media (min-width: 992px) {
-  .video_item {
+  .videoItem {
     width: 30%; /*한줄에 영상 3개*/
   }
 }
 
 @media (min-width: 1200px) {
-  .video_item {
+  .videoItem {
     width: 20%; /*한줄에 영상 4개*/
   }
 }
 
-.video_list {
+.videoList {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
 }
 
-.video_item {
+.videoItem {
   display: inline-block;
   padding: 15px 10px;
 }
 
-.video_thumbnail {
+.videoThumbnail {
   width: 100%;
   height: fit-content;
   border-radius: 10px;
 }
 
-.video_information{
+.videoInfo{
   display: flex;
 }
 
-.video_channel_img{
+.channelThumbnail{
   width: 15%;
   height: 100%;
   margin: 5px;
@@ -52,7 +52,7 @@
   border-radius: 50%;
 }
 
-.video_title {
+.videoTitle {
   width: 100%;
   margin: 5px 0px;
   font-weight: bold;
@@ -65,9 +65,9 @@
   text-overflow: ellipsis;
 }
 
-.video_channeltitle, 
-.video_view_count, 
-.video_published_time{
+.channelTitle, 
+.videoViewCount, 
+.videoPublishTime{
   margin: 0px 2px;
   font-size: small;
   color: gray;
