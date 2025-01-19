@@ -1,3 +1,8 @@
+/*******************************************************/
+/*                                                     */
+/*                        미디어 쿼리                     */
+/*                                                     */
+/*******************************************************/
 @media (min-width: 0px) {
   .videoItem {
     width: 100%; /*한줄에 영상 1개*/
@@ -23,6 +28,12 @@
   }
 }
 
+/*******************************************************/
+/*                                                     */
+/*                      동영상 카드 CSS                   */
+/*                                                     */
+/*******************************************************/
+/*                    동영상 전체카드 박스                  */
 .videoList {
   list-style-type: none;
   display: flex;
@@ -34,14 +45,16 @@
   padding: 15px 10px;
 }
 
+
+/*                    동영상 플레이어 박스                  */
+.videoBox{
+  position: relative;
+}
+
 .videoThumbnail {
   width: 100%;
   height: fit-content;
   border-radius: 5px;
-}
-
-.videoBox{
-  position: relative;
 }
 
 .videoDuration{
@@ -49,11 +62,12 @@
   z-index: 2;
   bottom: 0;
   right: -5px;
+  
   width: auto;
   height: 18px;
   margin: 8px;
   padding: 1px 4px;
-
+  
   background-color: rgba(0,0,0,.5);
   border-radius: 5px;
   border: none;
@@ -61,6 +75,7 @@
   color: white;
 }
 
+/*                      동영상 정보 박스                   */
 .videoInfo{
   display: flex;
 }
@@ -94,6 +109,11 @@
   color: gray;
 }
 
+/*******************************************************/
+/*                                                     */
+/*                        옵저버 CSS                     */
+/*                                                     */
+/*******************************************************/
 .loading {
   height: 20px;
   margin: 20px auto;
