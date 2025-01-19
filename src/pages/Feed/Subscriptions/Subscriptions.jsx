@@ -34,11 +34,12 @@ const FeedSubscriptionsPage = () => {
       try {
         //채널별 영상 10개 불러오기
         const playlistsRequests = channels.map(async (v, i) => {
+          const pageToken = nextPageToken[i] ?? null;
           return fetchPlaylistItems({
             part: "snippet,contentDetails",
             playlistId: v,
             maxResult: 10,
-            pageToken: nextPageToken[i],
+            pageToken,
           });
         });
 
@@ -54,7 +55,7 @@ const FeedSubscriptionsPage = () => {
 
         const flattend = detailVideos.map((v) => v.data.items).flat();
         const filtered = flattend.filter(
-          (v) => !isShortVideo(v.contentDetails.duration)
+          (v) => isShortVideo(v.contentDetails.duration) === false
         );
 
         return {
@@ -73,6 +74,7 @@ const FeedSubscriptionsPage = () => {
   );
 
   const fetchCallback = async (nextToken = []) => {
+    if(nextToken === null) return;
     const allSubs = await youtubeServiceRef.current.fetchAllSubscriptions();
     const uploadChannels = allSubs.map(
       (v) => v.contentDetails.relatedPlaylists.uploads

@@ -96,7 +96,7 @@
 }
 
 /*동영상 재생기*/
-iframe{
+.thumbnail{
   width: 50.5vh;
   height: 90vh;
 

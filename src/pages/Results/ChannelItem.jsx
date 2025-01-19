@@ -2,12 +2,25 @@ import SkeletonImage from "../../components/SkeletonImage/SkeletonImage";
 import { formatSubscriberCount } from "../../utils/channel";
 import styles from "./ChannelItem.module.css";
 import SubscribeButton from "../../components/Button/SubscriptionButton";
+import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+import { PageEndPoints } from "../../constants/api";
+import { buildPath } from "../../utils/path";
 
 const ChannelItem = ({ item }) => {
+  console.log(item);
+  const navigate = useNavigate();
+
+  const handleChannelClick = useCallback(() => {
+    const path = buildPath(PageEndPoints.CHANNEL, { channel: item.id });
+    navigate(path);
+  }, [item.id, navigate]);
+
   if (!item) return;
+
   return (
     <div className={styles.channel_box}>
-      <div className={styles.channel_img_box}>
+      <div className={styles.channel_img_box} onClick={handleChannelClick}>
         <SkeletonImage
           Image={
             <img
@@ -21,7 +34,7 @@ const ChannelItem = ({ item }) => {
       </div>
 
       <div className={styles.channel_info}>
-        <div className={styles.info_text}>
+        <div className={styles.info_text} onClick={handleChannelClick}>
           <span>{item?.snippet.title}</span>
           <div className={styles.channel_detail}>
             <div className={styles.channel_stats}>

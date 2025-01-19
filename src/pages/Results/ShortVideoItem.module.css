@@ -19,6 +19,8 @@
 
   display: flex;
   justify-content: center;
+
+  cursor: pointer;
 }
 
 .video_img {
@@ -40,6 +42,8 @@
 
 .video_title {
   font-size: 18px;
+
+  cursor: pointer;
 }
 
 .video_stats {
@@ -55,6 +59,8 @@
   gap: 4px;
   align-items: center;
   padding: 12px 0;
+
+  cursor: pointer;
 }
 
 .video_channel_img {

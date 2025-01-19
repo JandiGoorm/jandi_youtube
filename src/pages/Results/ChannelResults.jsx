@@ -12,6 +12,7 @@ const ChannelResults = () => {
 
   const fetchCallback = useCallback(
     async (nextPageToken = "") => {
+      if (nextPageToken === null) return
       const channelResponse = await fetchSearch({
         part: "snippet",
         maxResults: 10,

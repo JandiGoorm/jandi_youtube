@@ -13,6 +13,7 @@ const LongVideoResults = () => {
 
   const fetchCallback = useCallback(
     async (nextPageToken = "") => {
+      if (nextPageToken === null) return;
       const videoResponse = await fetchSearch({
         part: "snippet",
         maxResults: 10,
@@ -36,6 +37,7 @@ const LongVideoResults = () => {
       const channelsId = videos
         .map((video) => video.snippet.channelId)
         .join(",");
+
       const channelsResponse = await fetchChannels({
         part: "snippet,statistics",
         id: channelsId,
