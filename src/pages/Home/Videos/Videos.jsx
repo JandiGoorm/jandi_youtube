@@ -1,9 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import YoutubeService from "../../../apis/youtube";
-import { formatISO } from "../../../utils/date.js";
-import {formatHitCount} from "../../../utils/hit.js"
 import styles from "./Videos.module.css";
 import { useNavigate } from "react-router-dom";
+
+//utils 함수
+import { formatISO } from "../../../utils/date.js";
+import {formatHitCount} from "../../../utils/hit.js"
+import { formatDuration } from "../../../utils/time.js";
 
 function Videos() {
   const [videos, setVideos] = useState([]); // 비디오 데이터
@@ -153,11 +156,17 @@ function Videos() {
       <ul className={styles.videoList}>
         {videos.map((video) => (
           <li className={styles.videoItem} key={video.videoId}>
-            <img
-              className={styles.videoThumbnail}
-              src={video.videoThumbnail}
-              onClick={()=> videoOnClick(video.videoId)}
+            {/* 동영상 플레이어 박스 */}
+            <div className={styles.videoBox}>
+              <img
+                className={styles.videoThumbnail}
+                src={video.videoThumbnail}
+                onClick={()=> videoOnClick(video.videoId)}
               />
+              <p className={styles.videoDuration}>{formatDuration(video.duration)}</p>
+            </div>
+
+            {/* 동영상 정보 박스 */}
             <div className={styles.videoInfo}>
               <img
                 className={styles.channelThumbnail}
@@ -167,7 +176,7 @@ function Videos() {
               <div>
                 <p className={styles.videoTitle}>{video.videoTitle}</p>
                 <p className={styles.channelTitle}>{video.channelTitle}</p>
-                <span className={styles.video_view_count}>{formatHitCount(video.viewCount)}</span>
+                <span className={styles.videoViewCount}>{formatHitCount(video.viewCount)}</span>
                 <span>·</span>
                 <span className={styles.videoPublishTime}>{formatISO(video.publishTime)}</span>
               </div>

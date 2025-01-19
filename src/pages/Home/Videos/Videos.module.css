@@ -37,7 +37,28 @@
 .videoThumbnail {
   width: 100%;
   height: fit-content;
-  border-radius: 10px;
+  border-radius: 5px;
+}
+
+.videoBox{
+  position: relative;
+}
+
+.videoDuration{
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  right: -5px;
+  width: auto;
+  height: 18px;
+  margin: 8px;
+  padding: 1px 4px;
+
+  background-color: rgba(0,0,0,.5);
+  border-radius: 5px;
+  border: none;
+  font-size: 12px;
+  color: white;
 }
 
 .videoInfo{
