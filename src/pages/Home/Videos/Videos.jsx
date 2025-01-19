@@ -57,7 +57,6 @@ function Videos() {
           id: channelIds.join(","),
         });
         const channels = channelResponse.data.items;
-
         // 새로운 비디오 리스트에 채널 정보를 병합
         const result = newVideos.map((video) => {
           const channelInfo = channels.find(
@@ -68,11 +67,11 @@ function Videos() {
             channelInfo: channelInfo ? channelInfo.snippet : null,
           };
         });
-
+    
         console.log("서버에서 새로 받아온 동영상 리스트 데이터: ", result);
-
-        //기존 데이터와 새로운 데이터를 병합하고 중복 제거
-        setVideos((prevVideos) => {
+    
+         //기존 데이터와 새로운 데이터를 병합하고 중복 제거
+         setVideos((prevVideos) => {
           const updatedVideos = [...prevVideos, ...result].filter(
             (video, index, self) =>
               index === self.findIndex((v) => v.id === video.id)
@@ -146,13 +145,13 @@ function Videos() {
     <div>
       <ul className={styles.video_list}>
         {videos.map((video) => (
-          <li className={styles.video_item} key={video.id.videoId}>
+          <li className={styles.video_item} key={video.id}>
             <img
               className={styles.video_thumbnail}
               src={video.snippet.thumbnails.medium.url}
               alt={video.snippet.title}
-              onClick={() => videoOnClick(video.id.videoId)}
-            />
+              onClick={()=> videoOnClick(video.id)}
+              />
             <div className={styles.video_information}>
               <img
                 className={styles.video_channel_img}

@@ -28,14 +28,14 @@ const CommentModal = ({ isOpen, onClose, children }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <header>
+        <header className={styles.modalHeader}>
           <p>댓글</p>
           <div className={styles.filterContainer}>
             <button onClick={toggleDropdown}><RiFilter2Fill /></button>
             {isDropdownOpen && (
               <div className={styles.dropdownMenu}>
-                <button onClick={setSortByPopularity}>인기 댓글순</button>
-                <button onClick={setSortByLatest}>최신순</button>
+                <button className={styles.dropdownMenuBtn} onClick={setSortByPopularity}>인기 댓글순</button>
+                <button className={styles.dropdownMenuBtn} onClick={setSortByLatest}>최신순</button>
               </div>
             )}
           </div>
