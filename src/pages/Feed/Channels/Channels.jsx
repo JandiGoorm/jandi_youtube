@@ -30,6 +30,7 @@ const FeedChannelsPage = () => {
   );
 
   const fetchCallback = async (nextToken = "") => {
+    if (nextToken === null) return;
     try {
       const response = await fetchSubscriptions({
         part: "snippet,contentDetails",

@@ -10,6 +10,7 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
   const fetchCallback = useCallback(async () => {
     if (isFetching) return;
     setIsFetching(true);
+
     try {
       const newData = await fetch(nextToken.current);
       if (!newData) return;
@@ -28,6 +29,12 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
 
         return [...prevData, ...newItems];
       });
+
+      if (!newData.nextToken) {
+        nextToken.current = null;
+        return;
+      }
+      
       nextToken.current = newData.nextToken;
     } catch (err) {
       console.log("fetch Error in InfiniteScroll", err);

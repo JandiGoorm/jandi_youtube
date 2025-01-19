@@ -74,6 +74,7 @@ const FeedSubscriptionsPage = () => {
   );
 
   const fetchCallback = async (nextToken = []) => {
+    if(nextToken === null) return;
     const allSubs = await youtubeServiceRef.current.fetchAllSubscriptions();
     const uploadChannels = allSubs.map(
       (v) => v.contentDetails.relatedPlaylists.uploads

@@ -13,6 +13,7 @@ const LongVideoResults = () => {
 
   const fetchCallback = useCallback(
     async (nextPageToken = "") => {
+      if (nextPageToken === null) return
       const videoResponse = await fetchSearch({
         part: "snippet",
         maxResults: 10,
