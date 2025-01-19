@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, useSearchParams } from "react-router-dom";
 import { PageEndPoints } from "./constants/api";
 import AuthProvider from "./contexts/AuthProvider";
 import ChannelPage from "./pages/Channel/Channel";
@@ -12,6 +12,13 @@ import FeedSubscriptionsPage from "./pages/Feed/Subscriptions/Subscriptions";
 import ResultsPage from "./pages/Results/Results";
 import SubscriptionsProvider from "./contexts/SubscriptionsProvider";
 import Like from "./pages/Like/Like";
+import PlayListItem from "./pages/Feed/PlayLists/PlayListItem/PlayListItem";
+
+const PlaylistRoute = () => {
+  const [searchParams] = useSearchParams();
+  const listParam = searchParams.get("list");
+  return listParam === "LL" ? <Like /> : <PlayListItem /> ;
+};
 
 function App() {
   return (
@@ -23,24 +30,14 @@ function App() {
             <Route path={PageEndPoints.LOADING} element={<LoadingPage />} />
             <Route path={PageEndPoints.CHANNEL} element={<ChannelPage />} />
             <Route path={PageEndPoints.RESULTS} element={<ResultsPage />} />
-            <Route path={PageEndPoints.PLAYLIST} element={<Like />} />
             <Route path={PageEndPoints.CHANNEL} element={<ChannelPage />} />
-            <Route
-              path={PageEndPoints.FEEDPLAYLISTS}
-              element={<FeedplayListsPage />}
-            />
-            <Route
-              path={PageEndPoints.FEEDCHANNELS}
-              element={<FeedChannelsPage />}
-            />
-            <Route
-              path={PageEndPoints.FEEDSUBSCRIPTIONS}
-              element={<FeedSubscriptionsPage />}
-            />
-            <Route
-              path={PageEndPoints.SHORTSDETAIL}
-              element={<ShortsPlayer />}
-            />
+
+            <Route path={PageEndPoints.FEEDPLAYLISTS} element={<FeedplayListsPage />}/>
+            <Route path={PageEndPoints.PLAYLIST} element={<PlaylistRoute />} />
+            <Route path={PageEndPoints.FEEDCHANNELS} element={<FeedChannelsPage />}/>
+            <Route path={PageEndPoints.FEEDSUBSCRIPTIONS} element={<FeedSubscriptionsPage />}/>
+
+            <Route path={PageEndPoints.SHORTSDETAIL} element={<ShortsPlayer />}/>
             <Route path={PageEndPoints.WATCH} element={<VideoPlayer />} />
           </Routes>
         </Router>
