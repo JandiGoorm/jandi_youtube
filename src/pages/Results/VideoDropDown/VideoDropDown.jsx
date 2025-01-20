@@ -2,13 +2,13 @@ import {
   DropDown,
   DropDownTrigger,
   DropDownContent,
-} from "../../components/DropDown/DropDown";
-import { videoDropdownOptions } from "./constansts";
+} from "../../../components/DropDown/DropDown";
+import { videoDropdownOptions } from "../constansts";
 import { MdOutlineNotInterested } from "react-icons/md";
 import { FiMoreVertical } from "react-icons/fi";
-import styles from "./VideoMenu.module.css";
+import styles from "./VideoDropDown.module.css";
 
-const VideoMenu = () => {
+const VideoDropDown = () => {
   return (
     <DropDown>
       <DropDownTrigger>
@@ -40,4 +40,4 @@ const VideoMenu = () => {
   );
 };
 
-export default VideoMenu;
+export default VideoDropDown;

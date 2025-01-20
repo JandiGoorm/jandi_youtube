@@ -4,11 +4,11 @@ import FeedChannelsPage from "../pages/Feed/Channels/Channels";
 import FeedplayListsPage from "../pages/Feed/PlayLists/PlayLists";
 import FeedSubscriptionsPage from "../pages/Feed/Subscriptions/Subscriptions";
 import HomePage from "../pages/Home/Home";
-import Like from "../pages/Like/Like";
 import LoadingPage from "../pages/Loading/Loading";
 import ResultsPage from "../pages/Results/Results";
 import ShortsPlayer from "../pages/ShortsPlayer/ShortsPlayer";
 import VideoPlayer from "../pages/VideoPlayer/VideoPlayer";
+import PlayListPage from "../pages/PlayList/PlayList";
 
 export const routes = [
   {
@@ -33,7 +33,7 @@ export const routes = [
   },
   {
     path: PageEndPoints.PLAYLIST,
-    element: <Like />,
+    element: <PlayListPage />,
     requireAuth: true,
   },
   {

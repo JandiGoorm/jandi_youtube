@@ -1,16 +1,34 @@
 .container {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #ffffff;
+  padding: 10px;
+  width: 100%;
+  background-color: white;
   justify-content: space-between;
 
-  /*스크롤에 관계없이 위치 고정*/
   position: fixed;
-  width: calc(100vw - 50px);
-  top: 0px;
-  right: 0px;
-  z-index: 100;
+  top: 0;
+  z-index: 9999;
+}
+
+.flex_row {
+  display: flex;
+  gap: 8px;
+
+  align-items: center;
+}
+
+.sidebarBtn {
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.sidebarBtn:hover {
+  background-color: rgb(220, 220, 220);
 }
 
 .logo_box {

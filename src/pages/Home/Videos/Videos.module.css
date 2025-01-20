@@ -38,6 +38,9 @@
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+  padding: 5px;
+  margin: 0;
+  background-color: white;
 }
 
 .videoItem {
@@ -119,12 +122,3 @@
   color: gray;
 }
 
-/*******************************************************/
-/*                                                     */
-/*                        옵저버 CSS                     */
-/*                                                     */
-/*******************************************************/
-.loading {
-  height: 20px;
-  margin: 20px auto;
-}

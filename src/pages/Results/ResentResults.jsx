@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
 import { isShortVideo } from "../../utils/time";
 import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
-import LongVideoItem from "./LongVideoItem";
+import LongVideoItem from "./LongVideoItem/LongVideoItem";
 
 const RecentResults = () => {
   const { search } = useLocation();

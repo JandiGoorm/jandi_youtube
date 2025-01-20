@@ -171,7 +171,6 @@ function Videos() {
   }, [isLoading]);
 
   return (
-    <div>
       <ul className={styles.videoList}>
         {videos.map((video) => (
           <li className={styles.videoItem} key={video.videoId}>
@@ -215,9 +214,8 @@ function Videos() {
             </div>
           </li>
         ))}
+        <li ref={observerTarget}/>
       </ul>
-      <div ref={observerTarget} className={styles.loading}></div>
-    </div>
   );
 }
 

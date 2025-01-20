@@ -1,18 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import SkeletonImage from "../../components/SkeletonImage/SkeletonImage";
-import { formatISO } from "../../utils/date";
-import { formatHitCount } from "../../utils/hit";
-import styles from "./LongVideoItem.module.css";
-import VideoMenu from "./VideoMenu";
+import { formatISO } from "../../../utils/date";
+import { formatHitCount } from "../../../utils/hit";
+import styles from "./ShortVideoItem.module.css";
+import VideoDropDown from "../VideoDropDown/VideoDropDown";
 import { useCallback } from "react";
-import { buildPath } from "../../utils/path";
-import { PageEndPoints } from "../../constants/api";
+import { buildPath } from "../../../utils/path";
+import { PageEndPoints } from "../../../constants/api";
+import { formatDuration } from "../../../utils/time";
 
-const LongVideoItem = ({ item }) => {
+const ShortVideoItem = ({ item }) => {
   const navigate = useNavigate();
+  const duration = formatDuration(item.contentDetails.duration);
 
   const navigateToVideo = useCallback(() => {
-    navigate(`${PageEndPoints.WATCH}?v=${item.id}`);
+    const path = buildPath(PageEndPoints.SHORTSDETAIL, {
+      shortsId: item.id,
+    });
+    navigate(path);
   }, [item.id, navigate]);
 
   const navigateToChannel = useCallback(() => {
@@ -23,15 +27,11 @@ const LongVideoItem = ({ item }) => {
   return (
     <div key={item.id.videoId} className={styles.video_box}>
       <div className={styles.video_img_box} onClick={navigateToVideo}>
-        <SkeletonImage
-          Image={
-            <img
-              src={item.snippet.thumbnails.high.url}
-              alt="video_thumbnail"
-              className={styles.video_img}
-            />
-          }
-          skeletonStyle={{ minHeight: "200px" }}
+        <div className={styles.duration_box}>{duration}</div>
+        <img
+          src={item.snippet.thumbnails.high.url}
+          alt="video_thumbnail"
+          className={styles.video_img}
         />
       </div>
       <div className={styles.video_info}>
@@ -57,11 +57,11 @@ const LongVideoItem = ({ item }) => {
           {item.snippet.description}
         </span>
         <div className={styles.menu_box}>
-          <VideoMenu />
+          <VideoDropDown />
         </div>
       </div>
     </div>
   );
 };
 
-export default LongVideoItem;
+export default ShortVideoItem;

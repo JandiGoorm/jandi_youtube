@@ -1,14 +1,13 @@
-import SkeletonImage from "../../components/SkeletonImage/SkeletonImage";
-import { formatSubscriberCount } from "../../utils/channel";
+import SkeletonImage from "../../../components/SkeletonImage/SkeletonImage";
+import { formatSubscriberCount } from "../../../utils/channel";
 import styles from "./ChannelItem.module.css";
-import SubscribeButton from "../../components/Button/SubscriptionButton";
+import SubscribeButton from "../../../components/Button/SubscriptionButton";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-import { PageEndPoints } from "../../constants/api";
-import { buildPath } from "../../utils/path";
+import { PageEndPoints } from "../../../constants/api";
+import { buildPath } from "../../../utils/path";
 
 const ChannelItem = ({ item }) => {
-  console.log(item);
   const navigate = useNavigate();
 
   const handleChannelClick = useCallback(() => {

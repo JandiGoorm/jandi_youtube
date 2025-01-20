@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
 import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
-import LongVideoItem from "./LongVideoItem";
+import LongVideoItem from "./LongVideoItem/LongVideoItem";
 import { isShortVideo } from "../../utils/time";
 
 const LongVideoResults = () => {

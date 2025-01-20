@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
 import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
-import ShortVideoItem from "./ShortVideoItem";
+import ShortVideoItem from "./ShortVideoItem/ShortVideoItem";
 
 const ShortResults = () => {
   const { search } = useLocation();
@@ -13,7 +13,7 @@ const ShortResults = () => {
   const fetchCallback = useCallback(
     async (nextPageToken = "") => {
       if (nextPageToken === null) return;
-      
+
       const videoResponse = await fetchSearch({
         part: "snippet",
         maxResults: 20,

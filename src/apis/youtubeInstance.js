@@ -46,7 +46,10 @@ youtubeAPI.interceptors.response.use(
         error.config.headers["Authorization"] = `Bearer ${accessToken}`;
         return axios.request(error.config);
       }
+    } else if (error.response.status === 403) {
+      return Promise.reject("youtube api할당량 모두 소진", error);
     }
+
     return Promise.reject(error);
   }
 );

@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
 import { useCallback } from "react";
 import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
-import ChannelItem from "./ChannelItem";
+import ChannelItem from "./ChannelItem/ChannelItem";
 
 const ChannelResults = () => {
   const { search } = useLocation();
@@ -12,7 +12,7 @@ const ChannelResults = () => {
 
   const fetchCallback = useCallback(
     async (nextPageToken = "") => {
-      if (nextPageToken === null) return
+      if (nextPageToken === null) return;
       const channelResponse = await fetchSearch({
         part: "snippet",
         maxResults: 10,
