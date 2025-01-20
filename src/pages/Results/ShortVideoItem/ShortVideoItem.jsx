@@ -6,9 +6,11 @@ import VideoDropDown from "../VideoDropDown/VideoDropDown";
 import { useCallback } from "react";
 import { buildPath } from "../../../utils/path";
 import { PageEndPoints } from "../../../constants/api";
+import { formatDuration } from "../../../utils/time";
 
 const ShortVideoItem = ({ item }) => {
   const navigate = useNavigate();
+  const duration = formatDuration(item.contentDetails.duration);
 
   const navigateToVideo = useCallback(() => {
     const path = buildPath(PageEndPoints.SHORTSDETAIL, {
@@ -25,6 +27,7 @@ const ShortVideoItem = ({ item }) => {
   return (
     <div key={item.id.videoId} className={styles.video_box}>
       <div className={styles.video_img_box} onClick={navigateToVideo}>
+        <div className={styles.duration_box}>{duration}</div>
         <img
           src={item.snippet.thumbnails.high.url}
           alt="video_thumbnail"
