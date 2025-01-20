@@ -12,6 +12,10 @@
   cursor: pointer;
 }
 
+.login_btn:hover {
+  background-color: rgb(217, 239, 252);
+}
+
 .user_center {
   display: flex;
   padding: 1px;
