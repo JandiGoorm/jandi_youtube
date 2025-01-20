@@ -29,7 +29,7 @@ export const mypagemenuitems = [
   {
     icon: LuClock4,
     label: "나중에 볼 동영상",
-    link: "https://music.youtube.com/",
+    link: "/playlist?list=WL",
   },
   {
     icon: AiOutlineLike,

@@ -28,8 +28,6 @@ import { RiShareForwardFill } from "react-icons/ri";
 import { MdMoreVert } from "react-icons/md";
 import { FaArrowUp } from "react-icons/fa6";
 import { FaArrowDown } from "react-icons/fa6";
-import { BiLike } from "react-icons/bi";
-import { BiDislike } from "react-icons/bi";
 
 const ShortsPlayer = () => {
   const { shortsId } = useParams();
@@ -50,42 +48,67 @@ const ShortsPlayer = () => {
   const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false); //설명모달창 오픈 상태
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false); //설명모달창 오픈 상태
 
+  const fetchShorts = async () => {
+    try {
+      // 동영상 정보 요청
+      const videoResponse = await YoutubeService.fetchVideos({
+        part: "snippet,contentDetails,statistics",
+        id: shortsId,
+      });
+      const videoData = videoResponse.data.items[0];
+
+      // 채널 정보 요청
+      const channelId = videoData.snippet.channelId;
+      const channelDataResponse = await YoutubeService.fetchChannels({
+        part: "snippet,contentDetails",
+        id: channelId,
+      });
+      const channelData = channelDataResponse.data.items[0];
+
+      //데이터 가공
+      const resultData = () => {
+        return {
+          videoId: videoData.id,
+          videoTitle: videoData.snippet.title,
+          videoThumbnail: videoData.snippet.thumbnails.medium.url,
+          commentCount: videoData.statistics.commentCount,
+          likeCount: videoData.statistics.likeCount,
+          viewCount: videoData.statistics.viewCount,
+          publishTime: videoData.snippet.publishedAt,
+          description: videoData.snippet.description,
+
+          channelId: videoData.snippet.channelId,
+          channelTitle: videoData.snippet.channelTitle,
+          channelThumbnail: channelData.snippet.thumbnails.medium.url,
+        };
+      };
+
+      setShortsData(resultData);
+    } catch (error) {
+      console.error("쇼츠 데이터 로드 실패:", error);
+    }
+  };
+
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(
+        //댓글+답글 가져오기
+        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${shortsId}&maxResults=50&key=${API_KEY}`
+      );
+      const data = await response.json();
+      console.log("댓글 데이터: ", data.items);
+
+      setComments(data.items || []); // 댓글 데이터 저장
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchShortsData = async () => {
-      try {
-        const response = await YoutubeService.fetchVideos({
-          part: "snippet,contentDetails,statistics",
-          id: shortsId,
-        });
-        setShortsData(response.data.items[0]); // Shorts 정보 저장
-        console.log(response);
-      } catch (error) {
-        console.error("Error fetching Shorts data:", error);
-      }
-    };
-
-    const fetchComments = async () => {
-      try {
-        const response = await fetch(
-          //댓글+답글 가져오기
-          `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${shortsId}&key=${API_KEY}`
-        );
-        const data = await response.json();
-        console.log("댓글 데이터: ", data.items);
-
-        setComments(data.items || []); // 댓글 데이터 저장
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-      }
-    };
-
     if (shortsId) {
-      fetchShortsData();
+      fetchShorts();
       fetchComments();
     }
-
-    console.log(shortsId);
-    console.log(shortsData);
   }, [shortsId]);
 
   if (!shortsData) {
@@ -152,20 +175,17 @@ const ShortsPlayer = () => {
   const handleLikeClick = () => {
     setIsLiked((prev) => !prev);
     if (isDisliked) setIsDisliked(false); // 좋아요/싫어요 중 하나만 눌리도록 상태 초기화
-    //TODO: 본인의 좋아요 정보에 반영
   };
 
   // 싫어요 버튼 클릭 핸들러
   const handleDislikeClick = () => {
     setIsDisliked((prev) => !prev);
     if (isLiked) setIsLiked(false); // 좋아요/싫어요 중 하나만 눌리도록 좋아요 상태 초기화
-    //TODO: 본인의 싫어요 정보에 반영
   };
 
   // 구독 버튼 클릭 핸들러
   const handleSubscribeClick = () => {
     setIsSubscribe((prev) => !prev);
-    //TODO: 본인의 구독 정보에 반영
   };
 
   // 모달창 열기/닫기 핸들러
@@ -226,12 +246,12 @@ const ShortsPlayer = () => {
           {/* 영상 설명란 */}
           <div className={styles.videoDetails}>
             <div className={styles.channelInfo}>
-              <img src="https://yt3.ggpht.com/IFGGaDpj5cbS5ZvfEm-hpMh4mFQX_wCSReSumZVwXukAJmC4T9Q30BrqU7OAqQL4dHDWUA1_=s88-c-k-c0x00ffffff-no-rj" />
-              <p>{shortsData.snippet.channelTitle}</p>
+              <img src={shortsData.channelThumbnail} />
+              <p>{shortsData.channelTitle}</p>
               <button
                 className={classNames(styles.subscribeBtn, {
-                  [styles.active]: isSubscribe, // 활성화된 경우 클래스 추가
-                })}
+                  [styles.active]: isSubscribe,
+                })} // 활성화된 경우 isSubscribe 클래스 추가
                 onClick={handleSubscribeClick} // 구독 클릭 이벤트
               >
                 {isSubscribe ? "구독중" : "구독"}
@@ -240,7 +260,7 @@ const ShortsPlayer = () => {
             <p
               onClick={handleOpenDescriptionModal} // 설명란 클릭 시 모달창 띄우기
             >
-              {shortsData.snippet.title}
+              {shortsData.videoTitle}
             </p>
           </div>
 
@@ -249,22 +269,20 @@ const ShortsPlayer = () => {
             <div>
               <button
                 className={classNames(styles.likeBtn, styles.tooltip, {
-                  [styles.active]: isLiked, // 활성화된 경우 클래스 추가
-                })}
+                  [styles.active]: isLiked,
+                })} // 활성화된 경우 클래스 추가
                 data-tooltip="이 동영상이 마음에 듭니다."
                 onClick={handleLikeClick} // 좋아요 클릭 이벤트
               >
                 <BiSolidLike />
               </button>
-              <p id="likeCnt">
-                {formatLikeCount(shortsData.statistics.likeCount)}
-              </p>
+              <p id="likeCnt">{formatLikeCount(shortsData.likeCount)}</p>
             </div>
             <div>
               <button
                 className={classNames(styles.dislikeBtn, styles.tooltip, {
-                  [styles.active]: isDisliked, // 활성화된 경우 클래스 추가
-                })}
+                  [styles.active]: isDisliked,
+                })} // 활성화된 경우 클래스 추가
                 data-tooltip="이 동영상이 마음에 들지 않습니다."
                 onClick={handleDislikeClick} // 싫어요 클릭 이벤트
               >
@@ -281,7 +299,7 @@ const ShortsPlayer = () => {
                 <BiSolidCommentDetail />
               </button>
               <p id="commentCnt">
-                {formatCommentCount(shortsData.statistics.commentCount)}
+                {formatCommentCount(shortsData.commentCount)}
               </p>
             </div>
             <div>
@@ -299,7 +317,7 @@ const ShortsPlayer = () => {
               </button>
             </div>
             <div>
-              <img src="https://yt3.ggpht.com/IFGGaDpj5cbS5ZvfEm-hpMh4mFQX_wCSReSumZVwXukAJmC4T9Q30BrqU7OAqQL4dHDWUA1_=s88-c-k-c0x00ffffff-no-rj" />
+              <img src={shortsData.channelThumbnail} />
             </div>
           </div>
         </div>
@@ -326,26 +344,24 @@ const ShortsPlayer = () => {
         >
           <main className={styles.descriptionModalMain}>
             {" "}
-            {shortsData.snippet.title}
+            {shortsData.videoTitle}
           </main>
           <article className={styles.descriptionModalArticle}>
             <section className={styles.descriptionModalSection}>
-              <p>{formatLikeCount(shortsData.statistics.likeCount)}</p>
+              <p>{formatLikeCount(shortsData.likeCount)}</p>
               <p>좋아요 수</p>
             </section>
             <section className={styles.descriptionModalSection}>
-              <p>
-                {formatHitCount(shortsData.statistics.viewCount).split(" ", 1)}
-              </p>
+              <p>{formatHitCount(shortsData.viewCount).split(" ", 1)}</p>
               <p>조회수</p>
             </section>
             <section className={styles.descriptionModalSection}>
-              <p>{formatISO(shortsData.snippet.publishedAt).split(" ", 1)}</p>
+              <p>{formatISO(shortsData.publishTime).split(" ", 1)}</p>
               <p>전</p>
             </section>
           </article>
           <footer className={styles.descriptionModalFooter}>
-            {shortsData.snippet.description}
+            {shortsData.description}
           </footer>
         </DescriptionModal>
 
@@ -353,97 +369,8 @@ const ShortsPlayer = () => {
         <CommentsModal
           isOpen={isCommentsModalOpen}
           onClose={handleCloseCommentsModal}
-        >
-          <main className={styles.commentsModalMain}>
-            {comments.length > 0 ? (
-              <ul>
-                {comments.map((comment) => (
-                  <li className={styles.commentsItem} key={comment.id}>
-                    <img src="https://yt3.ggpht.com/ytc/AIdro_kovJB0p4amgp5AriYf9cig9455OFtyuPCfZVCJgLM=s88-c-k-c0x00ffffff-no-rj" />
-
-                    <section className={styles.commentSection}>
-                      <div>
-                        <p className={styles.commentAuthor}>
-                          {
-                            comment.snippet.topLevelComment.snippet
-                              .authorDisplayName
-                          }
-                        </p>
-                        <p className={styles.commentTime}>
-                          {formatISO(comment.snippet.publishedAt)}
-                        </p>
-                      </div>
-
-                      <p
-                        className={styles.commentContents}
-                        dangerouslySetInnerHTML={{
-                          //HTML 엔티티를 실제로 브라우저에서 적용되도록 렌더링
-                          __html:
-                            comment.snippet.topLevelComment.snippet.textDisplay,
-                        }}
-                      ></p>
-
-                      <div>
-                        <button>
-                          <BiLike />
-                        </button>
-                        <p>
-                          {comment.snippet.topLevelComment.snippet.likeCount}
-                        </p>
-                        <button>
-                          <BiDislike />
-                        </button>
-                      </div>
-
-                      {/* 답글 */}
-                      <ul className={styles.replies}>
-                        {comment.replies?.comments?.map((replie) => (
-                          <li>
-                            <img src="https://yt3.ggpht.com/ytc/AIdro_kovJB0p4amgp5AriYf9cig9455OFtyuPCfZVCJgLM=s88-c-k-c0x00ffffff-no-rj" />
-                            <section>
-                              <div>
-                                <p>{replie.snippet.authorDisplayName}</p>
-                                <p>{formatISO(replie.snippet.publishedAt)}</p>
-                              </div>
-
-                              <p
-                                dangerouslySetInnerHTML={{
-                                  //HTML 엔티티를 실제로 브라우저에서 적용되도록 렌더링
-                                  __html: replie.snippet.textDisplay,
-                                }}
-                              ></p>
-
-                              <div>
-                                <button>
-                                  <BiLike />
-                                </button>
-                                <p>{replie.snippet.likeCount}</p>
-                                <button>
-                                  <BiDislike />
-                                </button>
-                              </div>
-                            </section>
-                          </li>
-                        )) || <li> </li>}
-                      </ul>
-                    </section>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>댓글이 없습니다.</p>
-            )}
-          </main>
-        </CommentsModal>
-
-        {/* Shorts 정보 */}
-        {/* <div className={styles.videoDetails}>
-          <h3>{shortsData.snippet.title}</h3>
-          <p>{shortsData.snippet.description}</p>
-          <div className={styles.channelInfo}>
-            <p>Channel: {shortsData.snippet.channelTitle}</p>
-          </div>
-        </div> */}
+          comments={comments}
+        />
       </div>
     </DefaultLayout>
   );

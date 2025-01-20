@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   height: calc(100vh - 60px);
+  margin-left: var(--sidebar-width); /* 사이드바 너비만큼 띄우기 */
 }
 
 .sidebar {
@@ -9,15 +10,47 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
-}
 
-@media (max-width: 1312px) {
-  /*sidebar 변경*/
-  .sidebar {
-    width: 72px;
-  }
+  /*스크롤에 관계없이 위치 고정*/
+  width: var(--sidebar-width);
+  position: fixed; 
+  top: 60px; /* Header 높이 */
+  left: 0;
+  z-index: 100;
+  height: calc(100vh - 60px);
 }
 
 .content {
   flex: 1;
+}
+
+.sidebarBtn{
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 30px;
+  padding: 5px;
+  border: transparent;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.sidebarBtnBackground{
+  width: 50px;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+
+  /*스크롤에 관계없이 위치 고정*/
+  position: absolute fixed; 
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+}
+
+.sidebarBtn:hover{
+  background-color: rgb(220, 220, 220);
 }

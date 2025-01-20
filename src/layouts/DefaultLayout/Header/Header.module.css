@@ -4,6 +4,13 @@
   padding: 10px 20px;
   background-color: #ffffff;
   justify-content: space-between;
+
+  /*스크롤에 관계없이 위치 고정*/
+  position: fixed;
+  width: calc(100vw - 50px);
+  top: 0px;
+  right: 0px;
+  z-index: 100;
 }
 
 .logo_box {
