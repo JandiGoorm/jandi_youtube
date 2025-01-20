@@ -4,8 +4,8 @@ import YoutubeService from "../../apis/youtube";
 import InfiniteScroll from "../../components/InfiniteScroll/InfiniteScroll";
 import { isShortVideo } from "../../utils/time";
 import styles from "./AllResults.module.css";
-import ChannelItem from "./ChannelItem";
-import LongVideoItem from "./LongVideoItem";
+import ChannelItem from "./ChannelItem/ChannelItem";
+import LongVideoItem from "./LongVideoItem/LongVideoItem";
 
 const AllResults = () => {
   const [channel, setChannel] = useState(null);
