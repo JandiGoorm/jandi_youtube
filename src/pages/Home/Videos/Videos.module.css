@@ -49,12 +49,22 @@
 /*                    동영상 플레이어 박스                  */
 .videoBox{
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 5px;
+  height: auto;
+  overflow: hidden;
 }
 
 .videoThumbnail {
   width: 100%;
-  height: fit-content;
-  border-radius: 5px;
+  height: 100%;
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .videoDuration{

@@ -9,12 +9,19 @@ import {formatHitCount} from "../../../utils/hit.js"
 import { formatDuration } from "../../../utils/time.js";
 
 function Videos() {
+  //비디오 데이터 관련
   const [videos, setVideos] = useState([]); // 비디오 데이터
   const [nextPageToken, setNextPageToken] = useState(); // 다음 페이지 토큰
-  const [page, setPage] = useState(1); // 현재 페이지
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태
+
+  //페이지 관련
+  const [page, setPage] = useState(1); // 현재 페이지
   const observerTarget = useRef(null); // 관찰 대상
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //옵저버
+
+  //동영상 자동재생 관련
+  const [hoveredVideoId, setHoveredVideoId] = useState(null); // 현재 호버링된 videoId 저장
+  const hoveredTimers = useRef({}); // 호버링된 시간 체크
 
   // 로컬 캐싱된 데이터 로드
   const loadCachedData = () => {
@@ -96,6 +103,19 @@ function Videos() {
     }
   };
 
+  // 동영상 호버시 2초 후 해당 videoId로 세팅
+  const handleMouseIn = (videoId) => {
+    hoveredTimers.current = setTimeout(() => {
+      setHoveredVideoId(videoId);
+    }, 2000);
+  };
+  
+  // 동영상 호버아웃시 타이머 및 상태 초기화
+  const handleMouseOut = () => {
+    clearTimeout(hoveredTimers.current);
+    setHoveredVideoId(null);
+  };
+  
   // 비디오 클릭시 해당 비디오로 이동
   const videoOnClick = (videoId) => {
     // 실제 유튜브 링크 포맷: `https://www.youtube.com/watch?v=${videoId}`
@@ -118,9 +138,8 @@ function Videos() {
     }
   };
 
-  //페이지 첫 로드시 작업
+  //페이지 첫 로드시 로컬 데이터 확인 후 없다면 서버로부터 가져와 저장
   useEffect(()=>{
-    //로컬 데이터 확인 후 없다면 서버로부터 가져와 저장
     if(loadCachedData() || videos.length === 0) {
       fetchVideos();
       localStorage.setItem("cachedVideos", JSON.stringify(videos));
@@ -157,12 +176,25 @@ function Videos() {
         {videos.map((video) => (
           <li className={styles.videoItem} key={video.videoId}>
             {/* 동영상 플레이어 박스 */}
-            <div className={styles.videoBox}>
-              <img
+            <div 
+              className={styles.videoBox}
+              onMouseEnter={() => handleMouseIn(video.videoId)}
+              onMouseLeave={handleMouseOut}
+            >
+              {hoveredVideoId === video.videoId ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&autohide=1`}
+                  className={styles.videoPlayer}
+                  allowFullScreen>  
+                </iframe>
+              ) : (
+                <img
                 className={styles.videoThumbnail}
                 src={video.videoThumbnail}
                 onClick={()=> videoOnClick(video.videoId)}
               />
+              )}
+              
               <p className={styles.videoDuration}>{formatDuration(video.duration)}</p>
             </div>
 
