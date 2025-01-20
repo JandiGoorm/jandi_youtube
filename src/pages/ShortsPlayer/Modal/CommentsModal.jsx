@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CommentsModal.module.css";
-import { RiFilter2Fill } from "react-icons/ri";
-import { TfiClose } from "react-icons/tfi";
 
 //util 함수
 import {formatISO} from "../../../utils/date.js"
@@ -10,6 +8,8 @@ import {formatHitCount} from "../../../utils/hit.js"
 import {formatCommentCount} from "../../../utils/commentCount.js"
 
 //버튼 아이콘
+import { BsFilterLeft } from "react-icons/bs";
+import { TfiClose } from "react-icons/tfi";
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
 
@@ -54,7 +54,7 @@ const setSortByPopularity = () => {
           <p>댓글</p>
           <div className={styles.filterContainer}>
             <button className={styles.filterBtn} onClick={toggleDropdown}>
-              <RiFilter2Fill />
+              <BsFilterLeft />
             </button>
             {isDropdownOpen && (
               <div className={styles.dropdownMenu}>

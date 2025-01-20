@@ -7,9 +7,9 @@
 
   /*스크롤에 관계없이 위치 고정*/
   position: fixed;
-  width: 100%;
+  width: calc(100vw - 50px);
   top: 0px;
-  left: 0px;
+  right: 0px;
   z-index: 100;
 }
 

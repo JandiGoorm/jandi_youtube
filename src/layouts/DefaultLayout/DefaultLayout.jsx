@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react";
 import styles from "./DefaultLayout.module.css";
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
+import { IoReorderThreeOutline } from "react-icons/io5";
 
 const DefaultLayout = function ({ children }) {
   const [sidebarWidth, setSidebarWidth] = useState(240); // 기본 사이드바 너비
+  const [isShowSidebar, setIsShowSidebar] = useState(true);
+
+  const handleMoreBtnClick = () => {
+    setIsShowSidebar((prev) => !prev);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,13 +26,19 @@ const DefaultLayout = function ({ children }) {
 
   return (
     <>
+      <div className={styles.sidebarBtnBackground}>
+        <button
+          className={styles.sidebarBtn}
+          onClick={handleMoreBtnClick}>
+          <IoReorderThreeOutline />
+        </button>
+      </div>
       <Header />
       <div className={styles.main} style={{ marginLeft: sidebarWidth }}>
         <div
           className={styles.sidebar}
-          style={{ width: sidebarWidth }}
-        >
-          <Sidebar />
+          style={{ width: sidebarWidth }}>
+          {isShowSidebar && <Sidebar />}
         </div>
         <div className={styles.content}>{children}</div>
       </div>
