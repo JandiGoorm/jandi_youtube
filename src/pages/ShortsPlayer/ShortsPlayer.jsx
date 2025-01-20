@@ -28,10 +28,6 @@ import { RiShareForwardFill } from "react-icons/ri";
 import { MdMoreVert } from "react-icons/md";
 import { FaArrowUp } from "react-icons/fa6";
 import { FaArrowDown } from "react-icons/fa6";
-import { BiLike } from "react-icons/bi";
-import { BiDislike } from "react-icons/bi";
-
-
 
 const ShortsPlayer = () => {
   const { shortsId } = useParams();
@@ -97,7 +93,7 @@ const ShortsPlayer = () => {
   const fetchComments = async () => {
     try {
       const response = await fetch( //댓글+답글 가져오기
-        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${shortsId}&key=${API_KEY}`
+        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${shortsId}&maxResults=50&key=${API_KEY}`
       );
       const data = await response.json();
       console.log("댓글 데이터: ", data.items);
@@ -177,20 +173,17 @@ const ShortsPlayer = () => {
   const handleLikeClick = () => {
     setIsLiked((prev) => !prev);
     if (isDisliked) setIsDisliked(false); // 좋아요/싫어요 중 하나만 눌리도록 상태 초기화
-    //TODO: 본인의 좋아요 정보에 반영
   };
   
   // 싫어요 버튼 클릭 핸들러
   const handleDislikeClick = () => {
     setIsDisliked((prev) => !prev);
     if (isLiked) setIsLiked(false); // 좋아요/싫어요 중 하나만 눌리도록 좋아요 상태 초기화
-    //TODO: 본인의 싫어요 정보에 반영
   };
   
   // 구독 버튼 클릭 핸들러
   const handleSubscribeClick = () => {
     setIsSubscribe((prev) => !prev);
-    //TODO: 본인의 구독 정보에 반영
   };
 
   // 모달창 열기/닫기 핸들러
@@ -210,7 +203,6 @@ const ShortsPlayer = () => {
     setIsCommentsModalOpen(false);
   };
 
-  
   return (
     <DefaultLayout>
       <div className={styles.shortsContainer}>
@@ -329,78 +321,12 @@ const ShortsPlayer = () => {
         </DescriptionModal>
 
         {/* 댓글 모달창 */}
-        <CommentsModal isOpen={isCommentsModalOpen} onClose={handleCloseCommentsModal}>
-          <main className={styles.commentsModalMain}>
-          {comments.length > 0 ? (
-            <ul>
-              {comments.map((comment) => (
-                <li className={styles.commentsItem} key={comment.id} >
-                  <img
-                    src="https://yt3.ggpht.com/ytc/AIdro_kovJB0p4amgp5AriYf9cig9455OFtyuPCfZVCJgLM=s88-c-k-c0x00ffffff-no-rj"
-                  />
+        <CommentsModal
+          isOpen={isCommentsModalOpen}
+          onClose={handleCloseCommentsModal}
+          comments={comments}
+        />
 
-                  <section className={styles.commentSection} >
-                    <div>
-                      <p className={styles.commentAuthor}>{comment.snippet.topLevelComment.snippet.authorDisplayName}</p>
-                      <p className={styles.commentTime}>{formatISO(comment.snippet.publishedAt)}</p>
-                    </div>
-
-                    <p className={styles.commentContents} dangerouslySetInnerHTML={{
-                      __html: //HTML 엔티티를 실제로 브라우저에서 적용되도록 렌더링
-                        comment.snippet.topLevelComment.snippet.textDisplay,
-                    }}></p>
-
-                    <div>
-                      <button><BiLike /></button>
-                      <p>{comment.snippet.topLevelComment.snippet.likeCount}</p>
-                      <button><BiDislike /></button>
-                    </div>
-
-                    {/* 답글 */}
-                    <ul className={styles.replies}>
-                        {comment.replies?.comments?.map((replie)=>(
-                          <li>
-                            <img
-                              src="https://yt3.ggpht.com/ytc/AIdro_kovJB0p4amgp5AriYf9cig9455OFtyuPCfZVCJgLM=s88-c-k-c0x00ffffff-no-rj"
-                            />
-                            <section>
-                              <div>
-                                <p>{replie.snippet.authorDisplayName}</p>
-                                <p>{formatISO(replie.snippet.publishedAt)}</p>
-                              </div>
-
-                              <p dangerouslySetInnerHTML={{
-                                __html: //HTML 엔티티를 실제로 브라우저에서 적용되도록 렌더링
-                                  replie.snippet.textDisplay,
-                              }}></p>
-
-                              <div>
-                                <button><BiLike /></button>
-                                <p>{replie.snippet.likeCount}</p>
-                                <button><BiDislike /></button>
-                              </div>
-                            </section>
-                          </li>
-                        )) || <li> </li>}
-                      </ul>
-                  </section>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>댓글이 없습니다.</p>
-          )}
-          </main>
-        </CommentsModal>
-
-        {/* Shorts 정보 */}
-        {/* <div className={styles.videoDetails}>
-          <h3>{shortsData.snippet.title}</h3>
-          <p>{shortsData.snippet.description}</p>
-          <div className={styles.channelInfo}>
-            <p>Channel: {shortsData.snippet.channelTitle}</p>
-          </div>
-        </div> */}
       </div>
     </DefaultLayout>
   );
