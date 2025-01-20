@@ -6,24 +6,23 @@ import { buildPath } from "../../../../utils/path";
 
 const SubscribeDetail = ({ subscribe }) => {
   const navigate = useNavigate();
-  const { snippet } = subscribe;
 
   const handleClick = useCallback(() => {
     navigate(
       buildPath(PageEndPoints.CHANNEL, {
-        channel: snippet.channelId,
+        channel: subscribe.id,
       })
     );
-  }, [navigate, snippet.channelId]);
+  }, [navigate, subscribe.id]);
 
   return (
     <div className={styles.container} onClick={handleClick}>
       <img
-        src={snippet.thumbnails.default.url}
+        src={subscribe.snippet.thumbnails.default.url}
         alt="thumbnail"
         className={styles.sub_img}
       />
-      <span className={styles.subs_title}>{snippet.title}</span>
+      <span className={styles.subs_title}>{subscribe.snippet.title}</span>
     </div>
   );
 };
