@@ -13,7 +13,7 @@
 
   /*스크롤에 관계없이 위치 고정*/
   width: var(--sidebar-width);
-  position: fixed; 
+  position: fixed;
   top: 60px; /* Header 높이 */
   left: 0;
   z-index: 100;
@@ -22,35 +22,19 @@
 
 .content {
   flex: 1;
+  padding-top: 60px;
 }
 
-.sidebarBtn{
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  font-size: 30px;
-  padding: 5px;
-  border: transparent;
-  border-radius: 50%;
-  background-color: transparent;
-}
+@media screen and (max-width: 13) {
+  .main {
+    margin-left: 0;
+  }
 
-.sidebarBtnBackground{
-  width: 50px;
-  height: 60px;
+  .sidebar {
+    display: none;
+  }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-
-  /*스크롤에 관계없이 위치 고정*/
-  position: absolute fixed; 
-  top: 0px;
-  left: 0px;
-  z-index: 100;
-}
-
-.sidebarBtn:hover{
-  background-color: rgb(220, 220, 220);
+  .content {
+    padding-top: 0;
+  }
 }

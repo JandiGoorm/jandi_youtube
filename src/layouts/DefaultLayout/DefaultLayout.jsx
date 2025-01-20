@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./DefaultLayout.module.css";
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
-import { IoReorderThreeOutline } from "react-icons/io5";
 
 const DefaultLayout = function ({ children }) {
   const [sidebarWidth, setSidebarWidth] = useState(240); // 기본 사이드바 너비
@@ -12,39 +11,34 @@ const DefaultLayout = function ({ children }) {
     setIsShowSidebar((prev) => !prev);
   };
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     const screenWidth = window.innerWidth;
     const width = screenWidth <= 1312 ? 72 : 240; // 화면 크기에 따라 너비 설정
     if (isShowSidebar) {
       setSidebarWidth(width);
     }
-  };
+  }, [isShowSidebar]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
-    handleResize(); 
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, [isShowSidebar]); 
+  }, [handleResize, isShowSidebar]);
 
   return (
     <>
-      <div className={styles.sidebarBtnBackground}>
-        <button
-          className={styles.sidebarBtn}
-          onClick={handleMoreBtnClick}>
-          <IoReorderThreeOutline />
-        </button>
-      </div>
-      <Header />
-      <div 
-        className={styles.main} 
-        style={{ marginLeft: isShowSidebar ? sidebarWidth : 0 }}>
-          <div
-            className={styles.sidebar}
-            style={{ width: isShowSidebar ? sidebarWidth : 0 }}>
-            {isShowSidebar && <Sidebar />}
-          </div>
-          <div className={styles.content}>{children}</div>
+      <Header menuCallback={handleMoreBtnClick} />
+      <div
+        className={styles.main}
+        style={{ marginLeft: isShowSidebar ? sidebarWidth : 0 }}
+      >
+        <div
+          className={styles.sidebar}
+          style={{ width: isShowSidebar ? sidebarWidth : 0 }}
+        >
+          {isShowSidebar && <Sidebar />}
+        </div>
+        <div className={styles.content}>{children}</div>
       </div>
     </>
   );
