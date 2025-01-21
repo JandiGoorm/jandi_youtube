@@ -39,6 +39,9 @@ const SinglePlayList = ({section}) => {
         fetchPlayList(section.contentDetails.playlists[0]);
       },[]);
 
+  const handleClick = useCallback((id) => {
+    navigate(`/watch?v=${id}`);
+  }, [navigate]);      
 
   return (
    <div>
