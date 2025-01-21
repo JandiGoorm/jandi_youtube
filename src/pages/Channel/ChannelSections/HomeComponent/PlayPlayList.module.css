@@ -1,0 +1,71 @@
+.video_header{
+  font-size: 20px;
+}
+
+.video_list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0;
+  margin: 10px auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin;
+}
+
+.video_item {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+
+.video_duration {
+  position: absolute; 
+  top: 70px; 
+  right: 5px; 
+  background-color: rgba(0, 0, 0, 0.5); 
+  color: white; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  font-size: 12px;
+}
+
+.duration_icon{
+  font-size: 15px;
+}
+
+.video_thumbnail {
+  width: 200px;
+  border-radius: 10px;
+  display: block;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.video_title {
+  width: 100%;
+  margin: 5px 0px 0px 0px ;
+  font-weight: bold;
+  font-size: 14px;
+
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video_channeltitle {
+  margin: 0px 0px 10px 0px;
+  font-size: small;
+  color: gray;
+}
+
+.video_sub {
+  width: 100%;
+  font-weight: bold;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  color: gray;
+}

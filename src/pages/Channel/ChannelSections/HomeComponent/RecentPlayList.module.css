@@ -35,6 +35,16 @@
     cursor: pointer;
   }
 
+  .shorts_item {
+    list-style: none;
+    display: inline-block;
+    width: 160px;
+    position: relative;
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+
+
   .video_duration {
     position: absolute; 
     top: 95px; 
@@ -45,9 +55,29 @@
     border-radius: 5px; 
     font-size: 12px;
   }
+
+  
+  .shorts_duration {
+    position: absolute; 
+    top: 240px; 
+    right: 5px; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    font-size: 12px;
+  }
   
   .video_thumbnail {
     width: 100%;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .shorts_thumbnail {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
     border-radius: 10px;
     display: block;
   }

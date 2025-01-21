@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./ChannelShortsSection.module.css";
 import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { formatDuration } from "../../../utils/time";
+import {formatTotalTime} from "../../../utils/totalTime";
+import { useNavigate } from "react-router-dom";
 
 
 const ChannelShortsSection = ({channelId}) => {
   console.log(channelId);
   const [videos, setVideos] = useState([]);
     const [activeTab, setActiveTab] = useState("최신순");
+    const navigate = useNavigate();
   
     const tabs = ["최신순", "인기순", "이름순"];
 
@@ -43,16 +46,8 @@ const ChannelShortsSection = ({channelId}) => {
         id: videoIds.join(","),
       });
       const filteredVideos = videoDetailsResponse.data.items.filter((video) => {
-        const duration = video.contentDetails.duration;
+        const totalSeconds = formatTotalTime(video.contentDetails.duration);
 
-        // ISO 8601 형식의 재생 시간을 초 단위로 변환
-        const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-        const hours = parseInt(match[1] || "0", 10);
-        const minutes = parseInt(match[2] || "0", 10);
-        const seconds = parseInt(match[3] || "0", 10);
-        const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-
-        // 쇼츠(1분 이하 영상) 제외
         return totalSeconds <= 60;
       });
 
@@ -73,6 +68,10 @@ const ChannelShortsSection = ({channelId}) => {
     fetchChannelVideos(channelId, order);
   },[activeTab, channelId]);
 
+   const handleClick = useCallback((id) => {
+      navigate(`/shorts/${id}`);
+    }, [navigate]);
+
   return (
     <div>
       <div className={styles.video_header}>
@@ -88,8 +87,8 @@ const ChannelShortsSection = ({channelId}) => {
       </div>
           <ul className={styles.video_list}>
             {videos.map((video) => (
-              <li className={styles.video_item} key={video.id}>
-                <div>
+              <li className={styles.video_item} key={video.id} onClick={() => handleClick(video.id)}>
+                <div className={styles.img_container}>
                 <img
                   className={styles.video_thumbnail}
                   src={video.snippet.thumbnails.high.url}

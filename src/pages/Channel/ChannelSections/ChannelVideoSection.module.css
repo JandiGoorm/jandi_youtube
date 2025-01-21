@@ -35,15 +35,18 @@
   .video_item {
     list-style: none;
     display: inline-block;
-    width: 310px;
-    position: relative;
+    width: 23%;
     cursor: pointer;
+  }
+
+  .img_container{
+    position: relative;
   }
 
   .video_duration {
     position: absolute; 
-    top: 140px; 
-    right: 10px; 
+    bottom: 0px; 
+    right: 5px; 
     background-color: rgba(0, 0, 0, 0.5); 
     color: white; 
     padding: 5px 10px; 
@@ -64,7 +67,7 @@
     font-size: 14px;
   
     display: -webkit-box;
-    line-clamp: 2;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
