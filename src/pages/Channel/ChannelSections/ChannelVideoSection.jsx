@@ -89,7 +89,7 @@ const ChannelVideoSection = ({channelId}) => {
           <ul className={styles.video_list}>
             {videos.map((video) => (
               <li className={styles.video_item} key={video.id} onClick={() => handleClick(video.id)}>
-                <div>
+                <div className={styles.img_container}>
                 <img
                   className={styles.video_thumbnail}
                   src={video.snippet.thumbnails.medium.url}

@@ -36,9 +36,12 @@
   .video_item {
     list-style: none;
     display: inline-block;
-    width: 200px;
-    position: relative;
+    width: 15%;
     cursor: pointer;
+  }
+
+  .img_container{
+    position: relative;
   }
   
   .video_thumbnail {
