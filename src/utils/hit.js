@@ -11,10 +11,10 @@ export const formatHitCount = (count) => {
   };
 
   if (count >= HUNDRED_MILLION) {
-    return `${formatNumber(count / HUNDRED_MILLION)}억회`;
+    return `${formatNumber(count / HUNDRED_MILLION)}억 회`;
   } else if (count >= TEN_THOUSAND) {
-    return `${formatNumber(count / TEN_THOUSAND)}만회`;
+    return `${formatNumber(count / TEN_THOUSAND)}만 회`;
   } else if (count >= THOUSAND) {
-    return `${formatNumber(count / THOUSAND)}천회`;
-  } else return `${count}회`;
+    return `${formatNumber(count / THOUSAND)}천 회`;
+  } else return `${count} 회`;
 };

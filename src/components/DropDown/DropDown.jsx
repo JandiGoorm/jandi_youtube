@@ -9,7 +9,8 @@ const DropDown = ({ children, style = {} }) => {
   const ref = useRef(null);
   const contentRef = useRef(null);
 
-  const handleClickTrigger = useCallback(() => {
+  const handleClickTrigger = useCallback((e) => {
+    e.stopPropagation();
     setVisible((prev) => !prev);
   }, []);
 

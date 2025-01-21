@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import styles from "./SidebarSubscribe.module.css";
-import YoutubeService from "../../../../apis/youtube";
-import SubscribeDetail from "./SubscibeDetail";
 import { FaListUl } from "react-icons/fa";
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { pageEndPoints } from "../../../../constants/api";
+import { PageEndPoints } from "../../../../constants/api";
+import { useSubscriptions } from "../../../../contexts/SubscriptionsContext";
+import styles from "./SidebarSubscribe.module.css";
+import SubscribeDetail from "./SubscibeDetail";
 
 const SubscribeMenu = () => {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -13,10 +13,10 @@ const SubscribeMenu = () => {
   const [visibleSubscriptions, setVisibleSubscriptions] = useState([]);
   const navigate = useNavigate();
 
-  const { fetchSubscriptions } = YoutubeService;
+  const { allSubs } = useSubscriptions();
 
   const handleClickAllSubs = useCallback(() => {
-    navigate(pageEndPoints.FEEDCHANNELS);
+    navigate(PageEndPoints.FEEDCHANNELS);
   }, [navigate]);
 
   const handleClickMore = useCallback(() => {
@@ -24,21 +24,10 @@ const SubscribeMenu = () => {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const {
-        data: { items },
-      } = await fetchSubscriptions({
-        part: "snippet,contentDetails",
-        mine: true,
-        maxResults: 50,
-      });
-
-      setSubscriptions(items);
-    })();
-  }, [fetchSubscriptions]);
+    setSubscriptions(allSubs);
+  }, [allSubs]);
 
   useEffect(() => {
-    if (!subscriptions.length) return;
     if (isMore) {
       setVisibleSubscriptions(subscriptions);
     } else {

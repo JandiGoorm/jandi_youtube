@@ -1,0 +1,89 @@
+/*******************************************************/
+/*                                                     */
+/*                     모달창 기본 CSS                    */
+/*                                                     */
+/*******************************************************/
+@media (min-width: 1312px) {
+  .modalContent {
+    left: 120px;
+  }
+}
+
+/*1312이하: 사이드바 축소에 맞춰 모달 위치 옮기기*/
+@media (max-width: 1312px) {
+  .modalContent {
+    left: 35px;
+  }
+}
+
+/*******************************************************/
+/*                                                     */
+/*                     모달창 기본 CSS                    */
+/*                                                     */
+/*******************************************************/
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 4px 16px;
+  width: 400px;
+  height: 500px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+/*******************************************************/
+/*                                                     */
+/*                   모달창 내부 CSS                      */
+/*                                                     */
+/*******************************************************/
+/*DescriptionModal.jsx 자체 부분*/
+.modalHeader {
+  display: flex;
+  border-bottom: solid thin #d6d6d6;
+}
+
+.modalHeader p {
+  display: flex;
+  flex-grow: 10;
+  margin: 10px 0px;
+
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.modalHeader button {
+  width: 40px;
+  height: 40px;
+  margin: 2px 0px;
+
+  text-align: center;
+  border: transparent;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+/*******************************************************/
+/*                                                     */
+/*                        애니메이션                      */
+/*                                                     */
+/*******************************************************/
+
+.modalHeader button:hover {
+  background-color: rgb(220, 220, 220);
+}

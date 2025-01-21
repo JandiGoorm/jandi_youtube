@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import youtubeAPI from '../../apis/youtubeInstance';
-import styles from './Like.module.css';
+import React, { useEffect, useState } from "react";
+import youtubeAPI from "../../../apis/youtubeInstance";
+import styles from "./Like.module.css";
 
 const Like = () => {
   const [videos, setVideos] = useState([]);
@@ -33,9 +33,16 @@ const Like = () => {
         });
       } catch (error) {
         if (error.response) {
-          console.error("좋아요 표시 동영상 가져오기 실패:", error.response.status, error.response.data);
+          console.error(
+            "좋아요 표시 동영상 가져오기 실패:",
+            error.response.status,
+            error.response.data
+          );
         } else {
-          console.error("좋아요 표시 동영상 가져오기 중 네트워크 오류:", error.message);
+          console.error(
+            "좋아요 표시 동영상 가져오기 중 네트워크 오류:",
+            error.message
+          );
         }
       }
     };
@@ -54,7 +61,9 @@ const Like = () => {
               className={styles.channelThumbnail}
             />
             <h1 className={styles.channelTitle}>{channelInfo.title}</h1>
-            <p className={styles.channelDescription}>{channelInfo.description}</p>
+            <p className={styles.channelDescription}>
+              {channelInfo.description}
+            </p>
             <button className={styles.playAllButton}>모두 재생</button>
             <button className={styles.shareButton}>공유</button>
           </div>
@@ -73,11 +82,17 @@ const Like = () => {
               <div className={styles.videoDetails}>
                 <h2 className={styles.videoTitle}>{video.snippet.title}</h2>
                 <div className={styles.videoStats}>
-                  <span>조회수 {video.statistics.viewCount.toLocaleString()}회</span>
+                  <span>
+                    조회수 {video.statistics.viewCount.toLocaleString()}회
+                  </span>
                   <span>•</span>
-                  <span>{new Date(video.snippet.publishedAt).toLocaleDateString()}</span>
+                  <span>
+                    {new Date(video.snippet.publishedAt).toLocaleDateString()}
+                  </span>
                 </div>
-                <p className={styles.videoDescription}>{video.snippet.description}</p>
+                <p className={styles.videoDescription}>
+                  {video.snippet.description}
+                </p>
               </div>
             </div>
           ))

@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./ChannelVideoSection.module.css";
 import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { formatDuration } from "../../../utils/time";
+import { useNavigate } from "react-router-dom";
 
 
 const ChannelVideoSection = ({channelId}) => {
   console.log(channelId);
   const [videos, setVideos] = useState([]);
   const [activeTab, setActiveTab] = useState("최신순");
+  const navigate = useNavigate();
 
   const tabs = ["최신순", "인기순", "이름순"];
 
@@ -73,6 +75,10 @@ const ChannelVideoSection = ({channelId}) => {
     fetchChannelVideos(channelId, order);
   },[activeTab, channelId]);
 
+  const handleClick = useCallback((id) => {
+    navigate(`/watch?v=${id}`);
+  }, [navigate]);
+
   return (
     <div>
       <div className={styles.video_header}>
@@ -88,7 +94,7 @@ const ChannelVideoSection = ({channelId}) => {
       </div>
           <ul className={styles.video_list}>
             {videos.map((video) => (
-              <li className={styles.video_item} key={video.id}>
+              <li className={styles.video_item} key={video.id} onClick={() => handleClick(video.id)}>
                 <div>
                 <img
                   className={styles.video_thumbnail}

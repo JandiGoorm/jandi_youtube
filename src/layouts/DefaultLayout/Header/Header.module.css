@@ -1,12 +1,42 @@
 .container {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #ffffff;
+  padding: 10px;
+  width: 100%;
+  background-color: white;
   justify-content: space-between;
+
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.flex_row {
+  display: flex;
+  gap: 8px;
+
+  align-items: center;
+}
+
+.sidebarBtn {
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.sidebarBtn:hover {
+  background-color: rgb(220, 220, 220);
+}
+
+.logo_box {
+  min-width: 180px;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-  height: 40px;
   cursor: pointer;
 }

@@ -3,6 +3,8 @@ import { createContext, useContext } from "react";
 export const SubscriptionsContext = createContext({
   allSubs: [],
   setAllSubs: () => {},
+  deleteSubscription: () => {},
+  addSubscription: () => {},
 });
 
 export const useSubscriptions = () => {

@@ -8,7 +8,7 @@ import {
 } from "../../../../components/DropDown/DropDown";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { pageEndPoints } from "../../../../constants/api";
+import { PageEndPoints } from "../../../../constants/api";
 
 const HeaderSearch = () => {
   const [inputWidth, setInputWidth] = useState();
@@ -32,7 +32,7 @@ const HeaderSearch = () => {
       inputRef.current.value = "";
       localStorage.setItem("search-list", JSON.stringify(newSearchListUnique));
       setSearchList(newSearchListUnique);
-      navigate(`${pageEndPoints.RESULTS}?query=${query}`);
+      navigate(`${PageEndPoints.RESULTS}?query=${query}`);
     },
     [navigate, searchList]
   );
@@ -40,7 +40,7 @@ const HeaderSearch = () => {
   const handleClickListItem = useCallback(
     (e, searchItem) => {
       e.stopPropagation();
-      navigate(`${pageEndPoints.RESULTS}?query=${searchItem}`);
+      navigate(`${PageEndPoints.RESULTS}?query=${searchItem}`);
     },
     [navigate]
   );

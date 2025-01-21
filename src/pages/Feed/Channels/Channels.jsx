@@ -12,7 +12,7 @@ import ChannelItem from "./ChannelItem";
 import styles from "./Channels.module.css";
 import { channelOrderDropdownOptions } from "./contants";
 import { useLocation, useNavigate } from "react-router-dom";
-import { pageEndPoints } from "../../../constants/api";
+import { PageEndPoints } from "../../../constants/api";
 
 const FeedChannelsPage = () => {
   const navigate = useNavigate();
@@ -24,13 +24,13 @@ const FeedChannelsPage = () => {
   const handleOrderClick = useCallback(
     (option) => {
       const parmas = new URLSearchParams({ option });
-      navigate(`${pageEndPoints.FEEDCHANNELS}?${parmas.toString()}`);
-      window.location.reload();
+      navigate(`${PageEndPoints.FEEDCHANNELS}?${parmas.toString()}`);
     },
     [navigate]
   );
 
   const fetchCallback = async (nextToken = "") => {
+    if (nextToken === null) return;
     try {
       const response = await fetchSubscriptions({
         part: "snippet,contentDetails",

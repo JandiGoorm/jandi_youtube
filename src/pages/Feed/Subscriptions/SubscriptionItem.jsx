@@ -10,18 +10,59 @@ import { videoDropdownOptions } from "./constants";
 import styles from "./SubscriptionItem.module.css";
 import { useSubscriptions } from "../../../contexts/SubscriptionsContext";
 import { MdOutlineNotInterested } from "react-icons/md";
+import { useCallback, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { PageEndPoints } from "../../../constants/api";
+import { formatDuration } from "../../../utils/time";
 
 const SubscriptionItem = ({ item }) => {
+  const [isPreview, setIsPreview] = useState(false);
+  const ref = useRef();
+  const navigate = useNavigate();
+
   const { allSubs } = useSubscriptions();
   const channelInfo = allSubs.find((v) => v.id === item.snippet.channelId);
+  const duration = formatDuration(item.contentDetails.duration);
+
+  const handleClickVideo = useCallback(() => {
+    navigate(`${PageEndPoints.WATCH}?v=${item.id}`);
+  }, [item.id, navigate]);
+
+  const handleMouseEnter = useCallback(() => {
+    ref.current = setTimeout(() => {
+      setIsPreview(true);
+    }, 2000);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    clearTimeout(ref.current);
+    setIsPreview(false);
+  }, []);
 
   return (
-    <li className={styles.container} key={item.id}>
-      <img
-        src={item.snippet.thumbnails.medium.url}
-        alt="thumbnail"
-        className={styles.thumbnail}
-      />
+    <li className={styles.container} key={item.id} onClick={handleClickVideo}>
+      <div
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={styles.relative_box}
+      >
+        <div className={styles.duration_box}>{duration}</div>
+        {isPreview ? (
+          <iframe
+            className={styles.thumbnail}
+            src={`https://www.youtube.com/embed/${item.id}?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&autohide=1`}
+            title="video"
+            allow="autoplay; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <img
+            src={item.snippet.thumbnails.medium.url}
+            alt="thumbnail"
+            className={styles.thumbnail}
+          />
+        )}
+      </div>
       <div className={styles.flex_row}>
         <img
           src={channelInfo.snippet.thumbnails.default.url}

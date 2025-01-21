@@ -1,16 +1,8 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { pageEndPoints } from "./constants/api";
 import AuthProvider from "./contexts/AuthProvider";
-import ChannelPage from "./pages/Channel/Channel";
-import HomePage from "./pages/Home/Home";
-import LoadingPage from "./pages/Loading/Loading";
-import TestPage from "./pages/Test/Test";
-import VideoPlayer from "./pages/VideoPlayer/VideoPlayer";
-import FeedChannelsPage from "./pages/Feed/Channels/Channels";
-import FeedSubscriptionsPage from "./pages/Feed/Subscriptions/Subscriptions";
-import ResultsPage from "./pages/Results/Results";
 import SubscriptionsProvider from "./contexts/SubscriptionsProvider";
-import Like from "./pages/Like/Like";
+import PrivateRoute from "./routes/PrivateRoute";
+import { routes } from "./routes/routes";
 
 function App() {
   return (
@@ -18,22 +10,19 @@ function App() {
       <SubscriptionsProvider>
         <Router>
           <Routes>
-            <Route path={pageEndPoints.HOME} element={<HomePage />} />
-            <Route path={pageEndPoints.LOADING} element={<LoadingPage />} />
-            <Route
-              path={pageEndPoints.FEEDCHANNELS}
-              element={<FeedChannelsPage />}
-            />
-            <Route path="/watch" element={<VideoPlayer />} />
-            <Route path={pageEndPoints.CHANNEL} element={<ChannelPage />} />
-            <Route path={pageEndPoints.TEST} element={<TestPage />} />
-            <Route
-              path={pageEndPoints.FEEDSUBSCRIPTIONS}
-              element={<FeedSubscriptionsPage />}
-            />
-            <Route path="/watch" element={<VideoPlayer />} />
-            <Route path={pageEndPoints.RESULTS} element={<ResultsPage />} />
-            <Route path="/playlist" element={<Like />} />
+            {routes.map((route) => {
+              return (
+                <Route
+                  path={route.path}
+                  element={
+                    <PrivateRoute requireAuth={route.requireAuth}>
+                      {route.element}
+                    </PrivateRoute>
+                  }
+                  key={route.path}
+                />
+              );
+            })}
           </Routes>
         </Router>
       </SubscriptionsProvider>
