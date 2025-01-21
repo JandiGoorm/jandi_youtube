@@ -4,6 +4,7 @@ import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { formatDuration } from "../../../utils/time";
+import {formatTotalTime} from "../../../utils/totalTime";
 import { useNavigate } from "react-router-dom";
 
 
@@ -44,14 +45,7 @@ const ChannelVideoSection = ({channelId}) => {
         id: videoIds.join(","),
       });
       const filteredVideos = videoDetailsResponse.data.items.filter((video) => {
-        const duration = video.contentDetails.duration;
-
-        // ISO 8601 형식의 재생 시간을 초 단위로 변환
-        const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-        const hours = parseInt(match[1] || "0", 10);
-        const minutes = parseInt(match[2] || "0", 10);
-        const seconds = parseInt(match[3] || "0", 10);
-        const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+        const totalSeconds = formatTotalTime(video.contentDetails.duration);
 
         // 쇼츠(1분 이하 영상) 제외
         return totalSeconds > 60;
