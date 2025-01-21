@@ -11,7 +11,7 @@ const SinglePlayList = ({section}) => {
   const [title, setTitle] = useState("Playlist");
   const navigate = useNavigate();
 
-  console.log(section);
+  // console.log(section);
 
     const fetchPlayList = async(playlistId) => {
         try{
@@ -20,7 +20,7 @@ const SinglePlayList = ({section}) => {
               maxResults: 10,
               playlistId: playlistId,
             });
-            console.log(response);
+            // console.log(response);
             const videoIds = response.data.items.map((item) => item.snippet.resourceId.videoId);
             const videoDetailsResponse = await YoutubeService.fetchVideos({
               part: "contentDetails,snippet,statistics",

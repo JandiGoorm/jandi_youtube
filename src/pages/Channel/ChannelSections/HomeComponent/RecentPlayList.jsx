@@ -13,7 +13,6 @@ const RecentPlayList = ({ section }) => {
 
   const fetchPlayList = async (playlistId) => {
     try {
-      console.log(playlistId);
       const response = await YoutubeService.fetchSearch({
         part: "snippet",
         type: "video",
@@ -30,7 +29,6 @@ const RecentPlayList = ({ section }) => {
       });
 
       setVideos(videoDetailsResponse.data.items);
-      console.log(videoDetailsResponse.data.items);
     } catch (error) {
       console.log("error: " + error);
     }
