@@ -7,7 +7,8 @@ const AuthProvider = ({ children }) => {
   const { getUserInfo, refreshAccessToken, redirectGoogleLogin } = AuthService;
 
   const signIn = () => {
-    redirectGoogleLogin();
+    const returnPath = window.location.pathname;
+    redirectGoogleLogin(returnPath);
   };
 
   const signOut = () => {
