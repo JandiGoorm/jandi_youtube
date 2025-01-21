@@ -45,7 +45,7 @@
   background-color: #ffffff;
 
   /*스크롤에 관계없이 위치 고정*/
-  position: absolute fixed; 
+  position: fixed; 
   top: 0px;
   left: 0px;
   z-index: 100;
