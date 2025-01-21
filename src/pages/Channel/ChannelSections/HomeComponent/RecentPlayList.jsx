@@ -62,70 +62,74 @@ const RecentPlayList = ({ section }) => {
 
   return (
     <div>
-      <div>
-        <h1 className={styles.video_header}>동영상</h1>
-        <ul className={styles.video_list}>
-          {videos.map((video) => (
-            <li
-              className={styles.video_item}
-              key={video.id}
-              onClick={() => handleClick(video.id)}
-            >
-              <div>
-                <img
-                  className={styles.video_thumbnail}
-                  src={video.snippet.thumbnails.medium.url}
-                  alt={video.snippet.localized.title}
-                />
-                <p className={styles.video_duration}>
-                  {formatDuration(video.contentDetails.duration)}
-                </p>
-              </div>
-              <div className={styles.video_description}>
-                <p className={styles.video_title}>
-                  {video.snippet.localized.title}
-                </p>
-                <p className={styles.video_sub}>
-                  {formatHitCount(video.statistics.viewCount)}﹒
-                  {formatISO(video.snippet.publishedAt)}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h1 className={styles.video_header}>Shorts</h1>
-        <ul className={styles.video_list}>
-          {shorts.map((video) => (
-            <li
-              className={styles.shorts_item}
-              key={video.id}
-              onClick={() => handleShortsClick(video.id)}
-            >
-              <div>
-                <img
-                  className={styles.shorts_thumbnail}
-                  src={video.snippet.thumbnails.medium.url}
-                  alt={video.snippet.localized.title}
-                />
-                <p className={styles.shorts_duration}>
-                  {formatDuration(video.contentDetails.duration)}
-                </p>
-              </div>
-              <div className={styles.video_description}>
-                <p className={styles.video_title}>
-                  {video.snippet.localized.title}
-                </p>
-                <p className={styles.video_sub}>
-                  {formatHitCount(video.statistics.viewCount)}﹒
-                  {formatISO(video.snippet.publishedAt)}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {videos.length > 0 && (
+        <div>
+          <h1 className={styles.video_header}>동영상</h1>
+          <ul className={styles.video_list}>
+            {videos.map((video) => (
+              <li
+                className={styles.video_item}
+                key={video.id}
+                onClick={() => handleClick(video.id)}
+              >
+                <div>
+                  <img
+                    className={styles.video_thumbnail}
+                    src={video.snippet.thumbnails.medium.url}
+                    alt={video.snippet.localized.title}
+                  />
+                  <p className={styles.video_duration}>
+                    {formatDuration(video.contentDetails.duration)}
+                  </p>
+                </div>
+                <div className={styles.video_description}>
+                  <p className={styles.video_title}>
+                    {video.snippet.localized.title}
+                  </p>
+                  <p className={styles.video_sub}>
+                    {formatHitCount(video.statistics.viewCount)}﹒
+                    {formatISO(video.snippet.publishedAt)}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {shorts.length > 0 && (
+        <div>
+          <h1 className={styles.video_header}>Shorts</h1>
+          <ul className={styles.video_list}>
+            {shorts.map((video) => (
+              <li
+                className={styles.shorts_item}
+                key={video.id}
+                onClick={() => handleShortsClick(video.id)}
+              >
+                <div>
+                  <img
+                    className={styles.shorts_thumbnail}
+                    src={video.snippet.thumbnails.medium.url}
+                    alt={video.snippet.localized.title}
+                  />
+                  <p className={styles.shorts_duration}>
+                    {formatDuration(video.contentDetails.duration)}
+                  </p>
+                </div>
+                <div className={styles.video_description}>
+                  <p className={styles.video_title}>
+                    {video.snippet.localized.title}
+                  </p>
+                  <p className={styles.video_sub}>
+                    {formatHitCount(video.statistics.viewCount)}﹒
+                    {formatISO(video.snippet.publishedAt)}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

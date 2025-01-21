@@ -38,7 +38,6 @@ const ChannelPage = () => {
         maxResults: 10,
       });
       const data = response.data.items[0];
-      console.log(data)
       const content = {
         id:data.id,
         handle: data.snippet.customUrl,
