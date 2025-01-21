@@ -38,6 +38,7 @@ const ChannelPage = () => {
         maxResults: 10,
       });
       const data = response.data.items[0];
+      console.log(data)
       const content = {
         id:data.id,
         handle: data.snippet.customUrl,
@@ -46,8 +47,11 @@ const ChannelPage = () => {
         description: data.snippet.description,
         subscriberCount: formatSubscriberCount(data.statistics.subscriberCount),
         videoCount: formatVioeo(data.statistics.videoCount),
-        banner: data.brandingSettings.image.bannerExternalUrl,
         thumbmails: data.snippet.thumbnails.default.url
+      }
+
+      if (data.brandingSettings.image?.bannerExternalUrl) {
+        content.banner = data.brandingSettings.image.bannerExternalUrl;
       }
       const modalContent = {
         email: "email@example.com",
@@ -86,14 +90,16 @@ const ChannelPage = () => {
   return (
     <DefaultLayout>
       <div className={styles.channelPage}>
-        {/* 배너 */}
-        <div className={styles.channelBanner}>
-        <img
-          src={detail.banner}
-          alt="Channel Banner"
-          className={styles.bannerImage}
-        />
-        </div>
+        {/* 배너 */}       
+        {detail.banner && (
+          <div className={styles.channelBanner}>
+            <img
+              src={detail.banner}
+              alt="Channel Banner"
+              className={styles.bannerImage}
+            />
+          </div>
+        )}        
         {/* 채널 정보 */}
         <div className={styles.channelHeader}>    
           <div className={styles.avatarDiv}>
