@@ -3,6 +3,7 @@ import styles from "./ChannelHomeSection.module.css";
 import SinglePlayList from "./HomeComponent/SinglePlayList";
 import RecentPlayList from "./HomeComponent/RecentPlayList";
 import PopularPlayList from "./HomeComponent/PopularPlayList";
+import PlayPlayList from "./HomeComponent/PlayPlayList";
 import YoutubeService from "../../../apis/youtube";
 
 const ChannelHomeSection = ({channelId}) => {
@@ -19,6 +20,7 @@ const ChannelHomeSection = ({channelId}) => {
       const filteredSections = response.data.items.filter(
         (item) => item.snippet.type !== "channelsectiontypeundefined"
       );
+      console.log(filteredSections);
       setSections(filteredSections); 
     }catch(error){
       console.log("error: "+ error);
@@ -38,6 +40,9 @@ const ChannelHomeSection = ({channelId}) => {
   const isRecent = (type) => {
     return type === "recentuploads";
   };
+  const isPlayList = (type) => {
+    return type === "allplaylists";
+  };
 
   return (
     <div className={styles.container}>
@@ -49,6 +54,8 @@ const ChannelHomeSection = ({channelId}) => {
           <PopularPlayList section={section} />
         ): isRecent(section.snippet.type) ?(
           <RecentPlayList section={section} />
+        ): isPlayList(section.snippet.type) ?(
+          <PlayPlayList section={section} />
         ): null}
       </div>
     ))}
