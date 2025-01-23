@@ -14,6 +14,7 @@ const HeaderSearch = () => {
   const [inputWidth, setInputWidth] = useState();
   const [searchList, setSearchList] = useState([]);
   const inputRef = useRef(null);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   const handleSearchSubmit = useCallback(
@@ -33,6 +34,10 @@ const HeaderSearch = () => {
       localStorage.setItem("search-list", JSON.stringify(newSearchListUnique));
       setSearchList(newSearchListUnique);
       navigate(`${PageEndPoints.RESULTS}?query=${query}`);
+
+      if (dropdownRef.current) {
+        dropdownRef.current.close();
+      }
     },
     [navigate, searchList]
   );
@@ -77,7 +82,7 @@ const HeaderSearch = () => {
   return (
     <section className={styles.search_container}>
       <form className={styles.search_flex_box} onSubmit={handleSearchSubmit}>
-        <DropDown style={{ width: "100%" }}>
+        <DropDown style={{ width: "100%" }} dropdownRef={dropdownRef}>
           <DropDownTrigger style={{ width: "100%" }}>
             <input
               className={styles.search_input}
