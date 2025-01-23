@@ -103,11 +103,11 @@ function Videos() {
     }
   };
 
-  // 동영상 호버시 2초 후 해당 videoId로 세팅
+  // 동영상 호버시 0.5초 후 해당 videoId로 세팅
   const handleMouseIn = (videoId) => {
     hoveredTimers.current = setTimeout(() => {
       setHoveredVideoId(videoId);
-    }, 2000);
+    }, 500);
   };
   
   // 동영상 호버아웃시 타이머 및 상태 초기화
