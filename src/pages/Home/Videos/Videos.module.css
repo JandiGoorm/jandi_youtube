@@ -99,6 +99,7 @@
 /*                      동영상 정보 박스                   */
 .videoInfo{
   display: flex;
+  padding: 15px 0px;
 }
 
 .channelThumbnail{
@@ -107,6 +108,10 @@
   margin: 5px;
   margin-right: 10px;
   border-radius: 50%;
+}
+
+.videoDetails{
+  flex-grow: 10;
 }
 
 .videoTitle {
@@ -128,5 +133,56 @@
   margin: 0px 2px;
   font-size: small;
   color: gray;
+}
+
+/*                      더보기 드롭박스                   */
+.moreBtn{
+  background-color: transparent;
+  border: none;
+  padding: 5px 0px;
+  font-size: large;
+}
+
+.dropdown {
+  display: none;
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  width: 223.5px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 32px 0px;
+  position: absolute;
+  z-index: 1000; 
+  background-color: white;
+  padding: 8px 0px;
+}
+
+.dropdownContent > button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  height: 36px;
+  padding: 0px 12px 0px 16px;
+}
+.dropdownContent > hr{
+  border: #0f0f0f;
+}
+
+.dropdownIcon {
+  width: 24px;
+  height: 24px;
+  margin: 5px 5px 0px 0px;
+}
+
+.dropdownContent > span {
+  font-size: 14px;
+}
+
+.dropdownContent > button:hover {
+  background-color: #f2f2f2;
 }
 
