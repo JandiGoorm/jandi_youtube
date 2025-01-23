@@ -78,7 +78,7 @@ function Videos() {
   
         return {
           videoId: videoId, // 영상 ID
-          videoThumbnail: video.snippet.thumbnails.medium.url, // 동영상 썸네일
+          videoThumbnail: video.snippet.thumbnails.high.url, // 동영상 썸네일
           videoTitle: video.snippet.title, // 동영상 제목
           channelThumbnail: channelDetail?.snippet.thumbnails.medium.url || null, // 채널 썸네일
           channelId: video.snippet.channelId, //게시자 채널 ID

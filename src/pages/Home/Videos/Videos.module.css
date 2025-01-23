@@ -4,27 +4,32 @@
 /*                                                     */
 /*******************************************************/
 @media (min-width: 0px) {
-  .videoItem {
-    width: 100%; /*한줄에 영상 1개*/
-    padding: 0px;
+  .videoList{
+    grid-template-columns: 1fr;
   }
 }
 
-@media (min-width: 576px) {
-  .videoItem {
-    width: 45%; /*한줄에 영상 2개*/
+@media (min-width: 640px) {
+  .videoList{
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (min-width: 992px) {
-  .videoItem {
-    width: 30%; /*한줄에 영상 3개*/
+@media (min-width: 1090px) {
+  .videoList{
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-@media (min-width: 1200px) {
-  .videoItem {
-    width: 20%; /*한줄에 영상 4개*/
+@media (min-width: 1600px) {
+  .videoList{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 2244px) {
+  .videoList{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 
@@ -35,9 +40,9 @@
 /*******************************************************/
 /*                    동영상 전체카드 박스                  */
 .videoList {
+  display: grid;
+
   list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
   padding: 5px;
   margin: 0;
   background-color: white;
