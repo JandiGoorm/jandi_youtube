@@ -341,30 +341,9 @@ const ShortsPlayer = () => {
         <DescriptionModal
           isOpen={isDescriptionModalOpen}
           onClose={handleCloseDescriptionModal}
-        >
-          <main className={styles.descriptionModalMain}>
-            {" "}
-            {shortsData.videoTitle}
-          </main>
-          <article className={styles.descriptionModalArticle}>
-            <section className={styles.descriptionModalSection}>
-              <p>{formatLikeCount(shortsData.likeCount)}</p>
-              <p>좋아요 수</p>
-            </section>
-            <section className={styles.descriptionModalSection}>
-              <p>{formatHitCount(shortsData.viewCount).split(" ", 1)}</p>
-              <p>조회수</p>
-            </section>
-            <section className={styles.descriptionModalSection}>
-              <p>{formatISO(shortsData.publishTime).split(" ", 1)}</p>
-              <p>전</p>
-            </section>
-          </article>
-          <footer className={styles.descriptionModalFooter}>
-            {shortsData.description}
-          </footer>
-        </DescriptionModal>
-
+          shortsData={shortsData}
+        />
+        
         {/* 댓글 모달창 */}
         <CommentsModal
           isOpen={isCommentsModalOpen}
