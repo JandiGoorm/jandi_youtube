@@ -18,41 +18,23 @@ import { BiDislike } from "react-icons/bi";
 const CommentModal = ({ isOpen, onClose, shortsId }) => {
   if (!isOpen) return null; // 모달이 열리지 않았으면 렌더링하지 않음
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [sortedComments, setSortedComments] = useState([]);
+  //댓글 로드 및 옵저버 관련
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY; // YouTube Data API 키
   const [comments, setComments] = useState([]);
   const [nextPageToken, setNextPageToken] = useState();
-  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY; // YouTube Data API 키
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
-  const [isFirstLoad, setIsFirstLoad] = useState(true); //첫 로딩 여부
-  const [page, setPage] = useState(1); // 현재 페이지
-  const observerTarget = useRef(null); // 관찰 대상
+
+  //옵저버 관련
   const navigate = useNavigate(); //옵저버
+  const observerTarget = useRef(null); // 관찰 대상
+  const [page, setPage] = useState(1); // 현재 페이지
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
+  const [isFirstLoad, setIsFirstLoad] = useState(true); //첫 로딩 여부: 더 이상 불러올 댓글이 없을 때 로드하지 않기 위해 구분
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  //드롭다운창 관련
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [sortedComments, setSortedComments] = useState([]);
 
-  const setSortByPopularity = () => {
-    console.log("인기순 정렬 선택");
-    if (comments) {
-      const sorted = [...comments].sort((a, b) => 
-        b.snippet.topLevelComment.snippet.likeCount - a.snippet.topLevelComment.snippet.likeCount);
-      setSortedComments(sorted);
-    }
-    setIsDropdownOpen(false);
-  };
-
-  const setSortByLatest = () => {
-    console.log("최신순 정렬 선택");
-    if (comments) {
-      const sorted = [...comments].sort((a, b) => 
-        new Date(b.snippet.topLevelComment.snippet.publishedAt) - new Date(a.snippet.topLevelComment.snippet.publishedAt));
-      setSortedComments(sorted);
-    }
-    setIsDropdownOpen(false);
-  };
-
+  //댓글 로드 함수
   const fetchComments = async () => {
     setIsLoading(true);
     try {
@@ -77,19 +59,47 @@ const CommentModal = ({ isOpen, onClose, shortsId }) => {
       console.error("Error fetching comments:", error);
     } finally {
       setIsLoading(false); // 로딩 상태 해제
-      setIsFirstLoad(false);
     }
   };
 
+  //클릭 이벤트 리스너 함수 - 닫기 및 정렬
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const setSortByPopularity = () => {
+    console.log("인기순 정렬 선택");
+    if (comments) {
+      const sorted = [...comments].sort((a, b) => 
+        b.snippet.topLevelComment.snippet.likeCount - a.snippet.topLevelComment.snippet.likeCount);
+      setSortedComments(sorted);
+    }
+    setIsDropdownOpen(false);
+  };
+
+  const setSortByLatest = () => {
+    console.log("최신순 정렬 선택");
+    if (comments) {
+      const sorted = [...comments].sort((a, b) => 
+        new Date(b.snippet.topLevelComment.snippet.publishedAt) - new Date(a.snippet.topLevelComment.snippet.publishedAt));
+      setSortedComments(sorted);
+    }
+    setIsDropdownOpen(false);
+  };
+
+  //페이지 첫 로드시 댓글 불러오기
   useEffect(() => {
     fetchComments();
+    setIsFirstLoad(false);
   }, []);
 
+  //댓글이 로드되면 정렬 데이터에도 반영 - 정렬 기본값: 서버에서 받아온 순서대로
   useEffect(() => {
     setSortedComments([...comments]);
     console.log("댓글 데이터: ", comments);
   }, [comments]);
 
+  //옵저버
   useEffect(() => {
     if (!observerTarget.current) return;
   
@@ -98,18 +108,15 @@ const CommentModal = ({ isOpen, onClose, shortsId }) => {
         if (entries[0].isIntersecting && !isLoading && nextPageToken) {
           setPage((prevPage) => prevPage + 1);
           fetchComments();
-        }
-      },
+      }},
       { threshold: 0.5 }
     );
   
     observer.observe(observerTarget.current);
-  
     return () => {
       observer.disconnect();
     };
   }, [isLoading, observerTarget.current]);
-
 
   return (
     <div className={styles.modalOverlay}>
