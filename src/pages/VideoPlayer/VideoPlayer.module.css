@@ -1,172 +1,152 @@
-/* 컨테이너 스타일: 콘텐츠와 사이드바를 나란히 배치 */
 .container {
   display: flex;
-  justify-content: space-between; /* 콘텐츠 간 여백 균등 분배 */
+  justify-content: space-between;
   margin-top: 20px;
 }
 
-/* 메인 콘텐츠 영역 스타일 */
 .mainContent {
-  width: 70%; /* 메인 콘텐츠가 차지하는 너비 */
+  width: 70%;
 }
 
-/* 사이드바 스타일 */
 .sidebar {
-  width: 28%; /* 사이드바가 차지하는 너비 */
-  margin-left: 2%; /* 메인 콘텐츠와의 간격 */
+  width: 28%;
+  margin-left: 1%; /* 추천 동영상 섹션의 왼쪽 여백을 줄임 */
+  padding-left: 5px; /* 내부 여백 추가 */
 }
 
-/* 동영상 프레임 스타일 */
 .videoFrame {
-  width: 100%; /* 부모 요소에 맞게 전체 너비 */
-  height: 500px; /* 고정된 높이 */
-  margin-bottom: 20px; /* 아래 여백 */
-  border-radius: 8px; /* 테두리 둥글게 처리 */
+  width: 100%;
+  height: 500px;
+  margin-bottom: 20px;
+  border-radius: 8px;
 }
 
-/* 동영상 설명 섹션 스타일 */
 .descriptionSection {
-  margin-top: 15px; /* 위쪽 여백 */
-  padding: 20px; /* 내부 여백 */
-  border: 1px solid #ddd; /* 연한 회색 테두리 */
-  border-radius: 8px; /* 테두리 둥글게 처리 */
-  background-color: #fff; /* 흰색 배경 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+  margin-top: 15px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 댓글 섹션 스타일 */
 .commentsSection {
-  margin-top: 20px; /* 위쪽 여백 */
+  margin-top: 20px;
 }
 
-/* 추천 동영상 섹션 스타일 */
 .recommendedVideos {
-  background: #fff; /* 흰색 배경 */
-  padding: 10px; /* 내부 여백 */
-  border-radius: 8px; /* 테두리 둥글게 처리 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 추천 동영상 개별 아이템 스타일 */
 .videoItem {
-  display: flex; /* 썸네일과 텍스트를 가로로 정렬 */
-  align-items: center; /* 세로 정렬 중앙 배치 */
-  margin-bottom: 10px; /* 아래 여백 */
-  cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
-/* 추천 동영상 썸네일 스타일 */
 .thumbnail {
-  width: 120px; /* 고정된 너비 */
-  height: 70px; /* 고정된 높이 */
-  margin-right: 10px; /* 오른쪽 여백 */
-  border-radius: 4px; /* 테두리 둥글게 처리 */
+  width: 120px;
+  height: 70px;
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
-/* 추천 동영상 텍스트 정보 컨테이너 */
 .info {
-  flex: 1; /* 남은 공간을 모두 차지 */
+  flex: 1;
 }
 
-/* 추천 동영상 제목 스타일 */
 .title {
-  font-size: 14px; /* 글자 크기 */
-  font-weight: bold; /* 굵은 글자 */
-  margin: 0 0 5px; /* 아래쪽 여백 */
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 5px;
+  color: #0f0f0f;
 }
 
-/* 추천 동영상 채널 정보 스타일 */
 .channel {
-  font-size: 12px; /* 작은 글자 크기 */
-  color: #606060; /* 회색 텍스트 */
+  font-size: 12px;
+  color: #606060;
 }
 
-/* 채널 이미지 스타일 */
 .channelImage {
-  width: 60px; /* 고정된 너비 */
-  height: 60px; /* 고정된 높이 */
-  border-radius: 50%; /* 원형 처리 */
-  margin-right: 15px; /* 오른쪽 여백 */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
 }
 
-/* 채널 세부 정보 섹션 */
 .channelDetails {
-  display: flex; /* 가로 방향 정렬 */
-  flex-direction: column; /* 세로 방향 정렬 */
-  justify-content: center; /* 세로 정렬 중앙 배치 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* 채널 제목 스타일 */
 .channelTitle {
-  font-size: 18px; /* 글자 크기 */
-  font-weight: bold; /* 굵은 글자 */
-  margin: 0 0 5px; /* 아래쪽 여백 */
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 5px;
 }
 
-/* 구독자 수 텍스트 스타일 */
 .subscriberCount {
-  font-size: 14px; /* 글자 크기 */
-  color: #606060; /* 회색 텍스트 */
+  font-size: 14px;
+  color: #606060;
 }
 
-/* 구독 버튼 스타일 */
 .subscribeButton {
-  background-color: #cc0000; /* 빨간색 배경 */
-  color: #fff; /* 흰색 텍스트 */
-  padding: 10px 20px; /* 내부 여백 */
-  font-size: 14px; /* 글자 크기 */
-  border: none; /* 테두리 없음 */
-  border-radius: 20px; /* 버튼 둥글게 처리 */
-  cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
+  background-color: #cc0000;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-/* 동영상 메타데이터 섹션 */
 .metaData {
-  display: flex; /* 가로 방향 정렬 */
-  justify-content: space-between; /* 양쪽 끝으로 정렬 */
-  font-weight: bold; /* 굵은 글자 */
-  margin-bottom: 12px; /* 아래쪽 여백 */
-  color: #606060; /* 회색 텍스트 */
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #606060;
 }
 
-/* 액션 버튼 섹션 */
 .actions {
-  display: flex; /* 가로 방향 정렬 */
-  gap: 15px; /* 버튼 간 간격 */
-  margin-top: 10px; /* 위쪽 여백 */
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
 }
 
-/* 액션 버튼 스타일 */
 .actions button {
-  background: none; /* 배경 없음 */
-  border: none; /* 테두리 없음 */
-  font-size: 14px; /* 글자 크기 */
-  cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
-  color: #333; /* 어두운 회색 텍스트 */
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
 }
 
 .actions button:hover {
-  color: #000; /* 마우스를 올렸을 때 검정색으로 변경 */
+  color: #000;
 }
 
-/* 태그 섹션 */
 .tags {
-  display: flex; /* 가로 방향 정렬 */
-  flex-wrap: wrap; /* 여러 줄로 정렬 가능 */
-  gap: 8px; /* 태그 간 간격 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-/* 개별 태그 스타일 */
 .tag {
-  background-color: #e8e8e8; /* 밝은 회색 배경 */
-  color: #555; /* 중간 회색 텍스트 */
-  padding: 4px 8px; /* 내부 여백 */
-  border-radius: 12px; /* 태그 둥글게 처리 */
-  font-size: 13px; /* 글자 크기 */
-  cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
-  transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+  background-color: #e8e8e8;
+  color: #555;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .tag:hover {
-  background-color: #d0d0d0; /* 마우스를 올렸을 때 배경색 변경 */
+  background-color: #d0d0d0;
 }

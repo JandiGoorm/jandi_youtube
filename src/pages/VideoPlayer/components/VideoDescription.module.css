@@ -1,108 +1,125 @@
+/* 동영상 설명 섹션 스타일 */
 .descriptionSection {
-  margin-top: 16px;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 16px; /* 상단 마진 추가 */
+  padding: 20px; /* 내부 여백 */
+  border: 1px solid #e0e0e0; /* 회색 테두리 */
+  border-radius: 8px; /* 테두리 둥글게 */
+  background-color: #fff; /* 흰색 배경 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
 }
 
+/* 채널 정보 섹션 */
 .channelInfo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
+  display: flex; /* 플렉스박스로 정렬 */
+  align-items: center; /* 세로 정렬 가운데 */
+  margin-bottom: 16px; /* 아래 마진 추가 */
 }
 
+/* 채널 프로필 이미지 */
 .channelImage {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-right: 15px;
+  width: 60px; /* 너비 60px */
+  height: 60px; /* 높이 60px */
+  border-radius: 50%; /* 완전한 원 모양 */
+  margin-right: 15px; /* 오른쪽 마진 추가 */
 }
 
+/* 채널 세부 정보 */
 .channelDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: flex; /* 플렉스박스 정렬 */
+  flex-direction: column; /* 세로 방향 정렬 */
+  justify-content: center; /* 내용 가운데 정렬 */
 }
 
+/* 채널 제목 */
 .channelTitle {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0 0 5px;
+  font-size: 18px; /* 큰 글꼴 크기 */
+  font-weight: bold; /* 굵은 텍스트 */
+  margin: 0 0 5px; /* 아래쪽 여백 5px */
 }
 
+/* 구독자 수 텍스트 */
 .subscriberCount {
-  font-size: 14px;
-  color: #606060;
+  font-size: 14px; /* 기본 글꼴 크기 */
+  color: #606060; /* 회색 텍스트 색상 */
 }
 
+/* 구독 버튼 */
 .subscribeButton {
-  background-color: #cc0000;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 14px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
+  background-color: #cc0000; /* 빨간색 배경 */
+  color: #fff; /* 흰색 텍스트 */
+  padding: 10px 20px; /* 내부 여백 */
+  font-size: 14px; /* 글꼴 크기 */
+  border: none; /* 테두리 제거 */
+  border-radius: 20px; /* 둥근 버튼 모양 */
+  cursor: pointer; /* 커서 포인터 */
 }
 
+/* 메타 데이터 섹션 (조회수와 게시일) */
 .metaData {
-  display: flex;
-  gap: 8px;
-  font-size: 14px;
-  color: #606060;
-  margin-bottom: 12px;
+  display: flex; /* 플렉스박스 정렬 */
+  gap: 8px; /* 항목 간 간격 */
+  font-size: 14px; /* 기본 글꼴 크기 */
+  color: #606060; /* 회색 텍스트 색상 */
+  margin-bottom: 12px; /* 아래쪽 여백 */
 }
 
+/* 조회수 텍스트 스타일 */
 .viewCount {
-  font-weight: 500;
+  font-weight: 500; /* 중간 굵기 */
 }
 
+/* 게시일 텍스트 스타일 */
 .publishedAt {
-  font-weight: 500;
+  font-weight: 500; /* 중간 굵기 */
 }
 
+/* 태그 섹션 */
 .tags {
-  margin-bottom: 16px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  margin-bottom: 16px; /* 아래 마진 추가 */
+  display: flex; /* 플렉스박스 정렬 */
+  flex-wrap: wrap; /* 태그를 여러 줄로 정렬 */
+  gap: 8px; /* 태그 간 간격 */
 }
 
+/* 각 태그 스타일 */
 .tag {
-  background-color: #e8e8e8;
-  color: #555;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 13px;
-  cursor: pointer;
+  background-color: #e8e8e8; /* 밝은 회색 배경 */
+  color: #555; /* 진한 회색 텍스트 */
+  padding: 4px 8px; /* 내부 여백 */
+  border-radius: 12px; /* 둥근 모서리 */
+  font-size: 13px; /* 작은 글꼴 크기 */
+  cursor: pointer; /* 커서 포인터 */
 }
 
+/* 태그 호버 효과 */
 .tag:hover {
-  background-color: #d0d0d0;
+  background-color: #d0d0d0; /* 더 어두운 회색 배경 */
 }
 
+/* 동영상 설명 텍스트 */
 .descriptionText {
-  font-size: 14px;
-  color: #0f0f0f;
-  line-height: 1.6;
+  font-size: 14px; /* 기본 글꼴 크기 */
+  color: #0f0f0f; /* 검은색 텍스트 */
+  line-height: 1.6; /* 줄 간격 */
 }
 
+/* 액션 버튼 컨테이너 (좋아요, 싫어요 버튼 등) */
 .actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
+  display: flex; /* 플렉스박스 정렬 */
+  gap: 15px; /* 버튼 간 간격 */
+  margin-top: 10px; /* 상단 여백 */
 }
 
+/* 액션 버튼 스타일 */
 .actions button {
-  background: none;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  color: #333;
+  background: none; /* 배경 제거 */
+  border: none; /* 테두리 제거 */
+  font-size: 14px; /* 글꼴 크기 */
+  cursor: pointer; /* 커서 포인터 */
+  color: #333; /* 어두운 회색 텍스트 */
 }
 
+/* 버튼 호버 효과 */
 .actions button:hover {
-  color: #000;
+  color: #000; /* 검은색 텍스트 */
 }

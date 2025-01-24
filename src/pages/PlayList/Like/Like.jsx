@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import youtubeAPI from "../../../apis/youtubeInstance";
 import { IoMdPlay } from "react-icons/io";
 import { IoShuffle } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
+import { formatISO } from "../../../utils/date"; // 날짜 포맷 함수
+import { formatHitCount } from "../../../utils/hit"; // 조회수 포맷 함수
 import styles from "./Like.module.css";
 
 const Like = () => {
   const [videos, setVideos] = useState([]);
   const [channelInfo, setChannelInfo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLikedVideos = async () => {
@@ -21,7 +25,7 @@ const Like = () => {
           params: {
             part: "snippet,contentDetails,statistics",
             myRating: "like",
-            maxResults: 100, // 100개 불러오기
+            maxResults: 100,
           },
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -39,7 +43,7 @@ const Like = () => {
           title: "k05y03j", // 채널 ID (하드코딩 또는 동적으로 가져오기)
           thumbnail: items[0]?.snippet.thumbnails.medium.url || "",
           itemCount: items.length || 0,
-          totalViews: totalViews.toLocaleString(), // 조회수 총합
+          totalViews: formatHitCount(totalViews), // 조회수 총합 포맷
           lastUpdated: new Date().toLocaleDateString("ko-KR", {
             year: "numeric",
             month: "long",
@@ -53,6 +57,11 @@ const Like = () => {
 
     fetchLikedVideos();
   }, []);
+
+  const handleVideoClick = (videoId) => {
+    if (!videoId) return;
+    navigate(`/watch?v=${videoId}`);
+  };
 
   return (
     <DefaultLayout>
@@ -89,7 +98,11 @@ const Like = () => {
           {videos.length > 0 ? (
             <ul className={styles.likePlayList}>
               {videos.map((video) => (
-                <li className={styles.likePlayListItem} key={video.id}>
+                <li
+                  className={styles.likePlayListItem}
+                  key={video.id}
+                  onClick={() => handleVideoClick(video.id)}
+                >
                   <img
                     className={styles.likePlayListItemImg}
                     src={video.snippet.thumbnails.medium.url}
@@ -101,14 +114,10 @@ const Like = () => {
                     </p>
                     <div className={styles.likePlayListItemData}>
                       <span>
-                        조회수 {video.statistics.viewCount.toLocaleString()}회
+                        조회수 {formatHitCount(video.statistics.viewCount)}
                       </span>
                       <span>•</span>
-                      <span>
-                        {new Date(
-                          video.snippet.publishedAt
-                        ).toLocaleDateString()}
-                      </span>
+                      <span>{formatISO(video.snippet.publishedAt)}</span>
                     </div>
                   </div>
                 </li>
