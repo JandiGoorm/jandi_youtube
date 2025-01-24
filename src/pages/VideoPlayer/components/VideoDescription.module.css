@@ -1,68 +1,108 @@
 .descriptionSection {
-    margin-top: 16px;
-    padding: 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-  }
-  
-  .metaData {
-    display: flex;
-    gap: 8px;
-    font-size: 14px;
-    color: #606060;
-    margin-bottom: 8px;
-  }
-  
-  .viewCount {
-    font-weight: 500;
-  }
-  
-  .publishedAt {
-    font-weight: 500;
-  }
-  
-  .tags {
-    margin-bottom: 8px;
-  }
-  
-  .tag {
-    display: inline-block;
-    margin-right: 8px;
-    font-size: 14px;
-    color: #065fd4;
-    cursor: pointer;
-  }
-  
-  .tag:hover {
-    text-decoration: underline;
-  }
-  
-  .descriptionText {
-    font-size: 14px;
-    color: #0f0f0f;
-    line-height: 1.6;
-    position: relative;
-  }
-  
-  .collapsed {
-    max-height: 80px;
-    overflow: hidden;
-  }
-  
-  .expanded {
-    max-height: none;
-  }
-  
-  .toggleButton {
-    background: none;
-    border: none;
-    color: #065fd4;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-  
+  margin-top: 16px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.channelInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.channelImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.channelDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.channelTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+.subscriberCount {
+  font-size: 14px;
+  color: #606060;
+}
+
+.subscribeButton {
+  background-color: #cc0000;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.metaData {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  color: #606060;
+  margin-bottom: 12px;
+}
+
+.viewCount {
+  font-weight: 500;
+}
+
+.publishedAt {
+  font-weight: 500;
+}
+
+.tags {
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background-color: #e8e8e8;
+  color: #555;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background-color: #d0d0d0;
+}
+
+.descriptionText {
+  font-size: 14px;
+  color: #0f0f0f;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+}
+
+.actions button:hover {
+  color: #000;
+}
