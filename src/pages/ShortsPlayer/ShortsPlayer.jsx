@@ -32,8 +32,6 @@ import { FaArrowDown } from "react-icons/fa6";
 const ShortsPlayer = () => {
   const { shortsId } = useParams();
   const [shortsData, setShortsData] = useState(null);
-  const [comments, setComments] = useState([]);
-  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY; // YouTube Data API 키
 
   const playerRef = useRef(null); // iframe 참조
   const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 관리
@@ -89,25 +87,9 @@ const ShortsPlayer = () => {
     }
   };
 
-  const fetchComments = async () => {
-    try {
-      const response = await fetch(
-        //댓글+답글 가져오기
-        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${shortsId}&maxResults=50&key=${API_KEY}`
-      );
-      const data = await response.json();
-      console.log("댓글 데이터: ", data.items);
-
-      setComments(data.items || []); // 댓글 데이터 저장
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
-
   useEffect(() => {
     if (shortsId) {
       fetchShorts();
-      fetchComments();
     }
   }, [shortsId]);
 
@@ -341,35 +323,14 @@ const ShortsPlayer = () => {
         <DescriptionModal
           isOpen={isDescriptionModalOpen}
           onClose={handleCloseDescriptionModal}
-        >
-          <main className={styles.descriptionModalMain}>
-            {" "}
-            {shortsData.videoTitle}
-          </main>
-          <article className={styles.descriptionModalArticle}>
-            <section className={styles.descriptionModalSection}>
-              <p>{formatLikeCount(shortsData.likeCount)}</p>
-              <p>좋아요 수</p>
-            </section>
-            <section className={styles.descriptionModalSection}>
-              <p>{formatHitCount(shortsData.viewCount).split(" ", 1)}</p>
-              <p>조회수</p>
-            </section>
-            <section className={styles.descriptionModalSection}>
-              <p>{formatISO(shortsData.publishTime).split(" ", 1)}</p>
-              <p>전</p>
-            </section>
-          </article>
-          <footer className={styles.descriptionModalFooter}>
-            {shortsData.description}
-          </footer>
-        </DescriptionModal>
-
+          shortsData={shortsData}
+        />
+        
         {/* 댓글 모달창 */}
         <CommentsModal
           isOpen={isCommentsModalOpen}
           onClose={handleCloseCommentsModal}
-          comments={comments}
+          shortsId={shortsId}
         />
       </div>
     </DefaultLayout>

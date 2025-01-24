@@ -2,11 +2,29 @@ import { useEffect, useState, useRef } from "react";
 import YoutubeService from "../../../apis/youtube";
 import styles from "./Videos.module.css";
 import { useNavigate } from "react-router-dom";
+import {
+  DropDown,
+  DropDownContent,
+  DropDownTrigger,
+} from "../../../components/DropDown/DropDown";
 
 //utils 함수
 import { formatISO } from "../../../utils/date.js";
 import {formatHitCount} from "../../../utils/hit.js"
 import { formatDuration } from "../../../utils/time.js";
+
+//버튼 스타일
+import { MdMoreVert } from "react-icons/md";
+import { MdPlaylistPlay } from "react-icons/md";
+import { CiClock2 } from "react-icons/ci";
+import { PiBookmarkSimpleThin } from "react-icons/pi";
+import { TfiDownload } from "react-icons/tfi";
+import { PiShareFatThin } from "react-icons/pi";
+import { CiNoWaitingSign } from "react-icons/ci";
+import { MdOutlineDoDisturbOn } from "react-icons/md";
+import { SlFlag } from "react-icons/sl";
+
+
 
 function Videos() {
   //비디오 데이터 관련
@@ -78,7 +96,7 @@ function Videos() {
   
         return {
           videoId: videoId, // 영상 ID
-          videoThumbnail: video.snippet.thumbnails.medium.url, // 동영상 썸네일
+          videoThumbnail: video.snippet.thumbnails.high.url, // 동영상 썸네일
           videoTitle: video.snippet.title, // 동영상 제목
           channelThumbnail: channelDetail?.snippet.thumbnails.medium.url || null, // 채널 썸네일
           channelId: video.snippet.channelId, //게시자 채널 ID
@@ -103,11 +121,11 @@ function Videos() {
     }
   };
 
-  // 동영상 호버시 2초 후 해당 videoId로 세팅
+  // 동영상 호버시 0.5초 후 해당 videoId로 세팅
   const handleMouseIn = (videoId) => {
     hoveredTimers.current = setTimeout(() => {
       setHoveredVideoId(videoId);
-    }, 2000);
+    }, 500);
   };
   
   // 동영상 호버아웃시 타이머 및 상태 초기화
@@ -204,12 +222,55 @@ function Videos() {
                 src={video.channelThumbnail}
                 onClick={() => channelOnClick(video.channelId)}
               />
-              <div>
+              <div className={styles.videoDetails}>
                 <p className={styles.videoTitle}>{video.videoTitle}</p>
                 <p className={styles.channelTitle}>{video.channelTitle}</p>
                 <span className={styles.videoViewCount}>{formatHitCount(video.viewCount)}</span>
                 <span>·</span>
                 <span className={styles.videoPublishTime}>{formatISO(video.publishTime)}</span>
+              </div>
+              <div>
+                <DropDown>
+                  <DropDownTrigger>
+                    <button className={styles.moreBtn}><MdMoreVert /></button>
+                  </DropDownTrigger>
+                  <DropDownContent>
+                    <div className={styles.dropdownContent}>
+                      <button>
+                        <div className={styles.dropdownIcon}><MdPlaylistPlay /></div>
+                        <span>현재 재생목록에 추가</span>
+                      </button>
+                      <button>
+                        <div className={styles.dropdownIcon}><CiClock2 /></div>
+                        <span>나중에 볼 동영상에 저장</span>
+                      </button>
+                      <button>
+                        <div className={styles.dropdownIcon}><PiBookmarkSimpleThin /></div>
+                        <span>재생목록에 저장</span>
+                      </button>
+                      <button>
+                        <div className={styles.dropdownIcon}><TfiDownload /></div>
+                        <span>오프라인 저장</span>
+                      </button>
+                      <button>
+                        <div className={styles.dropdownIcon}><PiShareFatThin /></div>
+                        <span>공유</span>
+                      </button>
+                      <button>
+                        <div className={styles.dropdownIcon}><CiNoWaitingSign /></div>
+                        <span>관심 없음</span>
+                      </button>
+                      <button>
+                        <div className={styles.dropdownIcon}><MdOutlineDoDisturbOn /></div>
+                        <span>채널 추천 안함</span>
+                      </button>
+                      <button>
+                        <div className={styles.dropdownIcon}><SlFlag /></div>
+                        <span>신고</span>
+                      </button>
+                    </div>
+                  </DropDownContent>
+                </DropDown>
               </div>
             </div>
           </li>
