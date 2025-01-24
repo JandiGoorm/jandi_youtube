@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import youtubeAPI from "../../../apis/youtubeInstance";
+import { IoMdPlay } from "react-icons/io";
+import { IoShuffle } from "react-icons/io5";
+import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
 import styles from "./Like.module.css";
 
 const Like = () => {
@@ -18,32 +21,33 @@ const Like = () => {
           params: {
             part: "snippet,contentDetails,statistics",
             myRating: "like",
-            maxResults: 10,
+            maxResults: 100, // 100개 불러오기
           },
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
 
-        setVideos(response.data.items || []);
+        const items = response.data.items || [];
+        const totalViews = items.reduce(
+          (acc, video) => acc + parseInt(video.statistics.viewCount || 0, 10),
+          0
+        );
+
+        setVideos(items);
         setChannelInfo({
-          title: "좋아요 표시한 동영상",
-          description: "좋아요 표시한 모든 동영상",
-          thumbnail: response.data.items[0]?.snippet.thumbnails.default.url,
+          title: "k05y03j", // 채널 ID (하드코딩 또는 동적으로 가져오기)
+          thumbnail: items[0]?.snippet.thumbnails.medium.url || "",
+          itemCount: items.length || 0,
+          totalViews: totalViews.toLocaleString(), // 조회수 총합
+          lastUpdated: new Date().toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }), // 마지막 업데이트 날짜
         });
       } catch (error) {
-        if (error.response) {
-          console.error(
-            "좋아요 표시 동영상 가져오기 실패:",
-            error.response.status,
-            error.response.data
-          );
-        } else {
-          console.error(
-            "좋아요 표시 동영상 가져오기 중 네트워크 오류:",
-            error.message
-          );
-        }
+        console.error("좋아요 표시 동영상 가져오기 실패:", error.message);
       }
     };
 
@@ -51,56 +55,71 @@ const Like = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
+    <DefaultLayout>
+      <div className={styles.likeContainer}>
+        {/* 배너 부분 */}
         {channelInfo && (
-          <div className={styles.channelInfo}>
-            <img
-              src={channelInfo.thumbnail}
-              alt="Channel Thumbnail"
-              className={styles.channelThumbnail}
-            />
-            <h1 className={styles.channelTitle}>{channelInfo.title}</h1>
-            <p className={styles.channelDescription}>
-              {channelInfo.description}
-            </p>
-            <button className={styles.playAllButton}>모두 재생</button>
-            <button className={styles.shareButton}>공유</button>
-          </div>
-        )}
-      </div>
-
-      <div className={styles.videoList}>
-        {videos.length > 0 ? (
-          videos.map((video) => (
-            <div key={video.id} className={styles.videoItem}>
+          <aside className={styles.likeBanner}>
+            <div className={styles.likeBannerData}>
               <img
-                src={video.snippet.thumbnails.medium.url}
-                alt={video.snippet.title}
-                className={styles.videoThumbnail}
+                className={styles.likeBannerMainImg}
+                src={channelInfo.thumbnail}
+                alt="Channel Thumbnail"
               />
-              <div className={styles.videoDetails}>
-                <h2 className={styles.videoTitle}>{video.snippet.title}</h2>
-                <div className={styles.videoStats}>
-                  <span>
-                    조회수 {video.statistics.viewCount.toLocaleString()}회
-                  </span>
-                  <span>•</span>
-                  <span>
-                    {new Date(video.snippet.publishedAt).toLocaleDateString()}
-                  </span>
-                </div>
-                <p className={styles.videoDescription}>
-                  {video.snippet.description}
+              <div className={styles.likeBannerInfo}>
+                <p className={styles.likeBannerTitle}>{channelInfo.title}</p>
+                <p className={styles.likeBannerMeta}>
+                  동영상 {channelInfo.itemCount}개 조회수 {channelInfo.totalViews} 오늘 업데이트됨
                 </p>
               </div>
             </div>
-          ))
-        ) : (
-          <p className={styles.noVideos}>좋아요 표시한 동영상이 없습니다.</p>
+            <div className={styles.likeBannerBtns}>
+              <button className={styles.likePlayBtn}>
+                <IoMdPlay /> 모두 재생
+              </button>
+              <button className={styles.likeShuffleBtn}>
+                <IoShuffle /> 셔플
+              </button>
+            </div>
+          </aside>
         )}
+
+        {/* 동영상 리스트 */}
+        <section className={styles.likePlayListSection}>
+          {videos.length > 0 ? (
+            <ul className={styles.likePlayList}>
+              {videos.map((video) => (
+                <li className={styles.likePlayListItem} key={video.id}>
+                  <img
+                    className={styles.likePlayListItemImg}
+                    src={video.snippet.thumbnails.medium.url}
+                    alt={video.snippet.title}
+                  />
+                  <div className={styles.likePlayListItemInfo}>
+                    <p className={styles.likePlayListItemTitle}>
+                      {video.snippet.title}
+                    </p>
+                    <div className={styles.likePlayListItemData}>
+                      <span>
+                        조회수 {video.statistics.viewCount.toLocaleString()}회
+                      </span>
+                      <span>•</span>
+                      <span>
+                        {new Date(
+                          video.snippet.publishedAt
+                        ).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={styles.noVideos}>좋아요 표시한 동영상이 없습니다.</p>
+          )}
+        </section>
       </div>
-    </div>
+    </DefaultLayout>
   );
 };
 

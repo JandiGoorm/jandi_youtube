@@ -1,111 +1,312 @@
-.container {
+.likeContainer {
   display: flex;
-  flex-direction: row;
-  gap: 16px;
-  padding: 16px;
-  background-color: #f9f9f9;
+  flex-direction: row; /* 가로로 배치 */
+  gap: 20px; /* 배너와 리스트 간 간격 */
 }
 
-.sidebar {
-  flex: 1;
+.likeBanner {
+  width: 25%; /* 배너 영역의 너비 */
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(85, 79, 79);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.likeBannerData {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.channelInfo {
+.likeBannerMainImg {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.likeBannerTitle {
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+  margin: 10px 0;
   text-align: center;
 }
 
-.channelThumbnail {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin-bottom: 16px;
-}
-
-.channelTitle {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.channelDescription {
+.likeBannerDescription {
   font-size: 14px;
-  color: #606060;
-  margin-bottom: 16px;
+  color: #ccc;
+  text-align: center;
 }
 
-.playAllButton,
-.shareButton {
-  width: 100%;
-  padding: 8px 16px;
-  margin-bottom: 8px;
+.likePlaylistInfo {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #ffffffb3;
+}
+
+.likeBannerBtns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.likeBannerBtns button {
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
-  background-color: #065fd4;
-  color: #fff;
+  border-radius: 20px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.videoList {
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.likePlayBtn {
+  background-color: #ff0000;
+  color: white;
 }
 
-.videoItem {
-  display: flex;
-  gap: 16px;
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.likeShuffleBtn {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
 }
 
-.videoThumbnail {
+.likePlayListSection {
+  width: 75%; /* 리스트 영역의 너비 */
+}
+
+.likePlayList {
+  list-style: none;
+  padding: 0;
+}
+
+.likePlayListItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.likePlayListItemImg {
   width: 160px;
   height: 90px;
-  border-radius: 8px;
-  object-fit: cover;
+  border-radius: 10px;
 }
 
-.videoDetails {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.likePlayListItemInfo {
+  margin-left: 15px;
 }
 
-.videoTitle {
+.likePlayListItemTitle {
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
-.videoStats {
-  font-size: 14px;
+.likePlayListItemData {
+  font-size: 12px;
   color: #606060;
-  margin-bottom: 8px;
+}
+.likeContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
-.videoDescription {
+.likeBanner {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(85, 79, 79);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.likeBannerBtns button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
   font-size: 14px;
-  color: #606060;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
-.noVideos {
+.likePlayBtn {
+  background-color: white; /* 흰 배경 */
+  color: black; /* 검은 글씨 */
+  border: 1px solid black;
+}
+
+.likeShuffleBtn {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.likePlayListSection {
+  width: 75%;
+}
+
+.filterButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filterButtons button {
+  padding: 5px 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.filterButtons .activeFilter {
+  background-color: black;
+  color: white;
+}
+
+.likePlayList {
+  list-style: none;
+  padding: 0;
+}
+
+.likeContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.likeBanner {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(85, 79, 79);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.likeBannerMainImg {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.likeBannerTitle {
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+  margin: 10px 0;
   text-align: center;
-  font-size: 16px;
-  color: #606060;
+}
+
+.likeBannerMeta {
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.likeBannerBtns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.likeBannerBtns button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.likePlayBtn {
+  background-color: white; /* 흰 배경 */
+  color: black; /* 검은 글씨 */
+  border: 1px solid black;
+}
+
+.likeShuffleBtn {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.likePlayListSection {
+  width: 75%;
+}
+
+.likePlayList {
+  list-style: none;
+  padding: 0;
+}
+
+.likeContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.likeBanner {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(85, 79, 79);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.likeBannerMainImg {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.likeBannerTitle {
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.likeBannerMeta {
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.likeBannerBtns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.likeBannerBtns button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.likePlayBtn {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.likeShuffleBtn {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.likePlayListSection {
+  width: 75%;
+}
+
+.likePlayList {
+  list-style: none;
+  padding: 0;
 }
