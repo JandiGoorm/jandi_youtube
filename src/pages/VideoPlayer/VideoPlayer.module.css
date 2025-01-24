@@ -10,7 +10,8 @@
 
 .sidebar {
   width: 28%;
-  margin-left: 2%;
+  margin-left: 1%; /* 추천 동영상 섹션의 왼쪽 여백을 줄임 */
+  padding-left: 5px; /* 내부 여백 추가 */
 }
 
 .videoFrame {
@@ -22,10 +23,11 @@
 
 .descriptionSection {
   margin-top: 15px;
-  padding: 10px;
+  padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .commentsSection {
@@ -33,13 +35,15 @@
 }
 
 .recommendedVideos {
-  background: #f9f9f9;
+  background: #fff;
   padding: 10px;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .videoItem {
   display: flex;
+  align-items: center;
   margin-bottom: 10px;
   cursor: pointer;
 }
@@ -47,6 +51,7 @@
 .thumbnail {
   width: 120px;
   height: 70px;
+  border-radius: 4px;
   margin-right: 10px;
 }
 
@@ -58,9 +63,90 @@
   font-size: 14px;
   font-weight: bold;
   margin: 0 0 5px;
+  color: #0f0f0f;
 }
 
 .channel {
   font-size: 12px;
   color: #606060;
+}
+
+.channelImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.channelDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.channelTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+.subscriberCount {
+  font-size: 14px;
+  color: #606060;
+}
+
+.subscribeButton {
+  background-color: #cc0000;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.metaData {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #606060;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+}
+
+.actions button:hover {
+  color: #000;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background-color: #e8e8e8;
+  color: #555;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tag:hover {
+  background-color: #d0d0d0;
 }
