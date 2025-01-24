@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect,useRef, useCallback } from "react";
 import styles from "./ChannelShortsSection.module.css";
 import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
@@ -12,6 +12,9 @@ const ChannelShortsSection = ({channelId}) => {
   console.log(channelId);
   const [videos, setVideos] = useState([]);
     const [activeTab, setActiveTab] = useState("최신순");
+    const [nextPageToken, setNextPageToken] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const observerRef = useRef(null);
     const navigate = useNavigate();
   
     const tabs = ["최신순", "인기순", "이름순"];
@@ -29,7 +32,10 @@ const ChannelShortsSection = ({channelId}) => {
       }
     }; 
 
-  const fetchChannelVideos = async (channelId, order) =>{
+  const fetchChannelVideos = async (channelId, order, pageToken = null) =>{
+    if (isLoading) return; // 이미 로딩 중이면 실행 안 함
+    setIsLoading(true);
+
     try{
       const response = await YoutubeService.fetchSearch({
         part: "snippet",
@@ -38,6 +44,7 @@ const ChannelShortsSection = ({channelId}) => {
         regionCode: "KR",
         order: order,
         maxResults: 20,
+        pageToken: pageToken,
       });
       const videoIds = response.data.items.map((item) => item.id.videoId);
 
@@ -51,16 +58,25 @@ const ChannelShortsSection = ({channelId}) => {
         return totalSeconds <= 60;
       });
 
-      console.log(filteredVideos);
-      setVideos(filteredVideos);
+      setVideos((prevVideos) => {
+        // 중복 제거 후 병합
+        const videoIdsSet = new Set(prevVideos.map((v) => v.id));
+        return [...prevVideos, ...filteredVideos.filter((v) => !videoIdsSet.has(v.id))];
+      });
+
+      setNextPageToken(response.data.nextPageToken || null);
       
     }catch(error){
       console.log("error: "+ error);
+    }finally {
+      setIsLoading(false);
     }
   }
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    setVideos([]);
+    setNextPageToken(null);
   };
   
   useEffect(()=> {
@@ -71,6 +87,28 @@ const ChannelShortsSection = ({channelId}) => {
    const handleClick = useCallback((id) => {
       navigate(`/shorts/${id}`);
     }, [navigate]);
+
+  const handleObserver = useCallback(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && nextPageToken && !isLoading) {
+          const order = getOrderValue(activeTab);
+          fetchChannelVideos(channelId, order, nextPageToken);
+        }
+      },
+      [channelId, activeTab, nextPageToken, isLoading]
+    );
+  
+    useEffect(() => {
+      if (observerRef.current) {
+        const observer = new IntersectionObserver(handleObserver, {
+          root: null,
+          threshold: 1.0,
+        });
+        observer.observe(observerRef.current);
+        return () => observer.disconnect();
+      }
+    }, [handleObserver]);
 
   return (
     <div>
@@ -102,6 +140,8 @@ const ChannelShortsSection = ({channelId}) => {
               </li>
             ))}
           </ul>
+          <div ref={observerRef} className={styles.observer}></div>
+                {isLoading && <p>Loading...</p>}
         </div>
   );
 };

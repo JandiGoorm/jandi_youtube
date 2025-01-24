@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./ChannelVideoSection.module.css";
 import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
 import { formatHitCount } from "../../../utils/hit";
 import { formatDuration } from "../../../utils/time";
-import {formatTotalTime} from "../../../utils/totalTime";
+import { formatTotalTime } from "../../../utils/totalTime";
 import { useNavigate } from "react-router-dom";
 
-
-const ChannelVideoSection = ({channelId}) => {
-  console.log(channelId);
+const ChannelVideoSection = ({ channelId }) => {
   const [videos, setVideos] = useState([]);
+  const [nextPageToken, setNextPageToken] = useState(null);
   const [activeTab, setActiveTab] = useState("최신순");
+  const [isLoading, setIsLoading] = useState(false);
+  const observerRef = useRef(null);
   const navigate = useNavigate();
 
   const tabs = ["최신순", "인기순", "이름순"];
@@ -27,9 +28,13 @@ const ChannelVideoSection = ({channelId}) => {
       default:
         return "date";
     }
-  }; 
-  const fetchChannelVideos = async (channelId, order) =>{
-    try{     
+  };
+
+  const fetchChannelVideos = async (channelId, order, pageToken = null) => {
+    if (isLoading) return; // 이미 로딩 중이면 실행 안 함
+    setIsLoading(true);
+
+    try {
       const response = await YoutubeService.fetchSearch({
         part: "snippet",
         type: "video",
@@ -37,74 +42,122 @@ const ChannelVideoSection = ({channelId}) => {
         regionCode: "KR",
         order: order,
         maxResults: 20,
+        pageToken: pageToken,
       });
+
       const videoIds = response.data.items.map((item) => item.id.videoId);
 
       const videoDetailsResponse = await YoutubeService.fetchVideos({
         part: "contentDetails,snippet,statistics",
         id: videoIds.join(","),
       });
+
       const filteredVideos = videoDetailsResponse.data.items.filter((video) => {
         const totalSeconds = formatTotalTime(video.contentDetails.duration);
-
-        // 쇼츠(1분 이하 영상) 제외
-        return totalSeconds > 60;
+        return totalSeconds > 60; // 쇼츠(1분 이하 영상) 제외
       });
 
-      console.log(filteredVideos);
-      setVideos(filteredVideos);
-      
-    }catch(error){
-      console.log("error: "+ error);
+      setVideos((prevVideos) => {
+        // 중복 제거 후 병합
+        const videoIdsSet = new Set(prevVideos.map((v) => v.id));
+        return [...prevVideos, ...filteredVideos.filter((v) => !videoIdsSet.has(v.id))];
+      });
+
+      setNextPageToken(response.data.nextPageToken || null);
+    } catch (error) {
+      console.log("error: " + error);
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    setVideos([]);
+    setNextPageToken(null);
   };
 
-  
-  useEffect(()=> {
+  useEffect(() => {
     const order = getOrderValue(activeTab);
     fetchChannelVideos(channelId, order);
-  },[activeTab, channelId]);
+  }, [activeTab, channelId]);
 
-  const handleClick = useCallback((id) => {
-    navigate(`/watch?v=${id}`);
-  }, [navigate]);
+  const handleClick = useCallback(
+    (id) => {
+      navigate(`/watch?v=${id}`);
+    },
+    [navigate]
+  );
+
+  const handleObserver = useCallback(
+    (entries) => {
+      const target = entries[0];
+      if (target.isIntersecting && nextPageToken && !isLoading) {
+        const order = getOrderValue(activeTab);
+        fetchChannelVideos(channelId, order, nextPageToken);
+      }
+    },
+    [channelId, activeTab, nextPageToken, isLoading]
+  );
+
+  useEffect(() => {
+    if (observerRef.current) {
+      const observer = new IntersectionObserver(handleObserver, {
+        root: null,
+        threshold: 1.0,
+      });
+      observer.observe(observerRef.current);
+      return () => observer.disconnect();
+    }
+  }, [handleObserver]);
 
   return (
     <div>
       <div className={styles.video_header}>
-       {tabs.map((tab) => (
-                   <button
-                     key={tab}
-                     className={`${styles.header_button} ${activeTab === tab ? styles.active_header_button : ""}`}
-                     onClick={() => handleTabClick(tab)}
-                   >
-                     {tab}
-                   </button>
-                 ))}
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            className={`${styles.header_button} ${
+              activeTab === tab ? styles.active_header_button : ""
+            }`}
+            onClick={() => handleTabClick(tab)}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
-          <ul className={styles.video_list}>
-            {videos.map((video) => (
-              <li className={styles.video_item} key={video.id} onClick={() => handleClick(video.id)}>
-                <div className={styles.img_container}>
-                <img
-                  className={styles.video_thumbnail}
-                  src={video.snippet.thumbnails.medium.url}
-                  alt={video.snippet.localized.title}
-                />
-                <p className={styles.video_duration}>{formatDuration(video.contentDetails.duration)}</p>
-                </div>
-                <div className={styles.video_description}>
-                  <p className={styles.video_title}>{video.snippet.localized.title}</p>
-                  <p className={styles.video_sub}>{formatHitCount(video.statistics.viewCount)}﹒{formatISO(video.snippet.publishedAt)}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <ul className={styles.video_list}>
+        {videos.map((video) => (
+          <li
+            className={styles.video_item}
+            key={video.id}
+            onClick={() => handleClick(video.id)}
+          >
+            <div className={styles.img_container}>
+              <img
+                className={styles.video_thumbnail}
+                src={video.snippet.thumbnails.medium.url}
+                alt={video.snippet.localized.title}
+              />
+              <p className={styles.video_duration}>
+                {formatDuration(video.contentDetails.duration)}
+              </p>
+            </div>
+            <div className={styles.video_description}>
+              <p className={styles.video_title}>
+                {video.snippet.localized.title}
+              </p>
+              <p className={styles.video_sub}>
+                {formatHitCount(video.statistics.viewCount)}﹒
+                {formatISO(video.snippet.publishedAt)}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div ref={observerRef} className={styles.observer}></div>
+      {isLoading && <p>Loading...</p>}
+    </div>
   );
 };
 
