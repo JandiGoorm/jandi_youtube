@@ -32,8 +32,6 @@ import { FaArrowDown } from "react-icons/fa6";
 const ShortsPlayer = () => {
   const { shortsId } = useParams();
   const [shortsData, setShortsData] = useState(null);
-  const [comments, setComments] = useState([]);
-  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY; // YouTube Data API 키
 
   const playerRef = useRef(null); // iframe 참조
   const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 관리
@@ -89,25 +87,9 @@ const ShortsPlayer = () => {
     }
   };
 
-  const fetchComments = async () => {
-    try {
-      const response = await fetch(
-        //댓글+답글 가져오기
-        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${shortsId}&maxResults=50&key=${API_KEY}`
-      );
-      const data = await response.json();
-      console.log("댓글 데이터: ", data.items);
-
-      setComments(data.items || []); // 댓글 데이터 저장
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
-
   useEffect(() => {
     if (shortsId) {
       fetchShorts();
-      fetchComments();
     }
   }, [shortsId]);
 
@@ -348,7 +330,7 @@ const ShortsPlayer = () => {
         <CommentsModal
           isOpen={isCommentsModalOpen}
           onClose={handleCloseCommentsModal}
-          comments={comments}
+          shortsId={shortsId}
         />
       </div>
     </DefaultLayout>
