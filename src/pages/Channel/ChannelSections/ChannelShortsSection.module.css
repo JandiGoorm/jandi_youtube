@@ -25,18 +25,14 @@
 }
 
 .video_list {
-    list-style-type: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 0;
-    margin: 10px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 10px auto;
   }
   
   .video_item {
-    list-style: none;
-    display: inline-block;
-    width: 15%;
     cursor: pointer;
   }
 
