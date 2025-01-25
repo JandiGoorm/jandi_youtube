@@ -13,8 +13,7 @@ youtubeAPI.defaults.params["key"] = YOUTUBE_API_KEY;
 
 //요청 중 인증이 필요한 경로일 경우 헤더에 액세스 토큰을 추가합니다.
 youtubeAPI.interceptors.request.use((config) => {
-  const isRequiredAuth = config.params.mine;
-
+  const isRequiredAuth = config.params.mine || config.params.myRating;
   if (isRequiredAuth) {
     const accessToken = localStorage.getItem("access-token");
     config.headers["Authorization"] = `Bearer ${accessToken}`;
