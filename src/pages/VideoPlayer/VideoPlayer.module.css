@@ -5,13 +5,14 @@
 }
 
 .mainContent {
+  margin-left: 5%;
+  margin-right: 2%;
   width: 70%;
 }
 
 .sidebar {
-  width: 28%;
-  margin-left: 1%; /* 추천 동영상 섹션의 왼쪽 여백을 줄임 */
-  padding-left: 5px; /* 내부 여백 추가 */
+  width: 20%;
+  margin-right: 5%;
 }
 
 .videoFrame {
@@ -22,11 +23,10 @@
   border: none; /* iframe의 기본 테두리를 제거 */
 }
 
-
 .descriptionSection {
   margin-top: 15px;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -111,7 +111,7 @@
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   color: #606060;
 }
 
@@ -119,18 +119,6 @@
   display: flex;
   gap: 15px;
   margin-top: 10px;
-}
-
-.actions button {
-  background: none;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  color: #333;
-}
-
-.actions button:hover {
-  color: #000;
 }
 
 .tags {

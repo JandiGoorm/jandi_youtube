@@ -1,20 +1,12 @@
-.recommended {
-  background: #f9f9f9;
-  padding: 10px; /* 내부 여백 */
-  border-radius: 8px;
-  margin-left: 5px; /* 기존 값에서 줄임 */
-}
-
 .videoItem {
   display: flex;
   margin-bottom: 10px;
   cursor: pointer;
-  margin-left: 0; /* 여백 제거 */
 }
 
 .thumbnail {
-  width: 120px;
-  height: 70px;
+  width: 160px;
+  height: 90px;
   border-radius: 4px;
   margin-right: 10px;
 }

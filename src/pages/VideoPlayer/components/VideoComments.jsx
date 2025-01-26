@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./VideoComments.module.css";
-
-// 유틸리티 함수
 import { formatISO } from "../../../utils/date";
 
 // 댓글 컴포넌트

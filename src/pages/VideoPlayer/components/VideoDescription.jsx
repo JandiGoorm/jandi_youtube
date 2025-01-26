@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import styles from "./VideoDescription.module.css"; // VideoDescription 전용 CSS 파일
-
-import { formatHitCount } from "../../../utils/hit"; // 조회수 포맷팅만 유지
+import styles from "./VideoDescription.module.css";
+import { formatHitCount } from "../../../utils/hit";
 
 const VideoDescription = ({ viewCount, publishedAt, tags, videoDescription }) => {
   const [isExpanded, setIsExpanded] = useState(false); // 확장 상태 관리
 
-  // 조회수 포맷팅
-  const formattedViewCount = viewCount ? formatHitCount(viewCount) : "조회수 정보 없음";
+  // 설명 텍스트를 <br> 태그로 줄바꿈 처리하고 태그 포함
+  const formattedDescription = videoDescription
+    ? `${videoDescription.replace(/\n/g, "<br>")}<br><br>${tags
+        .map((tag) => `<span class="${styles.tag}">#${tag}</span>`)
+        .join(" ")}`
+    : "설명이 없습니다.";
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded); // 확장 상태를 토글
@@ -17,27 +20,21 @@ const VideoDescription = ({ viewCount, publishedAt, tags, videoDescription }) =>
     <div className={styles.descriptionSection}>
       {/* 메타 데이터 */}
       <div className={styles.metaData}>
-        <p className={styles.viewCount}>조회수 {formattedViewCount}</p>
-        <p className={styles.publishedAt}>{publishedAt || "게시일 정보 없음"}</p>
+        <p className={styles.viewCount}>
+          조회수 {isExpanded ? `${viewCount.toLocaleString()}회` : formatHitCount(viewCount)}
+        </p>
+        <p className={styles.publishedAt}>{publishedAt}</p>
       </div>
 
-      {/* 태그 */}
-      <div className={styles.tags}>
-        {tags.map((tag, index) => (
-          <span key={index} className={styles.tag}>
-            #{tag}
-          </span>
-        ))}
-      </div>
-
-      {/* 설명 텍스트 */}
+      {/* 설명 텍스트와 태그 */}
       <p
         className={`${styles.descriptionText} ${
           isExpanded ? styles.expanded : styles.collapsed
         }`}
-      >
-        {videoDescription || "설명이 없습니다."}
-      </p>
+        dangerouslySetInnerHTML={{
+          __html: formattedDescription,
+        }}
+      ></p>
 
       {/* 더보기/접기 버튼 */}
       {videoDescription && videoDescription.length > 0 && (
