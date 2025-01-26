@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./ChannelPlayListSection.module.css";
 import YoutubeService from "../../../apis/youtube";
 import { FaPlay } from "react-icons/fa";
-import { CgPlayList } from "react-icons/cg"
+import { CgPlayList } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 
 const ChannelPlayListSection = ({channelId}) => {
   const [lists, setLists] = useState([]);
+  const navigate = useNavigate();
   
   const fetchChannelVideos = async (channelId) =>{
     try{
@@ -22,6 +24,10 @@ const ChannelPlayListSection = ({channelId}) => {
       console.log("error: "+ error);
     }
   }
+
+   const handleClick = useCallback((id) => {
+      navigate(`/playlist?list=${id}`);
+    }, [navigate]);
   
   useEffect(()=> {
     fetchChannelVideos(channelId);
@@ -32,7 +38,7 @@ const ChannelPlayListSection = ({channelId}) => {
          <div class={styles.playList_header}>생성된 재생목록</div>
          <ul className={styles.video_list}>
                      {lists.map((list) => (
-                       <li className={styles.video_item} key={list.id}>
+                       <li className={styles.video_item} key={list.id}  onClick={() => handleClick(list.id)}>
                         <div>
                          <img
                            className={styles.video_thumbnail}
