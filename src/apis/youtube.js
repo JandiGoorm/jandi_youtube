@@ -79,8 +79,12 @@ const fetchAllSubscriptions = async () => {
       pageToken: nextPageToken,
     });
 
-    clone.push(...nextResponse.data);
-    nextPageToken = nextResponse.response.data.nextPageToken;
+    // nextResponse.data 검증
+    if (Array.isArray(nextResponse.data.items)) {
+      clone.push(...nextResponse.data.items);
+    }
+
+    nextPageToken = nextResponse.data.nextPageToken;
   }
 
   return clone;
