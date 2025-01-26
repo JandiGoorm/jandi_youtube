@@ -16,7 +16,7 @@ const VideoInfo = ({ channelInfo, likeStatus, handleLike, videoTitle }) => {
   return (
     <div className={styles.videoInfoContainer}>
       {/* 동영상 제목 */}
-      {videoTitle && <h1 className={styles.videoTitle}>{videoTitle}</h1>}
+      {videoTitle && <h2 className={styles.videoTitle}>{videoTitle}</h2>}
 
       <div className={styles.channelRow}>
         {/* 채널 프로필과 정보 */}

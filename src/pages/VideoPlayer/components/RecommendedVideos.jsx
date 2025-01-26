@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import YoutubeService from "../../../apis/youtube";
 import styles from "./RecommendedVideos.module.css";
@@ -7,31 +7,66 @@ import { formatISO } from "../../../utils/date";
 
 const RecommendedVideos = () => {
   const [videos, setVideos] = useState([]); // 추천 동영상 데이터 상태
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const [error, setError] = useState(null); // 오류 상태
+  const [nextPageToken, setNextPageToken] = useState(null); // 다음 페이지 토큰
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
+  const observerTarget = useRef(null); // 무한 스크롤 관찰 대상
   const navigate = useNavigate(); // 페이지 이동 훅
 
+  // 추천 동영상 데이터를 가져오는 함수
   const fetchRecommendedVideos = async () => {
-    setLoading(true);
-    setError(null);
+    if (isLoading) return; // 이미 로딩 중이면 요청 방지
 
+    setIsLoading(true);
     try {
-      // YoutubeService로 API 호출
       const response = await YoutubeService.fetchVideos({
         part: "snippet,statistics,contentDetails",
         chart: "mostPopular",
         regionCode: "KR",
         maxResults: 10,
+        pageToken: nextPageToken,
       });
-      setVideos(response.data.items || []); // 동영상 데이터 저장
-    } catch (err) {
-      console.error("추천 동영상 로드 오류:", err.message);
-      setError("추천 동영상을 가져오는 중 문제가 발생했습니다.");
+
+      const newVideos = response.data.items || [];
+      const newNextPageToken = response.data.nextPageToken || null;
+
+      // 중복 제거 및 기존 데이터와 병합
+      setVideos((prevVideos) =>
+        [...prevVideos, ...newVideos].filter(
+          (video, index, self) =>
+            self.findIndex((v) => v.id === video.id) === index
+        )
+      );
+      setNextPageToken(newNextPageToken);
+    } catch (error) {
+      console.error("추천 동영상 로드 오류:", error.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
+  // 무한 스크롤 설정
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading && nextPageToken) {
+          fetchRecommendedVideos();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => {
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current);
+      }
+    };
+  }, [isLoading, nextPageToken]);
+
+  // 초기 데이터 로드
   useEffect(() => {
     fetchRecommendedVideos();
   }, []);
@@ -40,23 +75,11 @@ const RecommendedVideos = () => {
     if (videoId) navigate(`/watch?v=${videoId}`);
   };
 
-  if (loading) {
-    return <div className={styles.loading}>로딩 중...</div>;
-  }
-
-  if (error) {
-    return (
-      <div className={styles.error}>
-        <p>{error}</p>
-        <button onClick={fetchRecommendedVideos}>다시 시도</button>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.recommended}>
       <h3>추천 동영상</h3>
-        {videos.map((video) => {
+      <ul className={styles.videoList}>
+        {videos.map((video, index) => {
           const videoId = video.id;
           const { channelTitle, title, publishedAt } = video.snippet;
           const { viewCount } = video.statistics || {};
@@ -67,7 +90,7 @@ const RecommendedVideos = () => {
 
           return (
             <li
-              key={videoId}
+              key={`${videoId}-${index}`} // 고유한 키 생성
               className={styles.videoItem}
               onClick={() => handleVideoClick(videoId)}
             >
@@ -82,13 +105,20 @@ const RecommendedVideos = () => {
                 <p className={styles.title}>{title}</p>
                 {/* 동영상 메타 정보: 채널 이름, 조회수, 업로드 날짜 */}
                 <p className={styles.meta}>
-                  {channelTitle}<br/>
+                  {channelTitle}<br />
                   조회수 {formattedViewCount} • {formattedPublishedAt}
                 </p>
               </div>
             </li>
           );
         })}
+      </ul>
+
+      {/* 로딩 표시 */}
+      {isLoading && <div className={styles.loading}>로딩 중...</div>}
+
+      {/* 무한 스크롤 관찰 대상 */}
+      <div ref={observerTarget} className={styles.observerTarget}></div>
     </div>
   );
 };
