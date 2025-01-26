@@ -82,6 +82,7 @@
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.05);
   color: black;
+  cursor: grab;
 }
 
 /*******************************************************/
@@ -117,6 +118,12 @@
 }
 
 /*동영상 설명부분 디자인*/
+.videoDetails img,
+.videoDetails p,
+.videoDetails button{
+  cursor: grab;
+}
+
 .videoDetails p{
   font-size: 14px;
   color: white;
@@ -162,6 +169,11 @@
 }
 
 /*플레이어 상단 버튼 디자인*/
+.playerTopActions button,
+.volumeSlider{
+  cursor: grab;
+}
+
 .playerTopActions button{
   position: relative;
   width: 48px;
@@ -198,6 +210,11 @@
 }
 
 /*플레이어 사이드 버튼 디자인*/
+.playerSideActions button,
+.playerSideActions img{
+  cursor: grab;
+}
+
 .playerSideActions button{
   position: relative;
   width: 48px;
