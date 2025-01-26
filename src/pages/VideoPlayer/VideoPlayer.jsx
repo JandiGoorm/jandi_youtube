@@ -14,10 +14,11 @@ function VideoPlayer() {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
 
-  // 상태 관리: 댓글, 추천 동영상, 채널 정보, 동영상 상세 정보 등
+  // 상태 관리
   const [comments, setComments] = useState([]); // 댓글 목록
   const [recommendedVideos, setRecommendedVideos] = useState([]); // 추천 동영상 목록
   const [channelInfo, setChannelInfo] = useState(null); // 채널 정보
+  const [videoTitle, setVideoTitle] = useState(""); // 동영상 제목 추가
   const [videoDescription, setVideoDescription] = useState(""); // 동영상 설명
   const [viewCount, setViewCount] = useState(0); // 조회수
   const [publishedAt, setPublishedAt] = useState(""); // 업로드 날짜
@@ -30,11 +31,11 @@ function VideoPlayer() {
     try {
       const response = await youtubeAPI.get("commentThreads", {
         params: {
-          part: "snippet", // 댓글의 세부 정보를 가져옴
-          videoId, // 현재 동영상 ID
+          part: "snippet",
+          videoId,
         },
       });
-      setComments(response.data.items || []); // 댓글 데이터를 상태에 저장
+      setComments(response.data.items || []);
     } catch (error) {
       console.error("댓글 불러오기 실패:", error.response?.status || error.message);
     }
@@ -46,8 +47,8 @@ function VideoPlayer() {
       // 동영상 정보 가져오기
       const videoResponse = await youtubeAPI.get("videos", {
         params: {
-          part: "snippet,statistics", // 동영상의 세부 정보와 통계 정보를 가져옴
-          id: videoId, // 현재 동영상 ID
+          part: "snippet,statistics",
+          id: videoId,
         },
       });
       const videoData = videoResponse.data.items[0];
@@ -55,6 +56,7 @@ function VideoPlayer() {
       const videoStatistics = videoData.statistics;
 
       // 동영상 정보 상태 업데이트
+      setVideoTitle(videoSnippet.title || "제목 없음"); // 동영상 제목 설정
       setVideoDescription(videoSnippet.description || "설명이 없습니다.");
       setViewCount(parseInt(videoStatistics.viewCount || 0));
       setPublishedAt(new Date(videoSnippet.publishedAt).toLocaleString("ko-KR"));
@@ -64,11 +66,11 @@ function VideoPlayer() {
       // 채널 정보 가져오기
       const channelResponse = await youtubeAPI.get("channels", {
         params: {
-          part: "snippet,statistics", // 채널의 세부 정보와 통계 정보를 가져옴
-          id: videoSnippet.channelId, // 동영상이 속한 채널 ID
+          part: "snippet,statistics",
+          id: videoSnippet.channelId,
         },
       });
-      setChannelInfo(channelResponse.data.items[0]); // 채널 정보를 상태에 저장
+      setChannelInfo(channelResponse.data.items[0]);
     } catch (error) {
       console.error("동영상 또는 채널 정보 불러오기 실패:", error.response?.status || error.message);
     }
@@ -77,31 +79,29 @@ function VideoPlayer() {
   // 좋아요 상태를 변경하는 함수
   const handleLike = async (rating) => {
     try {
-      const accessToken = localStorage.getItem("access-token"); // 액세스 토큰 가져오기
+      const accessToken = localStorage.getItem("access-token");
       if (!accessToken) {
         throw new Error("액세스 토큰이 없습니다. 로그인 상태를 확인하세요.");
       }
 
-      // 좋아요/싫어요 API 호출
       await youtubeAPI.post("videos/rate", null, {
-        params: { id: videoId, rating }, // 동영상 ID와 변경할 좋아요 상태
-        headers: { Authorization: `Bearer ${accessToken}` }, // 인증 헤더 추가
+        params: { id: videoId, rating },
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
-      setLikeStatus(rating); // 좋아요 상태 업데이트
+      setLikeStatus(rating);
     } catch (error) {
       console.error("좋아요 상태 변경 실패:", error.response?.status || error.message);
     }
   };
 
-  // 컴포넌트가 마운트되거나 `videoId`가 변경될 때 데이터 가져오기
+  // 데이터 로드
   useEffect(() => {
     if (videoId) {
-      fetchComments(); // 댓글 가져오기
-      fetchVideoAndChannelInfo(); // 동영상 및 채널 정보 가져오기
+      fetchComments();
+      fetchVideoAndChannelInfo();
     }
   }, [videoId]);
 
-  // 동영상 ID가 없을 경우 에러 메시지 출력
   if (!videoId) {
     return (
       <DefaultLayout>
@@ -114,29 +114,21 @@ function VideoPlayer() {
     <DefaultLayout>
       <div className={styles.container}>
         <div className={styles.mainContent}>
-          {/* 동영상 프레임 */}
           <VideoFrame videoId={videoId} />
-
-          {/* 채널 및 동영상 정보 */}
           <VideoInfo
             channelInfo={channelInfo}
             likeStatus={likeStatus}
-            handleLike={handleLike} // 좋아요 상태 변경 함수 전달
+            handleLike={handleLike}
+            videoTitle={videoTitle} // 동영상 제목 전달
           />
-
-          {/* 동영상 설명 */}
           <VideoDescription
             viewCount={viewCount}
             publishedAt={publishedAt}
             tags={tags}
             videoDescription={videoDescription}
           />
-
-          {/* 댓글 */}
           <VideoComments totalCommentCount={totalCommentCount} comments={comments} />
         </div>
-
-        {/* 추천 동영상 */}
         <div className={styles.sidebar}>
           <RecommendedVideos videos={recommendedVideos} />
         </div>
