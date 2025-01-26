@@ -1,242 +1,142 @@
-.likeContainer {
+.container {
   display: flex;
-  flex-direction: row; /* 가로로 배치 */
-  gap: 20px; /* 배너와 리스트 간 간격 */
+  padding: 20px 40px;
 }
 
-.likeBanner {
-  width: 25%; /* 배너 영역의 너비 */
+.banner_box {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   background-color: rgb(85, 79, 79);
-  padding: 20px;
+  color: white;
+  position: fixed;
+  height: calc(100vh - 100px);
+  width: 360px;
+  padding: 24px;
   border-radius: 10px;
 }
 
-.likeBannerData {
+.banner {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 18px;
 }
 
-.likeBannerMainImg {
+.responsive_flex {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.banner_data {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  gap: 18px;
+}
+
+.banner_img {
+  overflow: hidden;
+  border-radius: 8px;
   width: 100%;
-  height: auto;
-  border-radius: 10px;
+  max-width: 312px;
 }
 
-.likeBannerTitle {
-  font-size: 24px;
-  color: #fff;
-  font-weight: bold;
-  margin: 10px 0;
-  text-align: center;
-}
-
-.likeBannerDescription {
-  font-size: 14px;
-  color: #ccc;
-  text-align: center;
-}
-
-.likePlaylistInfo {
+.flex_column {
   display: flex;
-  justify-content: center;
-  gap: 5px;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.banner_title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.banner_meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-size: 14px;
+}
+
+.banner_detail {
   font-size: 12px;
-  color: #ffffffb3;
+  opacity: 0.7;
 }
 
-.likeBannerBtns {
+.banner_btns {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
 }
 
-.likeBannerBtns button {
-  padding: 10px 20px;
+.banner_btns > button {
+  flex: 1;
+  border-radius: 18px;
   border: none;
-  border-radius: 20px;
+  overflow: hidden;
+
+  height: 36px;
   font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
   cursor: pointer;
 }
 
-.likePlayBtn {
-  background-color: #ff0000;
+.shuffle_btn {
+  background-color: rgba(255, 255, 255, 0.2);
   color: white;
 }
 
-.likeShuffleBtn {
-  background-color: rgba(255, 255, 255, 0.3);
-  color: #fff;
-}
-
-.likePlayListSection {
-  width: 75%; /* 리스트 영역의 너비 */
-}
-
-.likePlayList {
-  list-style: none;
-  padding: 0;
-}
-
-.likePlayListItem {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.likePlayListItemImg {
-  width: 160px;
-  height: 90px;
-  border-radius: 10px;
-}
-
-.likePlayListItemInfo {
-  margin-left: 15px;
-}
-
-.likePlayListItemTitle {
-  font-size: 16px;
-  font-weight: bold;
+.videos_box {
+  flex: 1;
+  padding: 0 0 0 380px;
   margin: 0;
-}
-
-.likePlayListItemData {
-  font-size: 12px;
-  color: #606060;
-}
-.likeContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.likeBanner {
-  width: 25%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(85, 79, 79);
-  padding: 20px;
-  border-radius: 10px;
 }
 
-.likeBannerBtns button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
+@media screen and (max-width: 1080px) {
+  .container {
+    padding: 0;
+    flex-direction: column;
+  }
+
+  .banner_box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 0;
+  }
+
+  .videos_box {
+    padding: 0;
+  }
+
+  .responsive_flex {
+    flex-direction: row;
+  }
 }
 
-.likePlayBtn {
-  background-color: white; /* 흰 배경 */
-  color: black; /* 검은 글씨 */
-  border: 1px solid black;
-}
+@media screen and (max-width: 720px) {
+  .banner {
+    width: 100%;
+  }
 
-.likeShuffleBtn {
-  background-color: rgba(255, 255, 255, 0.3);
-  color: white;
-}
+  .banner_img {
+    align-self: center;
+  }
 
-.likePlayListSection {
-  width: 75%;
-}
+  .responsive_flex {
+    flex-direction: column;
+  }
 
-.filterButtons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
+  .flex_column {
+    width: 100%;
+  }
 }
-
-.filterButtons button {
-  padding: 5px 15px;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: white;
-  cursor: pointer;
-}
-
-.filterButtons .activeFilter {
-  background-color: black;
-  color: white;
-}
-
-.likePlayList {
-  list-style: none;
-  padding: 0;
-}
-
-.likeContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.likeBanner {
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(85, 79, 79);
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.likeBannerMainImg {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.likeBannerTitle {
-  font-size: 24px;
-  color: #fff;
-  font-weight: bold;
-  margin: 10px 0;
-  text-align: center;
-}
-
-.likeBannerMeta {
-  font-size: 14px;
-  color: #ccc;
-  text-align: center;
-  margin: 10px 0;
-}
-
-.likeBannerBtns {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.likeBannerBtns button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.likePlayBtn {
-  background-color: white; /* 흰 배경 */
-  color: black; /* 검은 글씨 */
-  border: 1px solid black;
-}
-
-.likeShuffleBtn {
-  background-color: rgba(255, 255, 255, 0.3);
-  color: white;
-}
-
-.likePlayListSection {
-  width: 75%;
-}
-
-.likePlayList {
-  list-style: none;
-  padding: 0;
-}
-

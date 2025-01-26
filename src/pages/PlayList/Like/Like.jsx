@@ -1,132 +1,106 @@
-import React, { useEffect, useState } from "react";
-import youtubeAPI from "../../../apis/youtubeInstance";
+import { useCallback, useEffect, useState } from "react";
 import { IoMdPlay } from "react-icons/io";
 import { IoShuffle } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import YoutubeService from "../../../apis/youtube";
+import { useAuth } from "../../../contexts/AuthContext";
 import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
-import { formatISO } from "../../../utils/date"; // 날짜 포맷 함수
-import { formatHitCount } from "../../../utils/hit"; // 조회수 포맷 함수
 import styles from "./Like.module.css";
+import InfiniteScroll from "../../../components/InfiniteScroll/InfiniteScroll";
+import VideoItem from "./VideoItem";
 
 const Like = () => {
-  const [videos, setVideos] = useState([]);
   const [channelInfo, setChannelInfo] = useState(null);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchLikedVideos = async () => {
+  const { currentUser } = useAuth();
+  const { fetchVideos } = YoutubeService;
+
+  // InfiniteScroll에서 사용할 fetch함수
+  const fetchCallback = useCallback(
+    async (pageToken = "") => {
       try {
-        const accessToken = localStorage.getItem("access-token");
-        if (!accessToken) {
-          throw new Error("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
-        }
+        const response = await fetchVideos({
+          part: "snippet,statistics,contentDetails",
+          myRating: "like",
+          maxResults: 10,
+          pageToken,
+        });
 
-        const response = await youtubeAPI.get("videos", {
-          params: {
-            part: "snippet,contentDetails,statistics",
-            myRating: "like",
-            maxResults: 100,
-          },
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+        return {
+          items: response.data.items || [],
+          nextToken: response.data.nextPageToken,
+        };
+      } catch (error) {
+        console.error("좋아요 표시 동영상 가져오기 실패:", error.message);
+      }
+    },
+    [fetchVideos]
+  );
+
+  // 채널 배너 생성을 위해 fetchVideos를 한번 떙겨옴
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetchVideos({
+          part: "snippet,statistics",
+          myRating: "like",
         });
 
         const items = response.data.items || [];
-        const totalViews = items.reduce(
-          (acc, video) => acc + parseInt(video.statistics.viewCount || 0, 10),
-          0
-        );
 
-        setVideos(items);
         setChannelInfo({
-          title: "k05y03j", // 채널 ID (하드코딩 또는 동적으로 가져오기)
+          title: currentUser.name,
           thumbnail: items[0]?.snippet.thumbnails.medium.url || "",
-          itemCount: items.length || 0,
-          totalViews: formatHitCount(totalViews), // 조회수 총합 포맷
-          lastUpdated: new Date().toLocaleDateString("ko-KR", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }), // 마지막 업데이트 날짜
+          itemCount: response.data.pageInfo.totalResults || 0,
         });
       } catch (error) {
         console.error("좋아요 표시 동영상 가져오기 실패:", error.message);
       }
-    };
+    })();
+  }, [currentUser, fetchVideos]);
 
-    fetchLikedVideos();
-  }, []);
-
-  const handleVideoClick = (videoId) => {
-    if (!videoId) return;
-    navigate(`/watch?v=${videoId}`);
-  };
-
+  // 1080px 에서 레이아웃 변경
   return (
     <DefaultLayout>
-      <div className={styles.likeContainer}>
-        {/* 배너 부분 */}
+      <div className={styles.container}>
         {channelInfo && (
-          <aside className={styles.likeBanner}>
-            <div className={styles.likeBannerData}>
-              <img
-                className={styles.likeBannerMainImg}
-                src={channelInfo.thumbnail}
-                alt="Channel Thumbnail"
-              />
-              <div className={styles.likeBannerInfo}>
-                <p className={styles.likeBannerTitle}>{channelInfo.title}</p>
-                <p className={styles.likeBannerMeta}>
-                  동영상 {channelInfo.itemCount}개 조회수 {channelInfo.totalViews} 오늘 업데이트됨
-                </p>
+          <aside className={styles.banner_box}>
+            <div className={styles.banner}>
+              <div className={styles.responsive_flex}>
+                <img
+                  className={styles.banner_img}
+                  src={channelInfo.thumbnail}
+                  alt="Channel Thumbnail"
+                />
+                <div className={styles.flex_column}>
+                  <span className={styles.banner_title}>
+                    좋아요 표시한 동영상
+                  </span>
+                  <div className={styles.banner_meta}>
+                    <span>{currentUser.name}</span>
+                    <span className={styles.banner_detail}>
+                      동영상 {channelInfo.itemCount}개
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className={styles.likeBannerBtns}>
-              <button className={styles.likePlayBtn}>
-                <IoMdPlay /> 모두 재생
-              </button>
-              <button className={styles.likeShuffleBtn}>
-                <IoShuffle /> 셔플
-              </button>
+
+              <div className={styles.banner_btns}>
+                <button className={styles.like_btn}>
+                  <IoMdPlay />
+                  <span>모두 재생</span>
+                </button>
+                <button className={styles.shuffle_btn}>
+                  <IoShuffle size={24} />
+                  <span>셔플</span>
+                </button>
+              </div>
             </div>
           </aside>
         )}
 
-        {/* 동영상 리스트 */}
-        <section className={styles.likePlayListSection}>
-          {videos.length > 0 ? (
-            <ul className={styles.likePlayList}>
-              {videos.map((video) => (
-                <li
-                  className={styles.likePlayListItem}
-                  key={video.id}
-                  onClick={() => handleVideoClick(video.id)}
-                >
-                  <img
-                    className={styles.likePlayListItemImg}
-                    src={video.snippet.thumbnails.medium.url}
-                    alt={video.snippet.title}
-                  />
-                  <div className={styles.likePlayListItemInfo}>
-                    <p className={styles.likePlayListItemTitle}>
-                      {video.snippet.title}
-                    </p>
-                    <div className={styles.likePlayListItemData}>
-                      <span>
-                        조회수 {formatHitCount(video.statistics.viewCount)}
-                      </span>
-                      <span>•</span>
-                      <span>{formatISO(video.snippet.publishedAt)}</span>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className={styles.noVideos}>좋아요 표시한 동영상이 없습니다.</p>
-          )}
-        </section>
+        <ul className={styles.videos_box}>
+          <InfiniteScroll fetch={fetchCallback} RenderComponent={VideoItem} />
+        </ul>
       </div>
     </DefaultLayout>
   );

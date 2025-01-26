@@ -28,6 +28,7 @@
   overflow: hidden;
   aspect-ratio: 16 / 9;
   cursor: pointer;
+  pointer-events: none;
 }
 
 .flex_row {
