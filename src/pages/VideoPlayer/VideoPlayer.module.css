@@ -15,11 +15,13 @@
 }
 
 .videoFrame {
-  width: 100%;
-  height: 500px;
+  width: 100%; /* 가로를 부모 요소의 100%로 설정 */
+  aspect-ratio: 16 / 9; /* 16:9 비율 유지 */
   margin-bottom: 20px;
-  border-radius: 8px;
+  border-radius: 8px; /* 모서리를 둥글게 */
+  border: none; /* iframe의 기본 테두리를 제거 */
 }
+
 
 .descriptionSection {
   margin-top: 15px;
