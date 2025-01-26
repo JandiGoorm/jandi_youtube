@@ -141,6 +141,7 @@
   border: none;
   padding: 5px 0px;
   font-size: large;
+  cursor: grab;
 }
 
 .dropdown {
