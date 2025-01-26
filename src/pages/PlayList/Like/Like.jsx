@@ -63,30 +63,37 @@ const Like = () => {
     <DefaultLayout>
       <div className={styles.container}>
         {channelInfo && (
-          <aside className={styles.banner}>
-            <img
-              className={styles.banner_img}
-              src={channelInfo.thumbnail}
-              alt="Channel Thumbnail"
-            />
+          <aside className={styles.banner_box}>
+            <div className={styles.banner}>
+              <div className={styles.responsive_flex}>
+                <img
+                  className={styles.banner_img}
+                  src={channelInfo.thumbnail}
+                  alt="Channel Thumbnail"
+                />
+                <div className={styles.flex_column}>
+                  <span className={styles.banner_title}>
+                    좋아요 표시한 동영상
+                  </span>
+                  <div className={styles.banner_meta}>
+                    <span>{currentUser.name}</span>
+                    <span className={styles.banner_detail}>
+                      동영상 {channelInfo.itemCount}개
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-            <span className={styles.banner_title}>좋아요 표시한 동영상</span>
-            <div className={styles.banner_meta}>
-              <span>{currentUser.name}</span>
-              <span className={styles.banner_detail}>
-                동영상 {channelInfo.itemCount}개
-              </span>
-            </div>
-
-            <div className={styles.banner_btns}>
-              <button className={styles.like_btn}>
-                <IoMdPlay />
-                <span>모두 재생</span>
-              </button>
-              <button className={styles.shuffle_btn}>
-                <IoShuffle size={24} />
-                <span>셔플</span>
-              </button>
+              <div className={styles.banner_btns}>
+                <button className={styles.like_btn}>
+                  <IoMdPlay />
+                  <span>모두 재생</span>
+                </button>
+                <button className={styles.shuffle_btn}>
+                  <IoShuffle size={24} />
+                  <span>셔플</span>
+                </button>
+              </div>
             </div>
           </aside>
         )}
