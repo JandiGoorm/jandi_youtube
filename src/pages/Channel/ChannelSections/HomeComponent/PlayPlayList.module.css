@@ -1,7 +1,42 @@
 .video_header{
   font-size: 20px;
 }
+.slider_container {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  width: 100%; 
+}
 
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.scroll_button {
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 1);
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll_button.left {
+  left: 5px;
+}
+
+.scroll_button.right {
+  right: 5px;
+}
 .video_list {
   list-style-type: none;
   display: flex;
