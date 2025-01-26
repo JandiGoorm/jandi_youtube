@@ -19,7 +19,7 @@ const Like = () => {
     async (pageToken = "") => {
       try {
         const response = await fetchVideos({
-          part: "snippet,statistics",
+          part: "snippet,statistics,contentDetails",
           myRating: "like",
           maxResults: 10,
           pageToken,

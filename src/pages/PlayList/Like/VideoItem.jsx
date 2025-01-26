@@ -5,9 +5,11 @@ import { PageEndPoints } from "../../../constants/api";
 import { formatHitCount } from "../../../utils/hit";
 import { formatISO } from "../../../utils/date";
 import VideoDropdown from "./VideoDropdown";
+import { formatDuration } from "../../../utils/time";
 
 const VideoItem = ({ item }) => {
   const navigate = useNavigate();
+  const duration = formatDuration(item.contentDetails.duration);
 
   const handleVideoClick = useCallback(
     (videoId) => {
@@ -25,11 +27,14 @@ const VideoItem = ({ item }) => {
     >
       <span className={styles.video_index}>{item.index + 1}</span>
       <div className={styles.video_des}>
-        <img
-          className={styles.video_img}
-          src={item.snippet.thumbnails.medium.url}
-          alt={item.snippet.title}
-        />
+        <div className={styles.relative_box}>
+          <div className={styles.duration}>{duration}</div>
+          <img
+            className={styles.video_img}
+            src={item.snippet.thumbnails.medium.url}
+            alt={item.snippet.title}
+          />
+        </div>
         <div className={styles.video_info}>
           <span className={styles.video_title}>{item.snippet.title}</span>
           <div className={styles.video_detail}>
