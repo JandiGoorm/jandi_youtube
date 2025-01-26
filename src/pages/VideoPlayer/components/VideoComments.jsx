@@ -1,105 +1,54 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./VideoComments.module.css";
-import YoutubeService from "../../../apis/youtube";
+
+// 유틸리티 함수
 import { formatISO } from "../../../utils/date";
 
-const VideoComments = ({ videoId, totalCommentCount }) => {
-  const [comments, setComments] = useState([]); // 댓글 상태
-  const [nextPageToken, setNextPageToken] = useState(null); // 다음 페이지 토큰
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 드롭다운 상태
+// 댓글 컴포넌트
+const VideoComments = ({ totalCommentCount, comments }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 드롭다운 메뉴 상태
   const [sortedComments, setSortedComments] = useState([]); // 정렬된 댓글 상태
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
-  const observerTarget = useRef(null); // 무한 스크롤 대상
 
-  // 댓글 가져오기
-  const fetchComments = async () => {
-    if (!videoId || isLoading) return;
-
-    setIsLoading(true);
-    try {
-      const response = await YoutubeService.fetchComments({
-        part: "snippet",
-        videoId,
-        maxResults: 10,
-        pageToken: nextPageToken,
-      });
-
-      const newComments = response.data.items || [];
-      setComments((prev) => [...prev, ...newComments]);
-      setSortedComments((prev) => [...prev, ...newComments]);
-      setNextPageToken(response.data.nextPageToken || null);
-    } catch (error) {
-      console.error("댓글 데이터를 가져오는 중 오류 발생:", error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // 초기 댓글 데이터 로드
+  // 댓글이 변경될 때 초기화
   useEffect(() => {
-    setComments([]); // 초기화
-    setSortedComments([]);
-    setNextPageToken(null);
-    fetchComments();
-  }, [videoId]);
-
-  // 무한 스크롤 옵저버 설정
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && nextPageToken && !isLoading) {
-          fetchComments();
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
-    }
-
-    return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
-      }
-    };
-  }, [nextPageToken, isLoading]);
+    setSortedComments([...comments]); // 댓글을 초기 상태로 설정
+  }, [comments]);
 
   // 드롭다운 토글
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen(!isDropdownOpen); // 드롭다운 메뉴 열고 닫기
   };
 
-  // 인기순 정렬
+  // 댓글을 인기순으로 정렬
   const sortByPopularity = () => {
     const sorted = [...comments].sort(
       (a, b) =>
         b.snippet.topLevelComment.snippet.likeCount -
         a.snippet.topLevelComment.snippet.likeCount
     );
-    setSortedComments(sorted);
-    setIsDropdownOpen(false);
+    setSortedComments(sorted); // 정렬된 댓글로 상태 업데이트
+    setIsDropdownOpen(false); // 드롭다운 메뉴 닫기
   };
 
-  // 최신순 정렬
+  // 댓글을 최신순으로 정렬
   const sortByLatest = () => {
     const sorted = [...comments].sort(
       (a, b) =>
         new Date(b.snippet.topLevelComment.snippet.publishedAt) -
         new Date(a.snippet.topLevelComment.snippet.publishedAt)
     );
-    setSortedComments(sorted);
-    setIsDropdownOpen(false);
+    setSortedComments(sorted); // 정렬된 댓글로 상태 업데이트
+    setIsDropdownOpen(false); // 드롭다운 메뉴 닫기
   };
 
   return (
     <div className={styles.commentsSection}>
-      {/* 댓글 개수 표시 */}
+      {/* 댓글 개수 헤더 */}
       <h2 className={styles.commentsHeader}>
         댓글 {totalCommentCount.toLocaleString()}개
       </h2>
 
-      {/* 정렬 드롭다운 */}
+      {/* 정렬 드롭다운 컨트롤 */}
       <div className={styles.sortContainer}>
         <button className={styles.sortButton} onClick={toggleDropdown}>
           정렬 기준
@@ -121,6 +70,7 @@ const VideoComments = ({ videoId, totalCommentCount }) => {
         <ul className={styles.commentsList}>
           {sortedComments.map((comment) => (
             <li className={styles.commentItem} key={comment.id}>
+              {/* 프로필 이미지 */}
               <img
                 className={styles.profileImage}
                 src={
@@ -128,17 +78,23 @@ const VideoComments = ({ videoId, totalCommentCount }) => {
                 }
                 alt="프로필 이미지"
               />
+
+              {/* 댓글 내용 */}
               <div className={styles.commentContent}>
                 <div className={styles.commentHeader}>
+                  {/* 작성자 이름 */}
                   <span className={styles.commentAuthor}>
                     {comment.snippet.topLevelComment.snippet.authorDisplayName}
                   </span>
+                  {/* 댓글 작성 시간 */}
                   <span className={styles.commentTime}>
                     {formatISO(
                       comment.snippet.topLevelComment.snippet.publishedAt
                     )}
                   </span>
                 </div>
+
+                {/* 댓글 텍스트 */}
                 <p
                   className={styles.commentText}
                   dangerouslySetInnerHTML={{
@@ -146,13 +102,19 @@ const VideoComments = ({ videoId, totalCommentCount }) => {
                       comment.snippet.topLevelComment.snippet.textDisplay,
                   }}
                 ></p>
+
+                {/* 좋아요/싫어요 액션 */}
+                <div className={styles.commentActions}>
+                  <button className={styles.likeButton}>👍</button>
+                  <span>{comment.snippet.topLevelComment.snippet.likeCount}</span>
+                  <button className={styles.dislikeButton}>👎</button>
+                </div>
               </div>
             </li>
           ))}
-          {isLoading && <li className={styles.loading}>로딩 중...</li>}
-          <li ref={observerTarget}></li>
         </ul>
       ) : (
+        // 댓글이 없을 경우
         <p className={styles.noComments}>댓글이 없습니다.</p>
       )}
     </div>
