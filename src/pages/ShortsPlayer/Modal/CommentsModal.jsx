@@ -67,6 +67,13 @@ const CommentModal = ({ isOpen, onClose, shortsId }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleOverlayClick = (e) => {
+    // 모달창 외부 영역을 클릭한 경우 모달창 닫기
+    if (e.target.className.includes("modalOverlay")) {
+      onClose();
+    }
+  };
+
   const setSortByPopularity = () => {
     console.log("인기순 정렬 선택");
     if (comments) {
@@ -119,7 +126,10 @@ const CommentModal = ({ isOpen, onClose, shortsId }) => {
   }, [isLoading, observerTarget.current]);
 
   return (
-    <div className={styles.modalOverlay}>
+    <div 
+      className={styles.modalOverlay}
+      onClick={handleOverlayClick} 
+    >
       <div className={styles.modalContent}>
         <header className={styles.modalHeader}>
           <p>댓글</p>
