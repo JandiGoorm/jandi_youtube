@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { IoMdPlay } from "react-icons/io";
-import { IoShuffle } from "react-icons/io5";
-import DefaultLayout from "../../../layouts/DefaultLayout/DefaultLayout";
-import YoutubeService from "../../../apis/youtube";
-import styles from "./DetailList.module.css";
-import InfiniteScroll from "../../../components/InfiniteScroll/InfiniteScroll";
-import VideoItem from "./VideoItem";
-import { FiMoreVertical } from "react-icons/fi";
-import { PiShareFatLight } from "react-icons/pi";
 import { BsBookmark } from "react-icons/bs";
+import { FiMoreVertical } from "react-icons/fi";
+import { IoMdPlay } from "react-icons/io";
+import { PiShareFatLight } from "react-icons/pi";
+import YoutubeService from "../../../apis/youtube";
+import InfiniteScroll from "../../../components/InfiniteScroll/InfiniteScroll";
+import { Banner, BannerLayout, Content } from "../BannerLayout";
+import styles from "./DetailList.module.css";
+import VideoItem from "./VideoItem";
 
 const DetailList = ({ id }) => {
   const [channel, setChannel] = useState();
@@ -74,7 +73,7 @@ const DetailList = ({ id }) => {
     },
     [fetchPlaylistItems, fetchVideos, id]
   );
-  console.log(channel);
+
   useEffect(() => {
     (async () => {
       await fetchPlayListData();
@@ -82,67 +81,66 @@ const DetailList = ({ id }) => {
   }, [fetchPlayListData]);
 
   return (
-    <DefaultLayout>
-      <div className={styles.container}>
-        {channel && (
-          <aside className={styles.banner_box}>
-            <div className={styles.banner}>
-              <div className={styles.responsive_flex}>
-                <img
-                  className={styles.banner_img}
-                  src={channel.snippet.thumbnails.medium.url}
-                  alt="Channel Thumbnail"
-                />
-                <div className={styles.flex_column}>
-                  <div className={styles.banner_title}>
-                    {channel.snippet.title}
-                  </div>
-                  <div className={styles.banner_meta}>
-                    <div className={styles.channel_info}>
-                      <img
-                        className={styles.channel_img}
-                        src={channel.channel.snippet.thumbnails.default.url}
-                        alt="Channel Thumbnail"
-                      />
-                      <span className={styles.channel_name}>
-                        게시자: {channel.channel.snippet.title}
-                      </span>
-                    </div>
-                    <span className={styles.banner_detail}>
-                      <p>재생목록</p>
-                      <p>•</p>
-                      <p>동영상 {channel.contentDetails.itemCount}개</p>
+    <BannerLayout>
+      {channel && (
+        <Banner>
+          <div className={styles.banner}>
+            <div className={styles.responsive_flex}>
+              <img
+                className={styles.banner_img}
+                src={channel.snippet.thumbnails.medium.url}
+                alt="Channel Thumbnail"
+              />
+              <div className={styles.flex_column}>
+                <div className={styles.banner_title}>
+                  {channel.snippet.title}
+                </div>
+                <div className={styles.banner_meta}>
+                  <div className={styles.channel_info}>
+                    <img
+                      className={styles.channel_img}
+                      src={channel.channel.snippet.thumbnails.default.url}
+                      alt="Channel Thumbnail"
+                    />
+                    <span className={styles.channel_name}>
+                      게시자: {channel.channel.snippet.title}
                     </span>
                   </div>
-                </div>
-              </div>
 
-              <div className={styles.banner_btns}>
-                <button className={styles.play_btn}>
-                  <IoMdPlay />
-                  <span>모두 재생</span>
-                </button>
-                <div className={styles.icons_box}>
-                  <button>
-                    <BsBookmark size={18} />
-                  </button>
-                  <button>
-                    <PiShareFatLight size={24} />
-                  </button>
-                  <button>
-                    <FiMoreVertical size={18} />
-                  </button>
+                  <span className={styles.banner_detail}>
+                    <p>재생목록</p>
+                    <p>•</p>
+                    <p>동영상 {channel.contentDetails.itemCount}개</p>
+                  </span>
                 </div>
               </div>
             </div>
-          </aside>
-        )}
 
-        <ul className={styles.videos_box}>
-          <InfiniteScroll fetch={fetchCallback} RenderComponent={VideoItem} />
-        </ul>
-      </div>
-    </DefaultLayout>
+            <div className={styles.banner_btns}>
+              <button className={styles.play_btn}>
+                <IoMdPlay />
+                <span>모두 재생</span>
+              </button>
+              <div className={styles.icons_box}>
+                <button>
+                  <BsBookmark size={18} />
+                </button>
+                <button>
+                  <PiShareFatLight size={24} />
+                </button>
+                <button>
+                  <FiMoreVertical size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </Banner>
+      )}
+
+      <Content>
+        <InfiniteScroll fetch={fetchCallback} RenderComponent={VideoItem} />
+      </Content>
+    </BannerLayout>
   );
 };
 
