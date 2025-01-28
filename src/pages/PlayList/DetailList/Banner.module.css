@@ -20,7 +20,8 @@
 .banner_img {
   overflow: hidden;
   border-radius: 8px;
-  width: 312px;
+  width: 100%;
+  max-width: 312px;
 }
 
 .flex_column {
