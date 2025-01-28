@@ -58,7 +58,6 @@ const Like = () => {
     })();
   }, [currentUser, fetchVideos]);
 
-  // 1080px 에서 레이아웃 변경
   return (
     <DefaultLayout>
       <div className={styles.container}>
