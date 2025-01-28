@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-export const BannerLayoutContext = createContext({});
+export const BannerLayoutContext = createContext();
 
 export const useBannerLayout = () => {
   const context = useContext(BannerLayoutContext);

@@ -20,8 +20,7 @@
 .banner_img {
   overflow: hidden;
   border-radius: 8px;
-  width: 100%;
-  max-width: 312px;
+  width: 312px;
 }
 
 .flex_column {
@@ -33,6 +32,12 @@
 .banner_title {
   font-size: 28px;
   font-weight: 700;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .banner_meta {
@@ -40,40 +45,41 @@
   flex-direction: column;
   gap: 8px;
 
-  font-size: 14px;
+  font-size: 12px;
+}
+
+.channel_info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.channel_img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }
 
 .banner_detail {
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   opacity: 0.7;
 }
 
-.banner_btns {
-  width: 100%;
-  display: flex;
-  gap: 8px;
+.banner_detail > p {
+  margin: 0;
 }
 
-.banner_btns > button {
-  flex: 1;
-  border-radius: 18px;
-  border: none;
+.channel_video_title {
+  opacity: 0.7;
+  padding-right: 80px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-
-  height: 36px;
-  font-size: 14px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.shuffle_btn {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 1080px) {

@@ -9,6 +9,7 @@
   background-color: rgb(85, 79, 79);
   color: white;
   position: fixed;
+  z-index: 99;
   height: calc(100vh - 100px);
   width: 360px;
   padding: 24px;
