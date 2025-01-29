@@ -1,7 +1,42 @@
 .video_header{
   font-size: 20px;
 }
+.slider_container {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  width: 100%; 
+}
 
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.scroll_button {
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 1);
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll_button.left {
+  left: 5px;
+}
+
+.scroll_button.right {
+  right: 5px;
+}
 .video_list {
     list-style-type: none;
     display: flex;
@@ -35,6 +70,16 @@
     cursor: pointer;
   }
 
+  .shorts_item {
+    list-style: none;
+    display: inline-block;
+    width: 160px;
+    position: relative;
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+
+
   .video_duration {
     position: absolute; 
     top: 95px; 
@@ -45,9 +90,29 @@
     border-radius: 5px; 
     font-size: 12px;
   }
+
+  
+  .shorts_duration {
+    position: absolute; 
+    top: 240px; 
+    right: 5px; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    font-size: 12px;
+  }
   
   .video_thumbnail {
     width: 100%;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .shorts_thumbnail {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
     border-radius: 10px;
     display: block;
   }

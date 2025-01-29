@@ -1,9 +1,15 @@
 import { DropDownContext } from "./DropDownContext";
 import { useDropDown } from "./DropDownContext";
-import { useState, useRef, useEffect, useCallback } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useImperativeHandle,
+} from "react";
 import styles from "./DropDown.module.css";
 
-const DropDown = ({ children, style = {} }) => {
+const DropDown = ({ children, style = {}, dropdownRef = null }) => {
   const [isVisible, setVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const ref = useRef(null);
@@ -17,6 +23,14 @@ const DropDown = ({ children, style = {} }) => {
   const close = useCallback(() => {
     setVisible(false);
   }, []);
+
+  useImperativeHandle(
+    dropdownRef,
+    () => ({
+      close,
+    }),
+    [close]
+  );
 
   const updatePosition = useCallback(() => {
     if (!ref.current || !contentRef.current || !isVisible) return;
@@ -108,7 +122,7 @@ const DropDownContent = ({ children }) => {
           top: `${position.top}px`,
           left: `${position.left}px`,
         }}
-        onClick={close}
+        onClickCapture={close}
       >
         {children}
       </div>

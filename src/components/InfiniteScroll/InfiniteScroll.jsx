@@ -8,7 +8,7 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
   const nextToken = useRef();
 
   const fetchCallback = useCallback(async () => {
-    if (isFetching) return;
+    if (isFetching || nextToken.current === null) return;
     setIsFetching(true);
 
     try {
@@ -17,8 +17,9 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
       setData((prevData) => {
         const newItems = newData.items
           .map((v) => {
+            const id = v.id ?? v.customUrl;
             return {
-              id: v.customUrl,
+              id,
               ...v,
             };
           })
@@ -34,7 +35,7 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
         nextToken.current = null;
         return;
       }
-      
+
       nextToken.current = newData.nextToken;
     } catch (err) {
       console.log("fetch Error in InfiniteScroll", err);
@@ -64,8 +65,8 @@ const InfiniteScroll = ({ fetch, RenderComponent }) => {
 
   return (
     <>
-      {data?.map((item) => {
-        return <RenderComponent key={item.id} item={item} />;
+      {data?.map((item, index) => {
+        return <RenderComponent key={item.id} item={{ index, ...item }} />;
       })}
       {isFetching && <Loading />}
       <div ref={targetRef} />

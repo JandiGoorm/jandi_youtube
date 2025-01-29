@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ApiEndPoints } from "../constants/api";
+import { ApiEndPoints, PageEndPoints } from "../constants/api";
 import { clientID, clientSecret, redirectURI } from "../constants/config";
 
 const userinfoURL = "https://www.googleapis.com/oauth2/v1/userinfo";
@@ -9,13 +9,24 @@ const authAPI = axios.create({
   baseURL: authBaseURL,
 });
 
-const redirectGoogleLogin = () => {
+const redirectGoogleLogin = (returnPath = PageEndPoints.HOME) => {
   if (!clientID || !redirectURI) {
     console.log("클라이언트 아이디나 리다이렉트 URI가 없습니다.");
     return;
   }
 
-  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=code&scope=email profile https://www.googleapis.com/auth/youtube.readonly`;
+  const authUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+
+  const params = {
+    client_id: clientID,
+    redirect_uri: redirectURI,
+    response_type: "code",
+    scope: "email profile https://www.googleapis.com/auth/youtube.readonly",
+    state: encodeURIComponent(returnPath),
+  };
+
+  const queryString = new URLSearchParams(params).toString();
+  window.location.href = `${authUrl}?${queryString}`;
 };
 
 const exchangeCodeWithToken = async (code) => {

@@ -31,7 +31,7 @@ const SubscriptionItem = ({ item }) => {
   const handleMouseEnter = useCallback(() => {
     ref.current = setTimeout(() => {
       setIsPreview(true);
-    }, 2000);
+    }, 500);
   }, []);
 
   const handleMouseLeave = useCallback(() => {

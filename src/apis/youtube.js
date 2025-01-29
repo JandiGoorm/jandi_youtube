@@ -51,7 +51,7 @@ const fetchAllSubscriptions = async () => {
     order: "relevance",
   });
 
-  const subscriptions = response.data.items;
+  const subscriptions = response.data.items || [];
   const channelIds = subscriptions.map((v) => v.snippet.resourceId.channelId);
 
   const channelsResponse = await fetchChannels({
@@ -60,7 +60,7 @@ const fetchAllSubscriptions = async () => {
   });
 
   const hash = {};
-  channelsResponse.data.items.forEach((v) => {
+  (channelsResponse.data.items || []).forEach((v) => {
     hash[v.id] = v;
   });
 
@@ -69,7 +69,7 @@ const fetchAllSubscriptions = async () => {
   });
 
   let nextPageToken = response.data.nextPageToken;
-  const clone = data;
+  const clone = [...data];
 
   while (nextPageToken) {
     const nextResponse = await fetchSubscriptions({

@@ -1,0 +1,109 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.responsive_flex {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.banner_data {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  gap: 18px;
+}
+
+.banner_img {
+  overflow: hidden;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 312px;
+}
+
+.flex_column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.banner_title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.banner_meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-size: 14px;
+}
+
+.banner_detail {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.banner_btns {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.banner_btns > button {
+  flex: 1;
+  border-radius: 18px;
+  border: none;
+  overflow: hidden;
+
+  height: 36px;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.like_btn:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.shuffle_btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.shuffle_btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 1080px) {
+  .responsive_flex {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .banner {
+    width: 100%;
+  }
+
+  .banner_img {
+    align-self: center;
+  }
+
+  .responsive_flex {
+    flex-direction: column;
+  }
+
+  .flex_column {
+    width: 100%;
+  }
+}

@@ -1,34 +1,70 @@
-.playList_header{
-  height: 40px;
-  width: 100%;
+.video_header{
+  font-size: 20px;
+}
+.slider_container {
+  position: relative; 
   display: flex;
   align-items: center;
-  font-weight: semibold;
+  width: 100%; 
 }
 
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.scroll_button {
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 1);
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll_button.left {
+  left: 5px;
+}
+
+.scroll_button.right {
+  right: 5px;
+}
 .video_list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13%, 1fr));
-  gap: 16px;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
   padding: 0;
   margin: 10px auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin;
 }
 
 .video_item {
-  cursor: pointer;
+  display: inline-block;
   position: relative;
+  cursor: pointer;
 }
 
 
 .video_duration {
   position: absolute; 
-  bottom: 80px; 
+  top: 70px; 
   right: 5px; 
   background-color: rgba(0, 0, 0, 0.5); 
   color: white; 
   padding: 5px 10px; 
   border-radius: 5px; 
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .duration_icon{
@@ -36,16 +72,10 @@
 }
 
 .video_thumbnail {
-  width: 100%;
+  width: 200px;
   border-radius: 10px;
-  aspect-ratio: 16/9;
-  object-fit: cover;
   display: block;
   transition: opacity 0.3s ease-in-out;
-}
-
-.video_item:hover .video_thumbnail {
-  opacity: 0.7;
 }
 
 .video_title {
@@ -55,7 +85,7 @@
   font-size: 14px;
 
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -73,25 +103,4 @@
   font-size: 12px;
   text-overflow: ellipsis;
   color: gray;
-}
-
-.hover_overlay {
-  position: absolute;
-  border-radius: 10px;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  aspect-ratio: 16/9;
-}
-
-.video_item:hover .hover_overlay {
-  opacity: 1;
 }
