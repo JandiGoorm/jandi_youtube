@@ -141,6 +141,7 @@
   border: none;
   padding: 5px 0px;
   font-size: large;
+  cursor: grab;
 }
 
 .dropdown {
@@ -167,6 +168,7 @@
   background-color: transparent;
   height: 36px;
   padding: 0px 12px 0px 16px;
+  cursor: grab;
 }
 .dropdownContent > hr{
   border: #0f0f0f;

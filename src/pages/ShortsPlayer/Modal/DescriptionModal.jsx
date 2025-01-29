@@ -9,11 +9,22 @@ import { formatHitCount } from "../../../utils/hit.js";
 //버튼 아이콘
 import { TfiClose } from "react-icons/tfi";
 
+
 const Modal = ({ isOpen, onClose, shortsData }) => {
   if (!isOpen) return null; // 모달이 열리지 않았으면 렌더링하지 않음
 
+  const handleOverlayClick = (e) => {
+    // 모달창 외부 영역을 클릭한 경우 모달창 닫기
+    if (e.target.className.includes("modalOverlay")) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={styles.modalOverlay}>
+    <div 
+      className={styles.modalOverlay}
+      onClick={handleOverlayClick} 
+    >
       <div className={styles.modalContent}>
         <header className={styles.modalHeader}>
           <p>설명</p>

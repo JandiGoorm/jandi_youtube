@@ -4,6 +4,7 @@ import YoutubeService from "../../apis/youtube";
 import { useParams } from "react-router-dom";
 import styles from "./ShortsPlayer.module.css";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
+import { useNavigate } from "react-router-dom";
 
 //util 함수
 import { formatISO } from "../../utils/date.js";
@@ -32,6 +33,7 @@ import { FaArrowDown } from "react-icons/fa6";
 const ShortsPlayer = () => {
   const { shortsId } = useParams();
   const [shortsData, setShortsData] = useState(null);
+  const navigate = useNavigate();
 
   const playerRef = useRef(null); // iframe 참조
   const [isPlaying, setIsPlaying] = useState(false); // 재생 상태 관리
@@ -131,6 +133,11 @@ const ShortsPlayer = () => {
     );
   };
 
+    // 채널 썸네일 이미지 클릭 핸들러
+    const channelOnClick = (channelId) => {
+      navigate(`/channel/${channelId}`);
+    };
+
   // 동영상 재생 버튼 클릭 핸들러
   const handlePlayClick = () => {
     dealVideoState();
@@ -228,7 +235,10 @@ const ShortsPlayer = () => {
           {/* 영상 설명란 */}
           <div className={styles.videoDetails}>
             <div className={styles.channelInfo}>
-              <img src={shortsData.channelThumbnail} />
+              <img 
+                src={shortsData.channelThumbnail} 
+                onClick={() => channelOnClick(shortsData.channelId)}
+              />
               <p>{shortsData.channelTitle}</p>
               <button
                 className={classNames(styles.subscribeBtn, {
@@ -299,7 +309,10 @@ const ShortsPlayer = () => {
               </button>
             </div>
             <div>
-              <img src={shortsData.channelThumbnail} />
+              <img 
+                src={shortsData.channelThumbnail} 
+                onClick={() => channelOnClick(shortsData.channelId)}
+              />
             </div>
           </div>
         </div>
