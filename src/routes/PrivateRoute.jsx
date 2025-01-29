@@ -1,11 +1,29 @@
+import { BsCollectionPlay } from "react-icons/bs";
+import { LuUserRound } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
+import { PageEndPoints } from "../constants/api";
 import { useAuth } from "../contexts/AuthContext";
 import DefaultLayout from "../layouts/DefaultLayout/DefaultLayout";
 import styles from "./PrivateRoute.module.css";
-import { BsCollectionPlay } from "react-icons/bs";
-import { LuUserRound } from "react-icons/lu";
 
 const PrivateRoute = ({ children, requireAuth }) => {
   const { currentUser, signIn } = useAuth();
+
+  /*
+    playlist페이지는 searchParams에 따라 특정채널의 재생목록, 좋아요페이지, 나중에보기페이지를 렌더링 합니다.
+    재생목록에서만 예외적으로, 로그인이 필요하지 않기 때문에 조건문을 추가합니다.
+  */
+  const location = useLocation();
+  const { pathname, search } = location;
+  const searchParams = new URLSearchParams(search).get("list");
+  const isDetailPlaylist = searchParams !== "LL" && searchParams !== "WL";
+
+  const isRequiredAuthPlaylist =
+    pathname.includes(PageEndPoints.PLAYLIST) && isDetailPlaylist;
+
+  if (isRequiredAuthPlaylist) {
+    return children;
+  }
 
   if (requireAuth && !currentUser) {
     return (
