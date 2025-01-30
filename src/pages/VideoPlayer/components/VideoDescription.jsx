@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./VideoDescription.module.css";
 import { formatHitCount } from "../../../utils/hit";
 
-const VideoDescription = ({ viewCount, publishedAt, tags, videoDescription }) => {
+const VideoDescription = ({ video }) => {
   const [isExpanded, setIsExpanded] = useState(false); // 확장 상태 관리
+  const tags = video.snippet.tags || [];
+  const videoDescription = video.snippet.description;
+  const viewCount = parseInt(video.statistics.viewCount || 0);
+  const publishedAt = new Date(video.snippet.publishedAt).toLocaleString(
+    "ko-KR"
+  );
 
   // 설명 텍스트를 <br> 태그로 줄바꿈 처리하고 태그 포함
   const formattedDescription = videoDescription
@@ -21,7 +27,10 @@ const VideoDescription = ({ viewCount, publishedAt, tags, videoDescription }) =>
       {/* 메타 데이터 */}
       <div className={styles.metaData}>
         <p className={styles.viewCount}>
-          조회수 {isExpanded ? `${viewCount.toLocaleString()}회` : formatHitCount(viewCount)}
+          조회수{" "}
+          {isExpanded
+            ? `${viewCount.toLocaleString()}회`
+            : formatHitCount(viewCount)}
         </p>
         <p className={styles.publishedAt}>{publishedAt}</p>
       </div>

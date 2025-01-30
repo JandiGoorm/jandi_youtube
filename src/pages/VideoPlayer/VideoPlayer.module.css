@@ -1,142 +1,16 @@
 .container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  gap: 12px;
 }
 
-.mainContent {
-  margin-left: 5%;
-  margin-right: 2%;
-  width: 70%;
-}
-
-.sidebar {
-  width: 20%;
-  margin-right: 5%;
-}
-
-.videoFrame {
-  width: 100%; /* 가로를 부모 요소의 100%로 설정 */
-  aspect-ratio: 16 / 9; /* 16:9 비율 유지 */
-  margin-bottom: 20px;
-  border-radius: 8px; /* 모서리를 둥글게 */
-  border: none; /* iframe의 기본 테두리를 제거 */
-}
-
-.descriptionSection {
-  margin-top: 15px;
-  padding: 20px;
-  border: none;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.commentsSection {
-  margin-top: 20px;
-}
-
-.recommendedVideos {
-  background: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.videoItem {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.thumbnail {
-  width: 120px;
-  height: 70px;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
-.info {
+.content_container {
   flex: 1;
 }
 
-.title {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0 0 5px;
-  color: #0f0f0f;
-}
-
-.channel {
-  font-size: 12px;
-  color: #606060;
-}
-
-.channelImage {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.channelDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.channelTitle {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0 0 5px;
-}
-
-.subscriberCount {
-  font-size: 14px;
-  color: #606060;
-}
-
-.subscribeButton {
-  background-color: #cc0000;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 14px;
+.video_frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 20px;
+  border-radius: 8px;
   border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.metaData {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  margin-bottom: 0;
-  color: #606060;
-}
-
-.actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tag {
-  background-color: #e8e8e8;
-  color: #555;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.tag:hover {
-  background-color: #d0d0d0;
 }

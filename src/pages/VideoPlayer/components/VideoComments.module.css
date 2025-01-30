@@ -1,152 +1,68 @@
-/* 댓글 섹션 전체 컨테이너 스타일 */
-.commentsSection {
-  margin-top: 20px; /* 댓글 섹션 위쪽 여백 */
-  padding: 0 16px; /* 좌우 패딩 설정 */
+.comments_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* 댓글 헤더 (댓글 개수 표시) */
-.commentsHeader {
-  font-size: 18px; /* 헤더 폰트 크기 */
-  font-weight: bold; /* 헤더 글씨 두께 */
-  margin-bottom: 16px; /* 아래쪽 여백 */
+.comment_container {
+  padding: 20px 16px 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* 정렬 컨트롤 컨테이너 */
-.sortContainer {
-  position: relative; /* 드롭다운 메뉴 위치 설정을 위한 상대 위치 */
-  margin-bottom: 16px; /* 아래쪽 여백 */
+.comment_header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-/* 정렬 버튼 */
-.sortButton {
-  background: none; /* 배경 제거 */
-  border: none; /* 테두리 제거 */
-  font-size: 14px; /* 폰트 크기 */
-  color: #065fd4; /* 버튼 색상 */
-  cursor: pointer; /* 커서 모양 변경 */
+.comment_count {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-/* 드롭다운 메뉴 컨테이너 */
-.dropdownMenu {
-  position: absolute; /* 부모 요소 기준 위치 고정 */
-  top: 25px; /* 위쪽으로 약간 띄움 */
-  background: white; /* 배경색 흰색 */
-  border: 1px solid #ddd; /* 얇은 회색 테두리 */
-  border-radius: 4px; /* 둥근 모서리 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  z-index: 10; /* 메뉴가 다른 요소 위로 오게 설정 */
-}
+.comment_order {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 
-/* 드롭다운 메뉴 버튼 */
-.dropdownMenuBtn {
-  display: block; /* 버튼을 블록 요소로 설정 */
-  width: 100%; /* 버튼이 메뉴의 전체 너비를 차지 */
-  padding: 8px 16px; /* 버튼 내부 여백 */
-  text-align: left; /* 텍스트 정렬을 왼쪽으로 */
-  font-size: 14px; /* 폰트 크기 */
-  background: none; /* 배경 제거 */
-  border: none; /* 테두리 제거 */
-  cursor: pointer; /* 커서 모양 변경 */
-}
+  background: none;
+  border: none;
+  cursor: pointer;
 
-/* 드롭다운 메뉴 버튼 호버 효과 */
-.dropdownMenuBtn:hover {
-  background: #f0f0f0; /* 배경색 변경 */
-}
-
-/* 댓글 리스트 (ul) 스타일 */
-.commentsList {
-  list-style: none; /* 리스트 스타일 제거 */
-  padding: 0; /* 내부 여백 제거 */
-  margin: 0; /* 외부 여백 제거 */
-}
-
-/* 각 댓글 아이템 */
-.commentItem {
-  display: flex; /* 가로 배치 */
-  align-items: flex-start; /* 위쪽 정렬 */
-  margin-bottom: 16px; /* 아래쪽 여백 */
-}
-
-/* 프로필 이미지 */
-.profileImage {
-  width: 40px; /* 이미지 너비 */
-  height: 40px; /* 이미지 높이 */
-  border-radius: 50%; /* 원형 이미지 */
-  margin-right: 12px; /* 오른쪽 여백 */
-}
-
-/* 댓글 내용 컨테이너 */
-.commentContent {
-  flex: 1; /* 남은 공간을 채우도록 설정 */
-}
-
-/* 댓글 헤더 (작성자 이름과 작성 시간) */
-.commentHeader {
-  display: flex; /* 가로 배치 */
-  align-items: center; /* 세로 가운데 정렬 */
-  gap: 8px; /* 요소 사이 간격 */
-  margin-bottom: 4px; /* 아래쪽 여백 */
-}
-
-/* 댓글 작성자 이름 */
-.commentAuthor {
-  font-size: 14px; /* 폰트 크기 */
-  font-weight: bold; /* 글씨 두께 */
-  color: #0f0f0f; /* 글씨 색상 */
-}
-
-/* 댓글 작성 시간 */
-.commentTime {
-  font-size: 12px; /* 폰트 크기 */
-  color: #606060; /* 회색 텍스트 */
-}
-
-/* 댓글 텍스트 */
-.commentText {
-  font-size: 14px; /* 폰트 크기 */
-  color: #0f0f0f; /* 글씨 색상 */
-  margin-bottom: 8px; /* 아래쪽 여백 */
-}
-
-/* 댓글 액션 (좋아요/싫어요 버튼) */
-.commentActions {
-  display: flex; /* 가로 배치 */
-  align-items: center; /* 세로 가운데 정렬 */
-  gap: 8px; /* 버튼 간격 */
-}
-
-/* 좋아요/싫어요 버튼 기본 스타일 */
-.likeButton,
-.dislikeButton {
-  background: none; /* 배경 제거 */
-  border: none; /* 테두리 제거 */
-  font-size: 14px; /* 폰트 크기 */
-  cursor: pointer; /* 커서 모양 변경 */
-}
-
-/* 좋아요/싫어요 버튼 호버 효과 */
-.likeButton:hover,
-.dislikeButton:hover {
-  color: #065fd4; /* 호버 시 파란색 강조 */
-}
-
-/* 댓글이 없을 때 표시 */
-.noComments {
-  font-size: 14px; /* 폰트 크기 */
-  color: #606060; /* 회색 텍스트 */
-  text-align: center; /* 가운데 정렬 */
-  margin-top: 20px; /* 위쪽 여백 */
-}
-
-.observerTarget {
-  height: 1px;
-  visibility: hidden;
-}
-
-.loading {
-  text-align: center;
   font-size: 16px;
-  color: #606060;
-  margin-top: 10px;
+}
+
+.menu_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  background-color: white;
+
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 32px 0px;
+}
+
+.menu_item {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  height: 40px;
+  align-items: center;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.menu_item:hover {
+  background-color: #f5f5f5;
 }

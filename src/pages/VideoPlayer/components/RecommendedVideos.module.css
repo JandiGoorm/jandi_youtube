@@ -1,3 +1,7 @@
+.recommended {
+  width: 370px;
+}
+
 .videoItem {
   display: flex;
   margin-bottom: 10px;

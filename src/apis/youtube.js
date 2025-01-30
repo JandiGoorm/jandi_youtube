@@ -43,6 +43,18 @@ const fetchChannelSections = async (params) => {
   });
 };
 
+const fetchCommentThreads = async (params) => {
+  return await youtubeAPI.get(ApiEndPoints.COMMENTTHREADS, {
+    params,
+  });
+};
+
+const fetchComments = async (params) => {
+  return await youtubeAPI.get(ApiEndPoints.COMMENTS, {
+    params,
+  });
+};
+
 const fetchAllSubscriptions = async () => {
   const response = await fetchSubscriptions({
     part: "snippet,contentDetails",
@@ -99,6 +111,8 @@ const YoutubeService = {
   fetchSubscriptions,
   fetchChannelSections,
   fetchAllSubscriptions,
+  fetchCommentThreads,
+  fetchComments,
 };
 
 export default YoutubeService;

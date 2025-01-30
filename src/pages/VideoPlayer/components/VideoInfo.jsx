@@ -1,10 +1,9 @@
-import React from "react";
 import styles from "./VideoInfo.module.css";
 import { formatSubscriberCount } from "../../../utils/channel";
-import { BiLike, BiDislike, BiShare, BiSave } from "react-icons/bi"; // 좋아요, 싫어요, 공유, 저장 아이콘
-import { MdOutlineContentCopy, MdOutlineCloudDownload } from "react-icons/md"; // 클립, 오프라인 저장 아이콘
+import { BiLike, BiDislike, BiShare, BiSave } from "react-icons/bi";
+import { MdOutlineContentCopy, MdOutlineCloudDownload } from "react-icons/md";
 
-const VideoInfo = ({ channelInfo, likeStatus, handleLike, videoTitle }) => {
+const VideoInfo = ({ channelInfo, videoTitle }) => {
   if (!channelInfo) return null;
 
   const { snippet, statistics } = channelInfo;
@@ -15,11 +14,9 @@ const VideoInfo = ({ channelInfo, likeStatus, handleLike, videoTitle }) => {
 
   return (
     <div className={styles.videoInfoContainer}>
-      {/* 동영상 제목 */}
       {videoTitle && <h2 className={styles.videoTitle}>{videoTitle}</h2>}
 
       <div className={styles.channelRow}>
-        {/* 채널 프로필과 정보 */}
         <div className={styles.channelInfo}>
           <img
             className={styles.channelImage}
@@ -28,30 +25,18 @@ const VideoInfo = ({ channelInfo, likeStatus, handleLike, videoTitle }) => {
           />
           <div className={styles.channelDetails}>
             <span className={styles.channelTitle}>{title}</span>
-            <span className={styles.subscriberCount}>구독자 {subscriberCount}</span>
+            <span className={styles.subscriberCount}>
+              구독자 {subscriberCount}
+            </span>
           </div>
-          {/* 구독 버튼 */}
           <button className={styles.subscribeButton}>구독</button>
         </div>
 
-        {/* 좋아요/싫어요/공유/저장 등 액션 버튼 */}
         <div className={styles.actionButtons}>
-          <button
-            className={`${styles.actionButton} ${
-              likeStatus === "like" ? styles.active : ""
-            }`}
-            onClick={() => handleLike(likeStatus === "like" ? "none" : "like")}
-          >
+          <button className={styles.actionButton}>
             <BiLike /> 좋아요
           </button>
-          <button
-            className={`${styles.actionButton} ${
-              likeStatus === "dislike" ? styles.active : ""
-            }`}
-            onClick={() =>
-              handleLike(likeStatus === "dislike" ? "none" : "dislike")
-            }
-          >
+          <button className={styles.actionButton}>
             <BiDislike /> 싫어요
           </button>
           <button className={styles.actionButton}>
