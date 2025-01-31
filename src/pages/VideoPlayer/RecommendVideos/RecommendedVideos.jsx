@@ -4,6 +4,7 @@ import YoutubeService from "../../../apis/youtube";
 import styles from "./RecommendedVideos.module.css";
 import { formatHitCount } from "../../../utils/hit";
 import { formatISO } from "../../../utils/date";
+import RecommendDropdown from "./recommendDropdown";
 
 const RecommendedVideos = () => {
   const [videos, setVideos] = useState([]); // 추천 동영상 데이터 상태
@@ -114,16 +115,21 @@ const RecommendedVideos = () => {
                   조회수 {formattedViewCount} • {formattedPublishedAt}
                 </p>
               </div>
+              <RecommendDropdown />
             </li>
           );
         })}
       </ul>
 
       {/* 로딩 표시 */}
-      {isLoading && <div className={styles.loading}>로딩 중...</div>}
+      {isLoading && (
+        <div className={styles.loading}>
+          <div className={styles.spinner} />
+        </div>
+      )}
 
       {/* 무한 스크롤 관찰 대상 */}
-      <div ref={observerTarget} className={styles.observerTarget}></div>
+      <div ref={observerTarget} className={styles.observerTarget} />
     </div>
   );
 };

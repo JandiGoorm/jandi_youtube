@@ -3,10 +3,10 @@ import { useSearchParams } from "react-router-dom";
 import YoutubeService from "../../apis/youtube";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
 import Header from "../../layouts/DefaultLayout/Header/Header";
-import RecommendedVideos from "./components/RecommendedVideos";
-import VideoComments from "./components/VideoComments";
-import VideoDescription from "./components/VideoDescription";
-import VideoInfo from "./components/VideoInfo";
+import RecommendedVideos from "./RecommendVideos/RecommendedVideos";
+import VideoComments from "./VideoComments/VideoComments";
+import VideoDescription from "./Video/VideoDescription";
+import VideoInfo from "./Video/VideoInfo";
 import styles from "./VideoPlayer.module.css";
 
 function VideoPlayer() {

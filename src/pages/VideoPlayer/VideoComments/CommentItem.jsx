@@ -4,7 +4,8 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { formatISO } from "../../../utils/date";
 import { formatLikeCount } from "../../../utils/likeCount";
 import styles from "./CommentItem.module.css";
-import ReplyComment from "./ReplyComment";
+import ReplyComment from "../ReplyComments/ReplyComments";
+import CommentDropdown from "./CommentDropdown";
 
 const CommentItem = ({ item }) => {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
@@ -82,6 +83,10 @@ const CommentItem = ({ item }) => {
         {isReplyOpen && (
           <ReplyComment parentId={item.snippet.topLevelComment.id} />
         )}
+      </div>
+
+      <div className={styles.dropdown_trigger}>
+        <CommentDropdown />
       </div>
     </li>
   );

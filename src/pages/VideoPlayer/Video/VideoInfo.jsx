@@ -1,7 +1,7 @@
 import { HiOutlineHandThumbDown, HiOutlineHandThumbUp } from "react-icons/hi2";
 import { formatSubscriberCount } from "../../../utils/channel";
 import { formatLikeCount } from "../../../utils/likeCount";
-import { videoInfoButtons } from "./constants";
+import { videoInfoButtons } from "../constants";
 import styles from "./VideoInfo.module.css";
 
 const VideoInfo = ({ channelInfo, video }) => {

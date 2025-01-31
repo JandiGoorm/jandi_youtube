@@ -7,7 +7,7 @@ import {
 import YoutubeService from "../../../apis/youtube";
 import { formatISO } from "../../../utils/date";
 import { formatLikeCount } from "../../../utils/likeCount";
-import styles from "./ReplyComment.module.css";
+import styles from "./ReplyComments.module.css";
 
 const ReplyComment = ({ parentId }) => {
   const [comments, setComments] = useState([]);

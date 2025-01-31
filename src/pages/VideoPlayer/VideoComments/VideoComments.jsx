@@ -9,7 +9,7 @@ import {
   DropDownTrigger,
 } from "../../../components/DropDown/DropDown";
 import { MdOutlineSort } from "react-icons/md";
-import { commentOrderOptions } from "./constants";
+import { commentOrderOptions } from "../constants";
 
 const VideoComments = ({ videoId, commentCount }) => {
   const [order, setOrder] = useState("관련성순");

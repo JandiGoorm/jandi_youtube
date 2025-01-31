@@ -1,5 +1,6 @@
 /* 각 댓글 아이템 */
 .commentItem {
+  width: 100%;
   display: flex;
   gap: 12px;
 }
@@ -14,6 +15,7 @@
 /* 댓글 내용 컨테이너 */
 .commentContent {
   flex: 1;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -92,4 +94,9 @@
   gap: 4px;
   align-items: center;
   width: fit-content;
+}
+
+.dropdown_trigger {
+  position: relative;
+  top: 12px;
 }
