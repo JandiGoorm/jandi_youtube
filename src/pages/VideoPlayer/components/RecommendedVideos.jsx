@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import YoutubeService from "../../../apis/youtube";
 import styles from "./RecommendedVideos.module.css";
@@ -77,7 +77,7 @@ const RecommendedVideos = () => {
 
   return (
     <div className={styles.recommended}>
-      <h3>추천 동영상</h3>
+      <h3 className={styles.recommendedTitle}>추천 동영상</h3>
       <ul className={styles.videoList}>
         {videos.map((video, index) => {
           const videoId = video.id;
@@ -85,8 +85,12 @@ const RecommendedVideos = () => {
           const { viewCount } = video.statistics || {};
 
           // 조회수와 업로드 날짜 포맷팅
-          const formattedViewCount = viewCount ? formatHitCount(viewCount) : "조회수 정보 없음";
-          const formattedPublishedAt = publishedAt ? formatISO(publishedAt) : "날짜 정보 없음";
+          const formattedViewCount = viewCount
+            ? formatHitCount(viewCount)
+            : "조회수 정보 없음";
+          const formattedPublishedAt = publishedAt
+            ? formatISO(publishedAt)
+            : "날짜 정보 없음";
 
           return (
             <li
@@ -105,7 +109,8 @@ const RecommendedVideos = () => {
                 <p className={styles.title}>{title}</p>
                 {/* 동영상 메타 정보: 채널 이름, 조회수, 업로드 날짜 */}
                 <p className={styles.meta}>
-                  {channelTitle}<br />
+                  {channelTitle}
+                  <br />
                   조회수 {formattedViewCount} • {formattedPublishedAt}
                 </p>
               </div>

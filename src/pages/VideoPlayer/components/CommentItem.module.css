@@ -50,7 +50,8 @@
 .commentActions {
   display: flex;
   align-items: center;
-  padding: 4px 0;
+  position: relative;
+  right: 12px;
 }
 
 /* 좋아요/싫어요 버튼 기본 스타일 */
@@ -62,9 +63,17 @@
   cursor: pointer;
 
   display: flex;
-  gap: 4px;
   align-items: center;
   justify-content: center;
+}
+
+.icon_box {
+  padding: 6px;
+  border-radius: 50%;
+}
+
+.icon_box:hover {
+  background-color: #f0f0f0;
 }
 
 .likeCount {

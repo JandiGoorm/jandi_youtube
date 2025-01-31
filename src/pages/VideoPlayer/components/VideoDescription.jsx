@@ -13,9 +13,7 @@ const VideoDescription = ({ video }) => {
 
   // 설명 텍스트를 <br> 태그로 줄바꿈 처리하고 태그 포함
   const formattedDescription = videoDescription
-    ? `${videoDescription.replace(/\n/g, "<br>")}<br><br>${tags
-        .map((tag) => `<span class="${styles.tag}">#${tag}</span>`)
-        .join(" ")}`
+    ? `${videoDescription.replace(/\n/g, "<br>")}<br>`
     : "설명이 없습니다.";
 
   const toggleExpanded = () => {
@@ -43,7 +41,17 @@ const VideoDescription = ({ video }) => {
         dangerouslySetInnerHTML={{
           __html: formattedDescription,
         }}
-      ></p>
+      />
+
+      {isExpanded && (
+        <div className={styles.tagsContainer}>
+          {tags.map((tag) => (
+            <span key={tag} className={styles.tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* 더보기/접기 버튼 */}
       {videoDescription && videoDescription.length > 0 && (

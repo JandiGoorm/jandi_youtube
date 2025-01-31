@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import youtubeAPI from "../../apis/youtubeInstance";
+import YoutubeService from "../../apis/youtube";
 import DefaultLayout from "../../layouts/DefaultLayout/DefaultLayout";
+import Header from "../../layouts/DefaultLayout/Header/Header";
 import RecommendedVideos from "./components/RecommendedVideos";
 import VideoComments from "./components/VideoComments";
 import VideoDescription from "./components/VideoDescription";
@@ -13,34 +14,33 @@ function VideoPlayer() {
   const [channelInfo, setChannelInfo] = useState();
 
   const [searchParams] = useSearchParams();
+  const { fetchVideos, fetchChannels } = YoutubeService;
+
   const videoId = searchParams.get("v");
 
   // 동영상 및 채널 정보를 가져오는 함수
   const fetchVideoAndChannelInfo = useCallback(async () => {
     try {
       // 동영상 정보 가져오기
-      const videoResponse = await youtubeAPI.get("videos", {
-        params: {
-          part: "snippet,statistics",
-          id: videoId,
-        },
+      const videoResponse = await fetchVideos({
+        part: "snippet,statistics",
+        id: videoId,
       });
 
       const videoData = videoResponse.data.items[0];
       setVideoDetail(videoData);
 
       // 채널 정보 가져오기
-      const channelResponse = await youtubeAPI.get("channels", {
-        params: {
-          part: "snippet,statistics",
-          id: videoData.snippet.channelId,
-        },
+      const channelResponse = await fetchChannels({
+        part: "snippet,statistics",
+        id: videoData.snippet.channelId,
       });
+
       setChannelInfo(channelResponse.data.items[0]);
     } catch (error) {
       console.error("동영상 또는 채널 정보 불러오기 실패:", error);
     }
-  }, [videoId]);
+  }, [fetchChannels, fetchVideos, videoId]);
 
   // 데이터 로드
   useEffect(() => {
@@ -58,10 +58,10 @@ function VideoPlayer() {
       </DefaultLayout>
     );
   }
-  console.log(videoDetail);
 
   return (
-    <DefaultLayout>
+    <div className={styles.center}>
+      <Header />
       <div className={styles.container}>
         <div className={styles.content_container}>
           <iframe
@@ -74,10 +74,7 @@ function VideoPlayer() {
 
           {videoDetail && (
             <>
-              <VideoInfo
-                channelInfo={channelInfo}
-                videoTitle={videoDetail.snippet.title}
-              />
+              <VideoInfo channelInfo={channelInfo} video={videoDetail} />
               <VideoDescription video={videoDetail} />
 
               <VideoComments
@@ -90,7 +87,7 @@ function VideoPlayer() {
 
         <RecommendedVideos />
       </div>
-    </DefaultLayout>
+    </div>
   );
 }
 

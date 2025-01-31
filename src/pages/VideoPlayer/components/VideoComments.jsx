@@ -9,11 +9,7 @@ import {
   DropDownTrigger,
 } from "../../../components/DropDown/DropDown";
 import { MdOutlineSort } from "react-icons/md";
-
-const orderOptions = {
-  관련성순: "relevance",
-  최신순: "time",
-};
+import { commentOrderOptions } from "./constants";
 
 const VideoComments = ({ videoId, commentCount }) => {
   const [order, setOrder] = useState("관련성순");
@@ -26,7 +22,7 @@ const VideoComments = ({ videoId, commentCount }) => {
           part: "snippet",
           videoId,
           pageToken,
-          order: orderOptions[order],
+          order: commentOrderOptions[order],
         });
 
         const commentsData = commentsResponse.data.items || [];
@@ -55,7 +51,7 @@ const VideoComments = ({ videoId, commentCount }) => {
           </DropDownTrigger>
           <DropDownContent>
             <ul className={styles.menu_list}>
-              {Object.keys(orderOptions).map((option) => (
+              {Object.keys(commentOrderOptions).map((option) => (
                 <li
                   key={option}
                   className={styles.menu_item}

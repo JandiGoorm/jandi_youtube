@@ -1,9 +1,7 @@
 .descriptionSection {
-  margin-top: 16px;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
+  padding: 12px;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.05);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -12,22 +10,26 @@
   gap: 8px;
   font-size: 14px;
   color: #000000;
-  margin-bottom: 12px;
 }
 
 .viewCount {
   font-weight: 500;
+  margin: 0;
 }
 
 .publishedAt {
   font-weight: 500;
+  margin: 0;
 }
 
-.tags {
-  margin-bottom: 16px;
+.tagsContainer {
+  max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+
+  row-gap: 4px;
+  column-gap: 6px;
+  margin-bottom: 12px;
 }
 
 .tag {
@@ -66,7 +68,6 @@
   color: #065fd4;
   font-size: 14px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 .toggleButton:hover {

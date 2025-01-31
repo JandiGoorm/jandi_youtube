@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  HiArrowTurnDownRight,
+  HiOutlineHandThumbDown,
+  HiOutlineHandThumbUp,
+} from "react-icons/hi2";
 import YoutubeService from "../../../apis/youtube";
-import { BiDislike } from "react-icons/bi";
-import { AiOutlineLike } from "react-icons/ai";
+import { formatISO } from "../../../utils/date";
 import { formatLikeCount } from "../../../utils/likeCount";
 import styles from "./ReplyComment.module.css";
-import { formatISO } from "../../../utils/date";
-import { HiArrowTurnDownRight } from "react-icons/hi2";
 
 const ReplyComment = ({ parentId }) => {
   const [comments, setComments] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const tokenRef = useRef("");
 
   const { fetchComments } = YoutubeService;
@@ -18,25 +22,32 @@ const ReplyComment = ({ parentId }) => {
   const fetchReplies = useCallback(async () => {
     if (tokenRef.current === null) return;
 
-    const repliesResponse = await fetchComments({
-      part: "snippet",
-      parentId,
-      pageToken: tokenRef.current,
-    });
+    setIsLoading(true);
+    try {
+      const repliesResponse = await fetchComments({
+        part: "snippet",
+        parentId,
+        pageToken: tokenRef.current,
+      });
 
-    const repliesData = repliesResponse.data.items.filter(
-      (v) => !hash.has(v.id)
-    );
+      const repliesData = repliesResponse.data.items.filter(
+        (v) => !hash.has(v.id)
+      );
 
-    repliesData.forEach((v) => {
-      hash.add(v.id);
-    });
+      repliesData.forEach((v) => {
+        hash.add(v.id);
+      });
 
-    setComments((prev) => {
-      return [...prev, ...repliesData];
-    });
+      setComments((prev) => {
+        return [...prev, ...repliesData];
+      });
 
-    tokenRef.current = repliesResponse.data.nextPageToken || null;
+      tokenRef.current = repliesResponse.data.nextPageToken || null;
+    } catch (err) {
+      console.error("대댓글 불러오기 실패", err);
+    } finally {
+      setIsLoading(false);
+    }
   }, [fetchComments, hash, parentId]);
 
   useEffect(() => {
@@ -71,16 +82,27 @@ const ReplyComment = ({ parentId }) => {
             />
             <div className={styles.comment_likes}>
               <button>
-                <AiOutlineLike size={20} />
-                <span>{formatLikeCount(comment.snippet.likeCount)}</span>
+                <div className={styles.icon_box}>
+                  <HiOutlineHandThumbUp size={20} />
+                </div>
+                <span className={styles.like_count}>
+                  {formatLikeCount(comment.snippet.likeCount)}
+                </span>
               </button>
-              <button>
-                <BiDislike size={18} />
+
+              <button className={styles.icon_box}>
+                <HiOutlineHandThumbDown size={20} />
               </button>
             </div>
           </div>
         </li>
       ))}
+
+      {isLoading && (
+        <li className={styles.loading}>
+          <div className={styles.spinner} />
+        </li>
+      )}
       {tokenRef.current && (
         <button onClick={fetchReplies} className={styles.more_btn}>
           <HiArrowTurnDownRight size={20} />

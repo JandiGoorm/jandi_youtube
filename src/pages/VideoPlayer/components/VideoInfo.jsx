@@ -1,30 +1,33 @@
-import styles from "./VideoInfo.module.css";
+import { HiOutlineHandThumbDown, HiOutlineHandThumbUp } from "react-icons/hi2";
 import { formatSubscriberCount } from "../../../utils/channel";
-import { BiLike, BiDislike, BiShare, BiSave } from "react-icons/bi";
-import { MdOutlineContentCopy, MdOutlineCloudDownload } from "react-icons/md";
+import { formatLikeCount } from "../../../utils/likeCount";
+import { videoInfoButtons } from "./constants";
+import styles from "./VideoInfo.module.css";
 
-const VideoInfo = ({ channelInfo, videoTitle }) => {
-  if (!channelInfo) return null;
+const VideoInfo = ({ channelInfo, video }) => {
+  if (!channelInfo) return;
 
-  const { snippet, statistics } = channelInfo;
-  const { thumbnails, title } = snippet;
-  const subscriberCount = statistics.subscriberCount
-    ? formatSubscriberCount(parseInt(statistics.subscriberCount))
-    : "N/A";
+  const {
+    snippet: { thumbnails, title },
+    statistics,
+  } = channelInfo;
+
+  const subscriberCount =
+    formatSubscriberCount(statistics.subscriberCount) || 0;
 
   return (
-    <div className={styles.videoInfoContainer}>
-      {videoTitle && <h2 className={styles.videoTitle}>{videoTitle}</h2>}
+    <div className={styles.container}>
+      <h2 className={styles.video_title}>{video.snippet.title}</h2>
 
-      <div className={styles.channelRow}>
-        <div className={styles.channelInfo}>
+      <div className={styles.channel_row}>
+        <div className={styles.channel_info}>
           <img
-            className={styles.channelImage}
+            className={styles.channel_img}
             src={thumbnails.default.url}
             alt={title}
           />
-          <div className={styles.channelDetails}>
-            <span className={styles.channelTitle}>{title}</span>
+          <div className={styles.channel_details}>
+            <span className={styles.channel_title}>{title}</span>
             <span className={styles.subscriberCount}>
               구독자 {subscriberCount}
             </span>
@@ -33,24 +36,23 @@ const VideoInfo = ({ channelInfo, videoTitle }) => {
         </div>
 
         <div className={styles.actionButtons}>
-          <button className={styles.actionButton}>
-            <BiLike /> 좋아요
-          </button>
-          <button className={styles.actionButton}>
-            <BiDislike /> 싫어요
-          </button>
-          <button className={styles.actionButton}>
-            <BiShare /> 공유
-          </button>
-          <button className={styles.actionButton}>
-            <MdOutlineCloudDownload /> 오프라인 저장
-          </button>
-          <button className={styles.actionButton}>
-            <MdOutlineContentCopy /> 클립
-          </button>
-          <button className={styles.actionButton}>
-            <BiSave /> 저장
-          </button>
+          <div className={styles.like_btns_box}>
+            <button className={styles.like_btn}>
+              <HiOutlineHandThumbUp size={22} />
+              <span>{formatLikeCount(video.statistics.likeCount)}</span>
+            </button>
+            <div className={styles.vertical_divider} />
+            <button className={styles.like_btn}>
+              <HiOutlineHandThumbDown size={22} />
+            </button>
+          </div>
+          {videoInfoButtons.map((button) => {
+            return (
+              <button key={button.text} className={styles.actionButton}>
+                {button.icon} <span>{button.text}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

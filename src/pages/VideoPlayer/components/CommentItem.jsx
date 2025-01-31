@@ -1,8 +1,6 @@
 import { useCallback, useState } from "react";
-import { AiOutlineLike } from "react-icons/ai";
-import { BiDislike } from "react-icons/bi";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowUp } from "react-icons/io";
+import { HiOutlineHandThumbDown, HiOutlineHandThumbUp } from "react-icons/hi2";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { formatISO } from "../../../utils/date";
 import { formatLikeCount } from "../../../utils/likeCount";
 import styles from "./CommentItem.module.css";
@@ -46,13 +44,17 @@ const CommentItem = ({ item }) => {
 
         <div className={styles.commentActions}>
           <button className={styles.likeButton}>
-            <AiOutlineLike size={20} />
+            <div className={styles.icon_box}>
+              <HiOutlineHandThumbUp size={20} />
+            </div>
             <span className={styles.likeCount}>
               {formatLikeCount(item.snippet.topLevelComment.snippet.likeCount)}
             </span>
           </button>
           <button className={styles.dislikeButton}>
-            <BiDislike size={18} />
+            <div className={styles.icon_box}>
+              <HiOutlineHandThumbDown size={20} />
+            </div>
           </button>
         </div>
 
