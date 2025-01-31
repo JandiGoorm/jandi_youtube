@@ -1,0 +1,75 @@
+.descriptionSection {
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.metaData {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  color: #000000;
+}
+
+.viewCount {
+  font-weight: 500;
+  margin: 0;
+}
+
+.publishedAt {
+  font-weight: 500;
+  margin: 0;
+}
+
+.tagsContainer {
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+
+  row-gap: 4px;
+  column-gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  background-color: #e8e8e8;
+  color: #555;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background-color: #d0d0d0;
+}
+
+.descriptionText {
+  font-size: 14px;
+  color: #0f0f0f;
+  line-height: 1.6;
+  overflow: hidden; /* 초과된 텍스트 숨김 */
+  display: -webkit-box; /* 웹킷 기반 브라우저에서의 다중 줄 자르기 */
+  -webkit-line-clamp: 2; /* 최대 표시 줄 수 */
+  -webkit-box-orient: vertical; /* 블록 방향 설정 */
+  text-overflow: ellipsis; /* 생략 기호 추가 */
+}
+
+.descriptionText.expanded {
+  overflow: visible; /* 전체 텍스트 보이기 */
+  -webkit-line-clamp: unset; /* 줄 수 제한 해제 */
+  display: block; /* 기본 블록 설정 */
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  color: #065fd4;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.toggleButton:hover {
+  text-decoration: underline;
+}

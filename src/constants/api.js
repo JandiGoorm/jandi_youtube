@@ -23,4 +23,6 @@ export const ApiEndPoints = {
   ACTIVITIES: "/activities",
   VIDEOS: "/videos",
   CHANNELSECTIONS: "/channelSections",
+  COMMENTS: "/comments",
+  COMMENTTHREADS: "/commentThreads",
 };
